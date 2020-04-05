@@ -81,6 +81,9 @@ int main(void)
   timeInit();
 
   clientID=simxStart((simxChar*)"127.0.0.1",19997,true,true,2000,5);
+  if (clientID!=-1)
+    clientID=simxStart((simxChar*)"10.0.2.2",19997,true,true,2000,5);
+  
   if (clientID!=-1){
     printf("ARDUINO2VREP: Connected to remote API server\n");
 
@@ -156,7 +159,13 @@ int vrep_setup(){
  //    return(0);
 }
 
-void pinMode(char a, char b){
+void pinMode(char pin, char mode){
+
+  right_sensor->pinMode(pin, mode);
+  left_sensor->pinMode(pin, mode);
+  front_sensor->pinMode(pin, mode);
+  left_motor->pinMode(pin, mode);
+  right_motor->pinMode(pin, mode);
 	
 }
 void digitalWrite(char a, char b){

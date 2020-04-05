@@ -15,27 +15,32 @@ The robot contains a breadboard with two transistors to control the two DC motor
 You are programming an Arduino uno. I only ported a very small set of functions that you can use. These functions are listed below:
 
 Time:
+
 * delay
 * delayMicroseconds
 * millis
 * micros
 
 Servo:
+
 * attach
 * write
 
 I/O:
+
 * pinMode
 * digitalRead
 * digitalWrite
 
 Serial:
+
 * begin
 * write
 * print
 * println
 
 TODO:
+
 * analogRead
 * analogWrite
 
@@ -47,7 +52,7 @@ There are a couple of requirements:
 * Arduino IDE (>1.5.0)
 * Vrep simulator
 
-
+If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](link_to_dropbox). Thus, you only need to install the Vrep simulator. 
 
 #### Vrep Simulator ####
 

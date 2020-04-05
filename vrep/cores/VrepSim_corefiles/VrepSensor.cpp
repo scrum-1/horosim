@@ -1,4 +1,5 @@
 #include "VrepSensor.h"
+#include "Defines.h"
 #include <string>
 
 extern "C" {
@@ -6,6 +7,14 @@ extern "C" {
 }
 extern int clientID;
 
+void VrepSensor::pinMode(char pin_i, char mode){
+  if(pin_i!=pin)
+    return;
+  if(mode==OUTPUT)
+    set2input=false;
+  else
+    set2input=true;
+}
 
 VrepSensor::VrepSensor(int pin_i, std::string str, enum SensorType type_i){
   	pin=pin_i; 
@@ -31,7 +40,7 @@ VrepSensor::VrepSensor(int pin_i, std::string str, enum SensorType type_i){
       error=simxReadProximitySensor(clientID, handle, NULL, &(readDistance[0]), NULL, NULL, simx_opmode_streaming);
     }
     if(error>simx_return_novalue_flag){
-        printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name);
+        printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name.c_str());
     }
 
     // else{
@@ -47,9 +56,11 @@ VrepSensor::VrepSensor(int pin_i, std::string str, enum SensorType type_i){
  }
 
 int VrepSensor::digitalRead(int pin_i){
-  int digitalValue=0;
 	if(pin_i!=pin)
 		return -1;
+
+  if(!set2input)
+    return -1;
 
   float value=-1;
   if(type==VisionSensor)
@@ -80,7 +91,7 @@ float VrepSensor::readVisionSensor(){
   int* auxValuesCount;
   int error=simxReadVisionSensor(clientID, handle, NULL, &auxValues, &auxValuesCount, simx_opmode_buffer);
   if(error>simx_return_novalue_flag){
-      printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name);
+      printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name.c_str());
     }else{
       //printf("Sensor read correctly.\n");
       if(auxValuesCount!=NULL && error==simx_return_ok){
@@ -105,10 +116,9 @@ float VrepSensor::readProximitySensor(){
   float readDistance[3] = {0, 0, 0};
   int hande_coll=0;
   unsigned char detectionState;
-  simxFloat coord[3]; 
   int error=simxReadProximitySensor(clientID, handle, &detectionState, &(readDistance[0]), &hande_coll, NULL, simx_opmode_buffer);
   if(error>simx_return_novalue_flag){
-      printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name);
+      printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, name.c_str());
   }else{
       if(detectionState!=0 && error==simx_return_ok){        
         //printf("IR SENSOR: " );

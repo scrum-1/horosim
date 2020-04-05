@@ -1,5 +1,7 @@
 #include "VrepMotor.h"
+#include "Defines.h"
 #include <string>
+
 
 extern "C" {
     #include "extApi.h"
@@ -21,9 +23,20 @@ VrepMotor::VrepMotor(int pin_i, std::string str){
 
  }
 
+void VrepMotor::pinMode(char pin_i, char mode){
+	if(pin_i!=pin)
+		return;
+	if(mode==OUTPUT)
+		set2output=true;
+	else
+		set2output=false;
+}
 void VrepMotor::digitalWrite(int pin_i, int status){
 	if(pin_i!=pin)
 		return;
+	if(!set2output)
+		return;
+
 	//TODO: Send command to Vrep
 	float speed = 0;
 	if(status>0){
@@ -32,7 +45,7 @@ void VrepMotor::digitalWrite(int pin_i, int status){
 
 	int error=simxSetJointTargetVelocity(clientID, handle, speed, simx_opmode_oneshot);
 	if(error>simx_return_novalue_flag){
-  		printf("ARDUINO2VREP: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, name);
+  		printf("ARDUINO2VREP: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, name.c_str());
   	}else{
   		//printf("Speed set correctly.\n");
   	}

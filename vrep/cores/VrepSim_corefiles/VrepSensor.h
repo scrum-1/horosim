@@ -6,6 +6,7 @@ class VrepSensor {       // The class
  
   public:             // Access specifier
     
+    void pinMode(char, char);
     int digitalRead(int);
     VrepSensor(int, std::string, enum SensorType);
     VrepSensor(){};
@@ -15,6 +16,7 @@ class VrepSensor {       // The class
     std::string name;  // Name of the sensor in Vrep
     int handle=-1; //
     SensorType type;
+    bool set2input=true;
     float readVisionSensor();
     float readProximitySensor();
 
