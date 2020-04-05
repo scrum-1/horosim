@@ -1,0 +1,47 @@
+###########################################################################################################
+## This file is created by MCUdude for use with MegaCore                                                 ##
+## https://github.com/MCUdude/MegaCore                                                                   ##
+##                                                                                                       ##
+## This is the file where fuse settings, clock frequencies, upload ports, bootloaders and compiler flags ##
+## are located.                                                                                          ##
+##                                                                                                       ##
+## The table below shows the available precompiled bootloaders for the corresponding clock frequencies   ##
+##  and baud rates. Modify the upload.speed field to change baud rate.                                   ##
+##                                                                                                       ##
+## |             | 1000000 | 500000 | 460800 | 250000 | 230400 | 115200 | 57600 | 38400 | 19200 | 9600 | ##
+## |-------------|---------|--------|--------|--------|--------|--------|-------|-------|-------|------| ##
+## | 20 MHz      |         |  X     |        |  X     |        |  X     |       |       |  X    |      | ##
+## | 18.4320 MHz |         |        | X      |        |  X     |  X     |  X    |  X    |  X    |  X   | ##
+## | 16 MHz      |  X      |  X     |        |  X     |        |  X     |       |  X    |  X    |  X   | ##
+## | 14.7456 MHz |         |        | X      |        |  X     |  X     |  X    |  X    |  X    |  X   | ## 
+## | 12 MHz      |         |  X     |        |  X     |        |        |  X    |       |  X    |  X   | ##
+## | 11.0592 MHz |         |        | X      |        |  X     |  X     |  X    |  X    |  X    |  X   | ## 
+## | 8 MHz       |  X      |  X     |        |  X     |        |  X     |  X    |  X    |  X    |  X   | ##
+## | 7.3728 MHz  |         |        | X      |        |  X     |  X     |  X    |  X    |  X    |  X   | ## 
+## | 4 MHz       |         |  X     |        |  X     |        |        |       |       |  X    |  X   | ##
+## | 3.6864 MHz  |         |        | X      |        |  X     |  X     |  X    |  X    |  X    |  X   | ## 
+## | 2 MHz       |         |        |        |  X     |        |        |       |       |  X    |  X   | ##
+## | 1.8432 MHz  |         |        |        |        |  X     |  X     |  X    |  X    |  X    |  X   | ## 
+## | 1 MHz       |         |        |        |        |        |        |       |       |       |  X   | ## 
+##                                           |                                                           ##
+###########################################################################################################
+
+
+
+
+#####################
+#### ATmega2561  ####
+#####################
+
+# General
+uno2Vrep.name=ArduinoUno2Vrep
+uno2Vrep.upload.tool=avrdude
+uno2Vrep.upload.maximum_data_size=8192
+uno2Vrep.bootloader.tool=avrdude
+uno2Vrep.bootloader.unlock_bits=0x3f
+uno2Vrep.bootloader.lock_bits=0x0f
+uno2Vrep.build.core=VrepSim_corefiles
+#uno2Vrep.build.variant=64-pin-avr
+uno2Vrep.build.board=AVR_ATmega2561
+uno2Vrep.build.mcu=atmega2561
+
