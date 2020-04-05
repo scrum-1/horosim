@@ -1,3 +1,5 @@
+![Line following robot demo](videos/line_following_robot_sim.gif)
+
 # README #
 
 This code simulates a line following robot controlled by an Arduino and connected as specified in the schematics document. The simulator used is Vrep and it should be installed in your computer. You can use the Arduino IDE to compile the code, but the generated program needs to be run from the terminal, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
@@ -142,7 +144,14 @@ Now, we will run the program that we have generated. Please, be sure that you ha
 	cd arduino_build_836444/
 	./Test.ino
 
-The robot should move in the Vrep simulator. Now, you can program the Arduino so the robot follows the line, grasps the can and places it at the intersection. Yes, it is possible.
+The robot should move in the Vrep simulator. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
+
+Now, you can program the Arduino so the robot follows the line, grasps the can and places it at the intersection. Yes, it is possible :-) 
+
+Every time that you change your code:
+* press verify in the Arduino IDE
+* change to the terminal that you used to run your program for the last time
+* run your new program (./Test.ino)
 
 
 ### Questions? ###
