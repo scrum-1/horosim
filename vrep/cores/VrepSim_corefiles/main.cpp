@@ -84,7 +84,8 @@ int main(void)
   if (clientID!=-1)
     clientID=simxStart((simxChar*)"10.0.2.2",19997,true,true,2000,5);
   
-  if (clientID!=-1){
+  //If we could not connect to localhost, it should be a VM. Try default gateway
+  if (clientID==-1){
     printf("ARDUINO2VREP: Connected to remote API server\n");
 
     // Now try to retrieve data in a blocking fashion (i.e. a service call):
