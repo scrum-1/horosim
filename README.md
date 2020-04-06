@@ -144,22 +144,37 @@ Third, select the Board ArduinoUno2Vrep in the Arduino IDE. Tools->Board->Arduin
 
 Fourth, press verify and it should generate a few warnings but not errors. 
 
-Now, we will run the program that we have generated. Please, be sure that you have Vrep simulator open and the scene loaded. Open a terminal. If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon. Now, we should go to the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
+Now, we will run the program that we have generated. Please, be sure that you have Vrep simulator open and the scene loaded. Now, you have two options to initiate your program, but we will need a terminal in both of them. If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
+
+Option 1 (does not work in WSL):
+
+In Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. For example:
+
+	cd /home/htmaa/Arduino/arduino2vrepsim/Test
+
+And run the compiled program:
+
+	./Test.ino.exe
+
+Option 2:
+
+We should find to the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
 
 	cd /tmp/
 	ls -l 
 	(you will see a folder like arduino_build_XXXXXX, go to this folder)
 	cd arduino_build_836444/
-	./Test.ino
+	./Test.ino.exe
 
-The robot should move in the Vrep simulator. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
+
+As soon you initiates your program, the robot should move in the Vrep simulator. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
 
 Now, you can program the Arduino so the robot follows the line, grasps the can and places it at the intersection. Yes, it is possible :-) 
 
 Every time that you change your code:
-* press verify in the Arduino IDE
+* press verify in the Arduino IDE (or press "Export compiled Binary")
 * change to the terminal that you used to run your program for the last time
-* run your new program (./Test.ino)
+* run your new program (./Test.ino.exe)
 
 
 ### Questions? ###

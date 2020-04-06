@@ -84,8 +84,8 @@ recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.f
 #recipe.objcopy.hex.pattern= {build.path}/{build.project_name}
 
 ## Save compiled hex
-#recipe.output.tmp_file={build.project_name}
-#recipe.output.save_file={build.project_name}.exe
+recipe.output.tmp_file={build.project_name}
+recipe.output.save_file={build.project_name}.exe
 
 ## Compute size
 #recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
