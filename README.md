@@ -54,7 +54,7 @@ TODO:
 * analogRead
 * analogWrite
 
-### Installation ###
+## Installation ##
 
 There are a couple of requirements:
 
@@ -134,7 +134,7 @@ In my case:
 
 You are done. Now, open the Arduino IDE and press verify. It should work.
 
-### Use ###
+## Using the simulator ##
 
 First, open the Vrep and load the scene. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](scene_model_robot/line_fllowing_robot.ttt).  If you downloaded the repository, you can find it in the folder "scene_model_robot". To load the scene, go toFile->Open Scene... in Vrep. You should select the file (line_following_robot.ttt). After this, you should see the circuit and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in Vrep, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in Vrep. 
 
@@ -175,6 +175,15 @@ Every time that you change your code:
 * press verify in the Arduino IDE (or press "Export compiled Binary")
 * change to the terminal that you used to run your program for the last time
 * run your new program (./Test.ino.exe)
+
+I recommend that your Arduino program is saved in /home/htmaa/Arduino. So you keep a clean copy of the repository files and you can upgrade the source code easily.
+
+### Updating the software ###
+
+You can update the software by using these commands in the terminal:
+
+	cd /home/htmaa/Arduino/hardware/arduino2vrepsim/
+	git pull
 
 
 ### Questions? ###
