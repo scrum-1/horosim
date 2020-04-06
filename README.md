@@ -77,7 +77,7 @@ Once is installed, go to the folder where is installed (in my case C:\Program Fi
 
 #### Option 1: Virtual Machine with everything installed ####
 
-I created a virtual machine in VirtualBox. First, intall virtualBox from here. Then, download the [Ubuntu Virtual Machine](link_to_dropbox). Then, start the virtual machine. The user is "htmaa" and the password is "htmaa". You still need to install the Vrep simulator in your computer (not in the virtual machine). 
+I created a virtual machine in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the [Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8) and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the Vrep simulator in your computer (not in the virtual machine). 
 
 #### Option 2: Install g++ compiler, Arduino IDE (>1.5.0) and source code ####
 
