@@ -62,7 +62,7 @@ There are a couple of requirements:
 * Arduino IDE (>1.5.0)
 * Vrep simulator
 
-If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](link_to_dropbox). Thus, you only need to install the Vrep simulator. 
+If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8). Thus, you only need to install the Vrep simulator. 
 
 #### Vrep Simulator (Mandatory) ####
 
