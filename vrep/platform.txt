@@ -19,24 +19,21 @@ compiler.warning_flags.all=-Wall -Wextra
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
 compiler.path=
 compiler.c.cmd=g++
-compiler.c.cmd.windows=wsl
 
-compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -MMD
+compiler.c.flags=-c -g -Os {compiler.warning_flags} -ffunction-sections -fdata-sections -MMD
 compiler.c.elf.flags={compiler.warning_flags} -Os -Wl,--gc-sections
 compiler.c.elf.cmd=g++
-compiler.c.elf.cmd.windows=wsl g++
 compiler.S.flags=-c -g -x assembler-with-cpp
 
 compiler.cpp.cmd=g++
-compiler.cpp.cmd.windows=wsl
-compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++11 -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
 
 compiler.ar.cmd=ar
 compiler.ar.cmd.windows=ar.exe
 compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
-compiler.objcopy.cmd.windows=wsl
+
 
 compiler.objcopy.eep.flags=
 #compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
