@@ -80,13 +80,15 @@ int main(void)
   signal(SIGINT, signal_callback_handler);
   timeInit();
 
-  clientID=simxStart((simxChar*)"127.0.0.1",19997,true,true,2000,5);
+  int port=19997;
+  int commThreadCycleInMs=5;
+  clientID=simxStart((simxChar*)"127.0.0.1",port,true,true,2000,commThreadCycleInMs);
   //If we could not connect to localhost, it should be a VM. Try default gateway
   if (clientID==-1)
-    clientID=simxStart((simxChar*)"10.0.2.2",19997,true,true,2000,5);
+    clientID=simxStart((simxChar*)"10.0.2.2",port,true,true,2000,commThreadCycleInMs);
   
   if (clientID!=-1){
-    printf("ARDUINO2VREP: Connected to remote API server\n");
+    printf("ARDUINO2VREP: Connected to remote API server, clientID: %d\n", clientID);
 
     // Now try to retrieve data in a blocking fashion (i.e. a service call):
     int objectCount;
