@@ -10,39 +10,45 @@ int SerialClass::write(std::string str){
 		std::printf("%s", str.c_str());
 		return str.size();
 	}
+	return 0;
 }
 int SerialClass::write(int val){
 	if(initialized){
 		std::printf("%d", val);
 		return std::to_string(val).size();
 	}
+	return 0;
 }
 int SerialClass::write(float val){
 	if(initialized){
-		std::printf("%d", val);
+		std::printf("%f", val);
 		return std::to_string(val).size();
 	}
+	return 0;
 }
 int SerialClass::write(long val){
 	if(initialized){
-		std::printf("%d", val);
+		std::printf("%ld", val);
 		return std::to_string(val).size();
 	}
+	return 0;
 }
 int SerialClass::write(double val){
 	if(initialized){
-		std::printf("%d", val);
+		std::printf("%f", val);
 		return std::to_string(val).size();
 	}
+	return 0;
 }
 
 int SerialClass::write(char* buf, int len){
 	if(initialized){
 		for (int i = 0; i < len; ++i){
-			std::printf("%s", buf[i]);
+			std::printf("%c", buf[i]);
 		}
 		return len;
 	}
+	return 0;
 }
 
 //TODO: Printf is not the same as write, but it should be OK for now:

@@ -159,7 +159,7 @@ int vrep_setup(){
  //        simxAddStatusbarMessage(clientID,"Hello V-REP!",simx_opmode_oneshot);
 
 	// printf("NOT Connected to remote API server\n");
- //    return(0);
+     return(0);
 }
 
 void pinMode(char pin, char mode){
