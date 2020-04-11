@@ -68,7 +68,7 @@ If you do not want to install g++ or the Arduino IDE(see below, it is tricky in 
 
 Install the Vrep simulator for your operating system. Link: [Vrep simulator](https://www.coppeliarobotics.com/). 
 
-Once is installed, go to the folder where is installed (in my case C:\Program Files\V-REP3\V-REP_PRO_EDU ) and open the remoteApiConnections.txt file. in this file, change the port to 19997. It should look like this:
+Once is installed, go to the folder where is installed (in my case C:\Program Files\V-REP3\V-REP_PRO_EDU ) and open the remoteApiConnections.txt file.  On MacOS, this file is in the package bundle (/.../V-REP/vrep.app/Contents/MacOS/remoteApiConnections.txt). In this file, change the port to 19997. It should look like this:
 
 	portIndex1_port             = 19997
 	portIndex1_debug            = false
@@ -185,6 +185,47 @@ You can update the software by using these commands in the terminal:
 	cd /home/htmaa/Arduino/hardware/arduino2vrepsim/
 	git pull
 
+### Troubleshooting ###
+
+#### Test the ip of the host machine form the virtual machine ####
+Try this command in the terminal of the virtual machine
+
+	ip route show default
+
+The result should be something like:
+	
+	default via 10.0.2.2 dev enp0s3 proto dhcp metric 100
+
+The ip shown needs to be 10.0.2.2. If not, thry to change the network adapter in the virtual machine to NAT.
+
+#### Try to see that the port in CoppeliaSim (Vrep) is open ####
+
+You can check the CoppeliaSim port if you go to Tools->User settings and uncheck the option "Hide console window". On macOS, in order to see the V-REP console, you have to open the app from the terminal with vrep.app/Contents/MacOS/vrep. Then, in the console, you can find something like: 
+
+	Plugin 'RemoteApi': loading...
+	Starting a remote API server on port 19997
+	Plugin 'RemoteApi': load succeeded.
+
+#### Try to change the port ####
+
+Try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in Vrep (remoteApiConnections.txt file, and restart Vrep).
+
+#### Try to test the CoppeliaSim examples ####
+
+Please, try to run the example that coppelia provides, for example the python one. You have to go to CoppeliaSim folder/CoppeliaSimEdu/programming/remoteApiBindings/python/python
+
+Copy to this directory the simulator library for your OS. You can find in CoppeliaSim folder/CoppeliaSimEdu/programming/remoteApiBindings/lib/lib/MacOS
+
+Then, try to run the simpleTest.py
+	
+	python simpleTest.py
+
+You should see something like:
+
+	Program started
+	Connected to remote API server
+	('Number of objects in the scene: ', 16)
+	('Mouse position x: ', 1128)
 
 ### Questions? ###
 
