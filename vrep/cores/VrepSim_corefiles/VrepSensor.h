@@ -1,8 +1,9 @@
 #include <string>
+#include "VrepHandle.h"
 
 enum SensorType {VisionSensor = 0, ProximitySensor = 1}; 
 
-class VrepSensor {       // The class
+class VrepSensor : public VrepHandle{       // The class
  
   public:             // Access specifier
     
@@ -13,8 +14,6 @@ class VrepSensor {       // The class
 
   private:
   	int pin;        // Pin of the Arduino where is connected
-    std::string name;  // Name of the sensor in Vrep
-    int handle=-1; //
     SensorType type;
     bool set2input=true;
     float readVisionSensor();

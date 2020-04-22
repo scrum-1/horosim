@@ -1,18 +1,19 @@
 #include <string>
+#include "VrepHandle.h"
 
-class VrepMotor {       // The class
+class VrepMotor : public VrepHandle{       // The class
  
   public:             // Access specifier
     
-    void pinMode(char, char);
-    void digitalWrite(int, int);
-    VrepMotor(int, std::string);
+
+    VrepMotor(std::string, double, double, double);
     VrepMotor(){};
 
-  private:
-  	int pin;        // Pin of the Arduino where is connected
-    std::string name;  // Name of the joint in Vrep
-    int handle=-1; //
-    bool set2output=false;
+  protected:
+  	double force_max=-1;
+  	double rpm_max=-1;
+  	double reduction=1;
 
+  private:
+  	void setMaxForce();
 };

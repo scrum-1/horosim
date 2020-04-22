@@ -21,10 +21,12 @@
 //#include <unistd.h>
 #include <iostream>
 #include <main.h>
-#include "VrepMotor.h"
+#include "DCMotor_Transistor.h"
 #include "VrepSensor.h"
 #include <signal.h>
 #include "SimTime.h"
+#include <vector>
+#include "VrepHandle.h"
 
 using namespace std;
 
@@ -32,9 +34,9 @@ extern "C" {
     #include "extApi.h"
 }
 
-
-VrepMotor* left_motor;
-VrepMotor* right_motor;
+std::vector<VrepHandle*> handles;
+DCMotor_Transistor* left_motor;
+DCMotor_Transistor* right_motor;
 VrepSensor* right_sensor;
 VrepSensor* left_sensor;
 VrepSensor* front_sensor;
@@ -106,12 +108,17 @@ int main(void)
       printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
 
 
-    left_motor = new VrepMotor(10, "left_motor");
-    right_motor = new VrepMotor(11, "right_motor");
+    left_motor = new DCMotor_Transistor(10, "left_motor");
+    right_motor = new DCMotor_Transistor(11, "right_motor");
     left_sensor = new VrepSensor(9, "left_IR", VisionSensor);
     right_sensor = new VrepSensor(8, "right_IR", VisionSensor);
     front_sensor = new VrepSensor(7, "front_IR", ProximitySensor);
-
+    handles.push_back(left_motor);
+    handles.push_back(right_motor);
+    handles.push_back(left_sensor);
+    handles.push_back(right_sensor);
+    handles.push_back(front_sensor);
+    
     //Switch off motors and wait 2 seconds
     digitalWrite(10, 0);
     digitalWrite(11, 0);
@@ -164,11 +171,16 @@ int vrep_setup(){
 
 void pinMode(char pin, char mode){
 
-  right_sensor->pinMode(pin, mode);
-  left_sensor->pinMode(pin, mode);
-  front_sensor->pinMode(pin, mode);
-  left_motor->pinMode(pin, mode);
-  right_motor->pinMode(pin, mode);
+  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it){
+    
+    (*it)->pinMode(pin, mode);
+  }
+
+  //right_sensor->pinMode(pin, mode);
+  //left_sensor->pinMode(pin, mode);
+  //front_sensor->pinMode(pin, mode);
+  //left_motor->pinMode(pin, mode);
+  //right_motor->pinMode(pin, mode);
 	
 }
 void digitalWrite(char a, char b){
