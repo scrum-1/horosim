@@ -3,6 +3,7 @@
 int test(void);
 void pinMode(char, char);
 void digitalWrite(char, char);
+void analogWrite(char, int);
 int digitalRead(int);
 
 

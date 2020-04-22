@@ -4,17 +4,19 @@
 
 
 extern "C" {
-    #include "extApi.h"
+#include "extApi.h"
 }
 extern int clientID;
 
 
-DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str):VrepMotor{str, 2.5, -2.1415, 1}{
-  	pin=pin_i; 
+DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str, float force, float speed, float reduction):
+	VrepMotor{str, force, speed, reduction} {
+	pin=pin_i;
+	enableControlLoop(false);
 
- }
+}
 
-void DCMotor_Transistor::pinMode(char pin_i, char mode){
+void DCMotor_Transistor::pinMode(char pin_i, char mode) {
 	if(pin_i!=pin)
 		return;
 	if(mode==OUTPUT)
@@ -22,16 +24,26 @@ void DCMotor_Transistor::pinMode(char pin_i, char mode){
 	else
 		set2output=false;
 }
-void DCMotor_Transistor::digitalWrite(int pin_i, int status){
+void DCMotor_Transistor::digitalWrite(int pin_i, int status) {
 	if(pin_i!=pin)
 		return;
 	if(!set2output)
 		return;
 
-	//TODO: Send command to Vrep
 	float speed = 0;
-	if(status>0){
+	if(status>0) {
 		speed=rpm_max;
 	}
 	setTargetSpeed(speed);
+}
+
+void DCMotor_Transistor::analogWrite(int pin_i, int value) {
+	if(pin_i!=pin)
+		return;
+	if(!set2output)
+		return;
+	if(pin_i==3||pin_i==5||pin_i==6||pin_i==9||pin_i==10||pin_i==11) {
+		value=value%255;
+		setTargetSpeed(rpm_max/255*value);
+	}
 }

@@ -22,6 +22,7 @@
 #include <iostream>
 #include <main.h>
 #include "DCMotor_Transistor.h"
+#include "StepperMotor.h"
 #include "VrepSensor.h"
 #include <signal.h>
 #include "SimTime.h"
@@ -98,15 +99,12 @@ int main(void)
     else
       printf("ARDUINO2VREP: Remote API function call returned with error code: %d\n",ret);
 
-    ret=simxStartSimulation(clientID, simx_opmode_oneshot);
-    if (ret==simx_return_ok||ret==simx_return_novalue_flag)
-      printf("ARDUINO2VREP: Simulation started!\n");
-    else
-      printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
-
+    
     #ifdef LINE_FOLLOWING_ROBOT
-    DCMotor_Transistor* left_motor = new DCMotor_Transistor(10, "left_motor");
-    DCMotor_Transistor* right_motor = new DCMotor_Transistor(11, "right_motor");
+    DCMotor_Transistor* right_motor = new DCMotor_Transistor(11, "right_motor", 2.5, -2.1415, 1);
+    DCMotor_Transistor* left_motor = new DCMotor_Transistor(10, "left_motor", 2.5, -2.1415, 1);
+    //StepperMotor* left_motor = new StepperMotor(10, 1, "left_motor", 2.5, -2.1415, 1);
+    //StepperMotor* right_motor = new StepperMotor(11, 2, "right_motor", 2.5, -2.1415, 1);
     VrepSensor* left_sensor = new VrepSensor(9, "left_IR", VisionSensor);
     VrepSensor* right_sensor = new VrepSensor(8, "right_IR", VisionSensor);
     VrepSensor* front_sensor = new VrepSensor(7, "front_IR", ProximitySensor);
@@ -115,6 +113,13 @@ int main(void)
     handles.push_back(left_sensor);
     handles.push_back(right_sensor);
     handles.push_back(front_sensor);
+
+    ret=simxStartSimulation(clientID, simx_opmode_oneshot);
+    if (ret==simx_return_ok||ret==simx_return_novalue_flag)
+      printf("ARDUINO2VREP: Simulation started!\n");
+    else
+      printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
+
 
     //Switch off motors and wait 2 seconds
     //digitalWrite(10, 0); //DOne in VrepMotor at init
@@ -178,6 +183,12 @@ void pinMode(char pin, char mode){
 void digitalWrite(char a, char b){
   for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it){  
     (*it)->digitalWrite(a, b);
+  }
+}
+
+void analogWrite(char a, int b){
+  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it){  
+    (*it)->analogWrite(a, b);
   }
 }
 

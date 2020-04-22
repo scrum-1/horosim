@@ -52,7 +52,7 @@ Serial:
 TODO:
 
 * analogRead
-* analogWrite
+* ~~analogWrite~~
 
 ## Installation ##
 

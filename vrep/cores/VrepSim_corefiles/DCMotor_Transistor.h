@@ -7,8 +7,9 @@ class DCMotor_Transistor : public VrepMotor{       // The class
     
     void pinMode(char, char);
     void digitalWrite(int, int);
-    DCMotor_Transistor(int, std::string);
+    DCMotor_Transistor(int, std::string, float, float, float);
     DCMotor_Transistor(){};
+    void analogWrite(int, int);
 
   private:
   	int pin;        // Pin of the Arduino where is connected
