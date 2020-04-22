@@ -9,7 +9,7 @@ extern "C" {
 extern int clientID;
 
 
-DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str):VrepMotor{str, 3.7, 100, 1}{
+DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str):VrepMotor{str, 2.5, -2.1415, 1}{
   	pin=pin_i; 
 
  }
@@ -31,13 +31,7 @@ void DCMotor_Transistor::digitalWrite(int pin_i, int status){
 	//TODO: Send command to Vrep
 	float speed = 0;
 	if(status>0){
-		speed=-2.1415;
+		speed=rpm_max;
 	}
-
-	int error=simxSetJointTargetVelocity(clientID, handle, speed, simx_opmode_oneshot);
-	if(error>simx_return_novalue_flag){
-  		printf("ARDUINO2VREP: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, handle_name.c_str());
-  	}else{
-  		//printf("Speed set correctly.\n");
-  	}
+	setTargetSpeed(speed);
 }
