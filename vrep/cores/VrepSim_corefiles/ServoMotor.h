@@ -9,6 +9,7 @@ class ServoMotor : public VrepMotor{       // The class
     ServoMotor(int, std::string, float, float, float);
     ServoMotor(){};
     int getServoPin();
+    double getServoReduction();
 
 
   private:

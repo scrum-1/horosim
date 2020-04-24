@@ -10,4 +10,5 @@ class Servo {       // The class
   	int pin;        // Pin of the Arduino where is connected
     int handle=-1;        // Handle of the Vrep joint
     bool initialized=false; //Specifies if the servo is connected at the write pin 
+    double reduction=1;
 };

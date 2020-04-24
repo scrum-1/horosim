@@ -3,11 +3,11 @@
 #include <string>
 
 extern "C" {
-    #include "extApi.h"
+#include "extApi.h"
 }
 extern int clientID;
 
-void VrepSensor::pinMode(char pin_i, char mode){
+void VrepSensor::pinMode(char pin_i, char mode) {
   if(pin_i!=pin)
     return;
   if(mode==OUTPUT)
@@ -16,8 +16,13 @@ void VrepSensor::pinMode(char pin_i, char mode){
     set2input=true;
 }
 
-VrepSensor::VrepSensor(int pin_i, std::string str):VrepHandle{str}{
-  	pin=pin_i; 
-    type=VrepSensor_t;
- }
+VrepSensor::VrepSensor(int pin_i, std::string str, float threshold_i):VrepHandle{str} {
+  pin=pin_i;
+  type=VrepSensor_t;
+  if(threshold_i>1)
+    threshold_i=1;
+  if(threshold_i<0)
+    threshold_i=0;
+  threshold=threshold_i;
+}
 

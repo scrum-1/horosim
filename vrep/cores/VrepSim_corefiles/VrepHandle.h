@@ -18,6 +18,7 @@ class VrepHandle {       // The class
     virtual int digitalRead(int){return -1;};
     virtual int analogRead(int){return -1;};
     virtual int getServoPin(){return -1;};
+    virtual double getServoReduction(){return -1;};
 
     enum HardwareType getType(){return type;};
     std::string getHandleName(){return handle_name;};

@@ -9,12 +9,13 @@ class VrepSensor : public VrepHandle{       // The class
   public:             // Access specifier
     
     void pinMode(char, char);
-    VrepSensor(int, std::string);
+    VrepSensor(int, std::string, float);
     VrepSensor(){};
 
   protected:
   	int pin;        // Pin of the Arduino where is connected
     bool set2input=true;
+    float threshold=0.3; //Threshold for the digital output
 
 
 };

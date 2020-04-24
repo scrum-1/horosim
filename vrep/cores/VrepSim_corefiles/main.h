@@ -5,6 +5,7 @@ void pinMode(char, char);
 void digitalWrite(char, char);
 void analogWrite(char, int);
 int digitalRead(int);
+int analogRead(int);
 
 
 void setup(void);

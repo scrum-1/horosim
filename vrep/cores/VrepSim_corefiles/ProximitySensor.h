@@ -8,10 +8,12 @@ class ProximitySensor : public VrepSensor{       // The class
   public:             // Access specifier
     
     int digitalRead(int);
-    ProximitySensor(int, std::string);
+    int analogRead(int);
+    ProximitySensor(int, std::string, float, float);
     ProximitySensor(){};
 
   private:
     float readProximitySensor();
+    float range;
 
 };

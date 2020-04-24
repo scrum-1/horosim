@@ -9,10 +9,12 @@ extern int clientID;
 
 
 
-ProximitySensor::ProximitySensor(int pin_i, std::string str):VrepSensor{pin_i, str} {
+ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, float threshold_i):VrepSensor{pin_i, str, threshold_i} {
 
   type=ProximitySensor_t;
   int error;
+  range=range_i;
+
 
   //First call to set te streaming mode
   float readDistance[3] = {0, 0, 0};
@@ -44,18 +46,23 @@ int ProximitySensor::digitalRead(int pin_i) {
   float value=-1;
 
   value=readProximitySensor();
-  value/=0.16;
-  if(value<0)
-    return 0;
+  value/=range;
 
-  if(value<0.3)
+  if(value<threshold)
     return 1;
   else
     return 0;
-
 }
 
+int ProximitySensor::analogRead(int pin_i){
+  if(pin_i!=pin)
+    return -1;
 
+  if(!set2input)
+    return -1;
+
+  return readProximitySensor()/range*1024;
+}
 
 float ProximitySensor::readProximitySensor() {
 
@@ -74,6 +81,6 @@ float ProximitySensor::readProximitySensor() {
     // else
     //   printf("ARDUINO2VREP: No detection.\n");
   }
-  return -1;
+  return range;
 }
 

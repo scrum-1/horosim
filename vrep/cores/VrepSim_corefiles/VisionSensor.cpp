@@ -9,7 +9,7 @@ extern int clientID;
 
 
 
-VisionSensor::VisionSensor(int pin_i, std::string str):VrepSensor{pin_i, str} {
+VisionSensor::VisionSensor(int pin_i, std::string str, float threshold_i):VrepSensor{pin_i, str, threshold_i} {
 
   type=VisionSensor_t;
   int error;
@@ -48,12 +48,22 @@ int VisionSensor::digitalRead(int pin_i) {
 
   value=readVisionSensor();
 
-  if(value>0.5)
+  if(value>threshold)
     return 1;
   if(value<0)
     return -1;
   return 0;
 
+}
+
+int VisionSensor::analogRead(int pin_i){
+  if(pin_i!=pin)
+    return -1;
+
+  if(!set2input)
+    return -1;
+
+  return readVisionSensor()*1024;
 }
 
 float VisionSensor::readVisionSensor() {
@@ -67,7 +77,7 @@ float VisionSensor::readVisionSensor() {
     //printf("Sensor read correctly.\n");
     if(auxValuesCount!=NULL && error==simx_return_ok) {
       //printf("Number of packages: %d, size package1: %d \n", auxValuesCount[0], auxValuesCount[1]);
-      //printf("Value: %f", auxValues[10]);
+      //printf("Value: %f\n", auxValues[10]);
       //printf("Values: " );
       // for (int i = 0; i < auxValuesCount[1]; ++i)
       // {

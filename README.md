@@ -42,6 +42,7 @@ I/O:
 * digitalRead
 * digitalWrite
 * analogWrite
+* analogRead
 
 Serial:
 
@@ -52,8 +53,11 @@ Serial:
 
 TODO:
 
-* analogRead
+* ~~analogRead~~
 * ~~analogWrite~~
+* Serial.available
+* Serial.read
+
 
 ## Installation ##
 

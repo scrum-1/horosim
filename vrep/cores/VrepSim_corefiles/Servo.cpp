@@ -16,7 +16,9 @@ extern int clientID;
 std::string servo_name;
 
 void Servo::attach(int pin_i) {
-	
+	if(pin_i<0)
+		return;
+
 	//Lets find the name of the handle that is connected to this pin
 	for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
 		int pin=(*it)->getServoPin();
@@ -24,6 +26,7 @@ void Servo::attach(int pin_i) {
 			pin=pin_i;
 			initialized=true;
 			servo_name=(*it)->getHandleName();
+			reduction=(*it)->getServoReduction();
 		}
 	}
 
@@ -46,9 +49,10 @@ void Servo::write(int val) {
 	if(initialized && handle>0) {
 		if(val>180)
 			val=180;
-		if(val<00)
+		if(val<0)
 			val=0;
-		float pos=val/180.0*0.05;
+		//The servo starts centered (0=>left, 90:center, 180=>right)
+		float pos=(val-90)/180.0*3.1415*reduction;
 		int error=simxSetJointTargetPosition(clientID, handle, pos, simx_opmode_oneshot);
 		if(error>simx_return_novalue_flag) {
 			printf("ARDUINO2VREP: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, servo_name.c_str());

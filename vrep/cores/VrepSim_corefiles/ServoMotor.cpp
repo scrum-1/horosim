@@ -21,6 +21,10 @@ int ServoMotor::getServoPin(){
 	return pin;
 }
 
+double ServoMotor::getServoReduction(){
+	return reduction;
+};
+
 void ServoMotor::analogWrite(int pin_i, int value) {
 	if(pin_i!=pin)
 		return;

@@ -185,5 +185,15 @@ int digitalRead(int a){
   return 0;
 }
 
+int analogRead(int a){
+  int result;
+  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it){  
+    result=(*it)->analogRead(a);
+    if(result>=0)
+      return result;
+  }
+  //TODO: Give random number
+  return 0;
+}
 
 
