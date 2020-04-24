@@ -15,6 +15,12 @@ StepperMotor::StepperMotor(int dir_pin_i, int step_pin_i, std::string str, float
 	dir_pin=dir_pin_i;
 	step_pin=step_pin_i;
 	enableControlLoop(true);
+	float position;
+	int error=simxGetJointPosition(clientID, handle, &position,  simx_opmode_streaming);
+	if(error>simx_return_novalue_flag) {
+		printf("ARDUINO2VREP: Error reading the position of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+	}
+
 }
 
 void StepperMotor::pinMode(char pin_i, char mode) {
@@ -50,6 +56,15 @@ void StepperMotor::digitalWrite(int pin_i, int status) {
 		return;
 	}
 	//printf("c");
+	float position;
+	int error=simxGetJointPosition(clientID, handle, &position, simx_opmode_buffer);
+	if(error!=simx_return_ok) {
+		printf("ARDUINO2VREP: Error reading the pos of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+		//We use the last position that we got
+		position=pos;
+	}else{
+		pos=position;
+	}
 	if(pin_i==step_pin) {
 		if(!step_set2output)
 			return;
@@ -57,10 +72,10 @@ void StepperMotor::digitalWrite(int pin_i, int status) {
 			//Rising edge, move one step
 			//printf("fff");
 			if(forward)
-				pos+=3.1415/100*reduction;
+				position+=3.1415/100*reduction;
 			else
-				pos-=3.1415/100*reduction;
-			setTargetPosition(pos);
+				position-=3.1415/100*reduction;
+			setTargetPosition(position);
 			step_value=true;
 
 			delay(1);
@@ -81,3 +96,4 @@ void StepperMotor::analogWrite(int pin_i, int value) {
 		setTargetSpeed(rpm_max/2);
 	}
 }
+
