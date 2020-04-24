@@ -67,7 +67,7 @@ void DCMotor_Hbridge::digitalWrite(int pin_i, int status) {
 		}
 	}
 
-	if(pin_i==en_pin)
+	if(pin_i==en_pin){
 		if(!en_set2output){
 			return;
 		}
@@ -81,6 +81,7 @@ void DCMotor_Hbridge::digitalWrite(int pin_i, int status) {
 			}
 
 		}
+	}
 
 	//Speed if its enabled
 	float speed = rpm_max/255*pwm;

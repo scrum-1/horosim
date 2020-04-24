@@ -4,7 +4,7 @@
 #include <string>
 
 enum HardwareType {VrepHandle_t=0, VrepMotor_t=1, DCMotor_Transistor_t=2, DCMotor_Hbridge_t=3, StepperMotor_t=4, 
-  ServoMotor_t=5, VisionSensor_t = 10, ProximitySensor_t = 11}; 
+  ServoMotor_t=5, VrepSensor_t=10, VisionSensor_t = 11, ProximitySensor_t = 12}; 
 
 class VrepHandle {       // The class
  

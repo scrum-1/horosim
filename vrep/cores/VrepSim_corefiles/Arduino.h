@@ -11,7 +11,8 @@
 #include "DCMotor_Hbridge.h"
 #include "StepperMotor.h"
 #include "ServoMotor.h"
-#include "VrepSensor.h"
+#include "VisionSensor.h"
+#include "ProximitySensor.h"
 #include <vector>
 
 SerialClass Serial;

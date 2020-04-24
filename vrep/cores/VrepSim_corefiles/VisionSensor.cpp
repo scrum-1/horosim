@@ -1,0 +1,85 @@
+#include "VisionSensor.h"
+#include "Defines.h"
+#include <string>
+
+extern "C" {
+#include "extApi.h"
+}
+extern int clientID;
+
+
+
+VisionSensor::VisionSensor(int pin_i, std::string str):VrepSensor{pin_i, str} {
+
+  type=VisionSensor_t;
+  int error;
+
+  //First call to set te streaming mode
+
+  float* auxValues;
+  int* auxValuesCount;
+  error=simxReadVisionSensor(clientID, handle, NULL, &auxValues, &auxValuesCount, simx_opmode_streaming);
+
+
+  if(error>simx_return_novalue_flag) {
+    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+  }
+
+  // else{
+  //   printf("Reading first time sensor OK.\n");
+  //   // if(auxValuesCount!=NULL){
+  //   //   printf("Number of packages: %d, size package1: %d\n", auxValuesCount[0], auxValuesCount[1]);
+  //   // }
+  //   // else
+  //   //    printf("ARDUINO2VREP: DATA empty.\n");
+  // }
+
+
+}
+
+int VisionSensor::digitalRead(int pin_i) {
+  if(pin_i!=pin)
+    return -1;
+
+  if(!set2input)
+    return -1;
+
+  float value=-1;
+
+  value=readVisionSensor();
+
+  if(value>0.5)
+    return 1;
+  if(value<0)
+    return -1;
+  return 0;
+
+}
+
+float VisionSensor::readVisionSensor() {
+
+  float* auxValues;
+  int* auxValuesCount;
+  int error=simxReadVisionSensor(clientID, handle, NULL, &auxValues, &auxValuesCount, simx_opmode_buffer);
+  if(error>simx_return_novalue_flag) {
+    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+  } else {
+    //printf("Sensor read correctly.\n");
+    if(auxValuesCount!=NULL && error==simx_return_ok) {
+      //printf("Number of packages: %d, size package1: %d \n", auxValuesCount[0], auxValuesCount[1]);
+      //printf("Value: %f", auxValues[10]);
+      //printf("Values: " );
+      // for (int i = 0; i < auxValuesCount[1]; ++i)
+      // {
+      //    printf(" %f,", auxValues[i]);
+      // }
+      // printf("\n" );
+      return auxValues[10];
+    }
+    else
+      printf("ARDUINO2VREP: DATA empty.\n");
+  }
+  return -1;
+}
+
+
