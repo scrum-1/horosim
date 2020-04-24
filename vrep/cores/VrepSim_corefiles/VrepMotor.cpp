@@ -13,6 +13,7 @@ VrepMotor::VrepMotor(std::string str, double force_max_i, double rpm_max_i, doub
 	force_max=force_max_i*reduction_i;
 	rpm_max=rpm_max_i/reduction_i;
 	reduction=reduction_i;
+  type=VrepMotor_t;
 	enableMotor(true);
 	setMaxForce();
 	setTargetSpeed(0);

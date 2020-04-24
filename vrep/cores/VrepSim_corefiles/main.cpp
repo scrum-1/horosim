@@ -22,6 +22,7 @@
 #include <iostream>
 #include <main.h>
 #include "DCMotor_Transistor.h"
+#include "DCMotor_Hbridge.h"
 #include "StepperMotor.h"
 #include "VrepSensor.h"
 #include <signal.h>
@@ -35,9 +36,9 @@ extern "C" {
     #include "extApi.h"
 }
 
-#define LINE_FOLLOWING_ROBOT
-
+//Vector with the handles of joints and sensors
 std::vector<VrepHandle*> handles;
+
 int clientID = -1;
 bool stop_sim = false;
 
@@ -99,20 +100,8 @@ int main(void)
     else
       printf("ARDUINO2VREP: Remote API function call returned with error code: %d\n",ret);
 
-    
-    #ifdef LINE_FOLLOWING_ROBOT
-    DCMotor_Transistor* right_motor = new DCMotor_Transistor(11, "right_motor", 2.5, -2.1415, 1);
-    DCMotor_Transistor* left_motor = new DCMotor_Transistor(10, "left_motor", 2.5, -2.1415, 1);
-    //StepperMotor* left_motor = new StepperMotor(10, 1, "left_motor", 2.5, -2.1415, 1);
-    //StepperMotor* right_motor = new StepperMotor(11, 2, "right_motor", 2.5, -2.1415, 1);
-    VrepSensor* left_sensor = new VrepSensor(9, "left_IR", VisionSensor);
-    VrepSensor* right_sensor = new VrepSensor(8, "right_IR", VisionSensor);
-    VrepSensor* front_sensor = new VrepSensor(7, "front_IR", ProximitySensor);
-    handles.push_back(left_motor);
-    handles.push_back(right_motor);
-    handles.push_back(left_sensor);
-    handles.push_back(right_sensor);
-    handles.push_back(front_sensor);
+    //Load the hardware from the Arduino sketch and store it in the handles vector
+    hardware_setup();
 
     ret=simxStartSimulation(clientID, simx_opmode_oneshot);
     if (ret==simx_return_ok||ret==simx_return_novalue_flag)
@@ -121,14 +110,7 @@ int main(void)
       printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
 
 
-    //Switch off motors and wait 2 seconds
-    //digitalWrite(10, 0); //DOne in VrepMotor at init
-    //digitalWrite(11, 0); //DOne in VrepMotor at init
-    #endif
-    
-
     extApi_sleepMs(2000);
-
 
     setup();
     

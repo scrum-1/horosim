@@ -3,6 +3,8 @@
 
 #include <string>
 
+enum HardwareType {VrepHandle_t=0, VrepMotor_t=1, DCMotor_Transistor_t=2, DCMotor_Hbridge_t=3, StepperMotor_t=4, 
+  ServoMotor_t=5, VisionSensor_t = 10, ProximitySensor_t = 11}; 
 
 class VrepHandle {       // The class
  
@@ -15,10 +17,16 @@ class VrepHandle {       // The class
     virtual void analogWrite(int, int){};
     virtual int digitalRead(int){return -1;};
     virtual int analogRead(int){return -1;};
+    virtual int getServoPin(){return -1;};
+
+    enum HardwareType getType(){return type;};
+    std::string getHandleName(){return handle_name;};
 
   protected:
   	std::string handle_name;  // Name of the joint/sensor in Vrep
     int handle=-1; //
+    enum HardwareType type=VrepHandle_t;
+
 
 };
 

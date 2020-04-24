@@ -12,6 +12,7 @@ extern int clientID;
 DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str, float force, float speed, float reduction):
 	VrepMotor{str, force, speed, reduction} {
 	pin=pin_i;
+	type=DCMotor_Transistor_t;
 	enableControlLoop(false);
 
 }
@@ -43,7 +44,7 @@ void DCMotor_Transistor::analogWrite(int pin_i, int value) {
 	if(!set2output)
 		return;
 	if(pin_i==3||pin_i==5||pin_i==6||pin_i==9||pin_i==10||pin_i==11) {
-		value=value%255;
+		value=value%256;
 		setTargetSpeed(rpm_max/255*value);
 	}
 }

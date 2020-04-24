@@ -1,6 +1,23 @@
 
 #define MOTOR_RIGHT_PIN 11
 
+
+void hardware_setup(){
+	DCMotor_Transistor* right_motor = new DCMotor_Transistor(11, "right_motor", 2.5, -2.1415, 1);
+    DCMotor_Transistor* left_motor = new DCMotor_Transistor(10, "left_motor", 2.5, -2.1415, 1);
+    VrepSensor* left_sensor = new VrepSensor(9, "left_IR", VisionSensor);
+    VrepSensor* right_sensor = new VrepSensor(8, "right_IR", VisionSensor);
+    VrepSensor* front_sensor = new VrepSensor(7, "front_IR", ProximitySensor);
+    ServoMotor* servo_motor = new ServoMotor(3, "servo_joint", 2.5, -2.1415, 1);
+   
+    handles.push_back(left_motor);
+    handles.push_back(right_motor);
+    handles.push_back(left_sensor);
+    handles.push_back(right_sensor);
+    handles.push_back(front_sensor);
+    handles.push_back(servo_motor);
+}
+
 void setup() {
   // put your setup code here, to run once:
 pinMode(MOTOR_RIGHT_PIN, OUTPUT);

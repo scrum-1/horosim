@@ -41,6 +41,7 @@ I/O:
 * pinMode
 * digitalRead
 * digitalWrite
+* analogWrite
 
 Serial:
 
