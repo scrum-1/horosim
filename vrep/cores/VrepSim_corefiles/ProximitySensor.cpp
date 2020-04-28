@@ -54,14 +54,22 @@ int ProximitySensor::digitalRead(int pin_i) {
     return 0;
 }
 
-int ProximitySensor::analogRead(int pin_i){
+int ProximitySensor::analogRead(int pin_i) {
   if(pin_i!=pin)
     return -1;
 
   if(!set2input)
     return -1;
 
-  return readProximitySensor()/range*1024;
+  //If it is not an analog pin
+  if(pin<A0 || pin>A5) {
+    if((readProximitySensor()/range)<0.5)
+      return 0;
+    else
+      return 1023;
+  }
+
+  return readProximitySensor()/range*1023;
 }
 
 float ProximitySensor::readProximitySensor() {

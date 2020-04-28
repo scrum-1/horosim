@@ -63,7 +63,16 @@ int VisionSensor::analogRead(int pin_i){
   if(!set2input)
     return -1;
 
-  return readVisionSensor()*1024;
+  //If it is not an analog pin 
+  if(pin<A0 || pin>A5){
+    if(readVisionSensor()<0.5)
+      return 0;
+    else
+      return 1023;
+  }
+
+  //It is an analog pin, return analog value
+  return readVisionSensor()*1023;
 }
 
 float VisionSensor::readVisionSensor() {

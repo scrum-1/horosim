@@ -20,19 +20,22 @@ compiler.warning_flags.all=-Wall -Wextra
 compiler.path=
 compiler.c.cmd=g++
 
-compiler.c.flags=-c -g -Os {compiler.warning_flags} -ffunction-sections -fdata-sections -MMD
+compiler.c.flags=-c -g -Os {compiler.warning_flags} -ffunction-sections -fdata-sections -MMD 
 compiler.c.elf.flags={compiler.warning_flags} -Os 
 compiler.c.elf.cmd=g++
 compiler.S.flags=-c -g -x assembler-with-cpp
 
-compiler.cpp.cmd=g++
-compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.cpp.cmd=g++ 
+compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD 
 
 compiler.ar.cmd=ar
 compiler.ar.cmd.windows=ar.exe
 compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
+
+#recipe.hooks.sketch.prebuild.1.pattern=echo sketch compilation started at
+#recipe.hooks.sketch.prebuild.2.pattern=date
 
 
 compiler.objcopy.eep.flags=
@@ -52,7 +55,7 @@ compiler.S.extra_flags=
 compiler.cpp.extra_flags=
 compiler.ar.extra_flags=
 compiler.objcopy.eep.extra_flags=
-compiler.elf2hex.extra_flags=
+compiler.elf2hex.extra_flags= 
 
 # AVR compile patterns
 # --------------------
@@ -61,7 +64,7 @@ compiler.elf2hex.extra_flags=
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} {compiler.c.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {compiler.cpp.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY  {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {compiler.cpp.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY  {build.extra_flags} {includes} "{source_file}" -o "{object_file}" 
 
 ## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
@@ -72,7 +75,7 @@ recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compil
 
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread 
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread -L/usr/lib/x86_64-linux-gnu -lGL -lGLU -lglut
 
 ## Create output files (.eep and .hex)
 #recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
