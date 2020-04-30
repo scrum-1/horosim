@@ -14,6 +14,7 @@ DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str, float force, 
 	pin=pin_i;
 	type=DCMotor_Transistor_t;
 	enableControlLoop(false);
+	handles.push_back(this);
 
 }
 

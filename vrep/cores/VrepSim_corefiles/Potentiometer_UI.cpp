@@ -8,6 +8,8 @@ extern "C" {
 }
 extern int clientID;
 
+//Vector with the handles of joints and sensors
+extern std::vector<VrepHandle*> handles;
 
 Potentiometer_UI::Potentiometer_UI(int pin_i, std::string str, float init_state):VrepHandle{str} {
 	pin=pin_i;
@@ -17,6 +19,7 @@ Potentiometer_UI::Potentiometer_UI(int pin_i, std::string str, float init_state)
 	if(init_state<0)
 		init_state=0;
 	potVal=init_state;
+	handles.push_back(this);
 }
 
 void Potentiometer_UI::setPotVal(float val) {

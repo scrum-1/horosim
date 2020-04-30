@@ -24,7 +24,7 @@ VisionSensor::VisionSensor(int pin_i, std::string str, float threshold_i):VrepSe
   if(error>simx_return_novalue_flag) {
     printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   }
-
+  handles.push_back(this);
   // else{
   //   printf("Reading first time sensor OK.\n");
   //   // if(auxValuesCount!=NULL){

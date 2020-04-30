@@ -20,6 +20,7 @@ StepperMotor::StepperMotor(int dir_pin_i, int step_pin_i, std::string str, float
 	if(error>simx_return_novalue_flag) {
 		printf("ARDUINO2VREP: Error reading the position of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
 	}
+	handles.push_back(this);
 
 }
 

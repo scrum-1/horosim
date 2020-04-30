@@ -15,6 +15,7 @@ ServoMotor::ServoMotor(int pin_i, std::string str, float force, float speed, flo
 	pin=pin_i;
 	type=ServoMotor_t;
 	enableControlLoop(true);
+	handles.push_back(this);
 }
 
 int ServoMotor::getServoPin(){

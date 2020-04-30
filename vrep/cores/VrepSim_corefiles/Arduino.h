@@ -15,14 +15,15 @@
 #include "VisionSensor.h"
 #include "ProximitySensor.h"
 #include "Potentiometer_UI.h"
+#include "PushButton_Momentary_UI.h"
+#include "ToggleButton_Latching_UI.h"
+
+
 #include <vector>
 
 
 SerialClass Serial;
 
 using namespace std;
-
-//Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
 
 #endif

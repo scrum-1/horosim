@@ -24,6 +24,7 @@ ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, floa
     printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   }
 
+  handles.push_back(this);
   // else{
   //   printf("Reading first time sensor OK.\n");
   //   // if(auxValuesCount!=NULL){

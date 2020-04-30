@@ -3,6 +3,7 @@
 
 #include <string>
 #include "VrepHandle.h"
+#include "ArduinoUno.h"
 
 
 class Potentiometer_UI : public VrepHandle {      // The class

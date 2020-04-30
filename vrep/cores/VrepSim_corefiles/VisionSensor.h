@@ -1,6 +1,6 @@
 #include <string>
 #include "VrepSensor.h"
-
+#include "ArduinoUno.h"
 
 class VisionSensor : public VrepSensor{       // The class
  

@@ -1,5 +1,6 @@
 #include <string>
 #include "VrepSensor.h"
+#include "ArduinoUno.h"
 
 
 

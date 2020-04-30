@@ -15,6 +15,7 @@ DCMotor_Hbridge::DCMotor_Hbridge(int in1_pin_i, int in2_pin_i, int en_pin_i,std:
 	en_pin=en_pin_i;
 	type=DCMotor_Hbridge_t;
 	enableControlLoop(false);
+	handles.push_back(this);
 }
 
 void DCMotor_Hbridge::pinMode(char pin_i, char mode) {

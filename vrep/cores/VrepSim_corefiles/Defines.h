@@ -11,4 +11,6 @@ typedef char byte;
 
 #define LED_BUILTIN 13
 
+enum ButtonType {PULL_UP=0, PULL_DOWN=1};
+
 #endif

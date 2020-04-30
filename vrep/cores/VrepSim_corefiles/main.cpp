@@ -30,7 +30,8 @@
 #include <vector>
 #include "VrepHandle.h"
 #include "Potentiometer_UI.h"
-
+#include "PushButton_Momentary_UI.h"
+#include "ToggleButton_Latching_UI.h"
 
 
 #include "imgui.h"
@@ -62,6 +63,49 @@ std::vector<VrepHandle*> handles;
 int clientID = -1;
 bool stop_sim = false;
 
+void ToggleButton(const char* str_id, bool* v)
+{
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+    float height = ImGui::GetFrameHeight();
+    float width = height * 1.55f;
+    float radius = height * 0.50f;
+
+    if (ImGui::InvisibleButton(str_id, ImVec2(width, height)))
+        *v = !*v;
+    ImU32 col_bg;
+    if (ImGui::IsItemHovered())
+        col_bg = *v ? IM_COL32(145+20, 211, 68+20, 255) : IM_COL32(218-20, 218-20, 218-20, 255);
+    else
+        col_bg = *v ? IM_COL32(145, 211, 68, 255) : IM_COL32(218, 218, 218, 255);
+
+    draw_list->AddRectFilled(p, ImVec2(p.x + width, p.y + height), col_bg, height * 0.5f);
+    draw_list->AddCircleFilled(ImVec2(*v ? (p.x + width - radius) : (p.x + radius), p.y + radius), radius - 1.5f, IM_COL32(255, 255, 255, 255));
+    ImGui::SameLine();
+    ImGui::Text(str_id);  
+}
+
+void LED(const char* str_id, bool* v)
+{
+    ImVec2 p = ImGui::GetCursorScreenPos();
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+
+    float height = ImGui::GetFrameHeight();
+    float width = height * 1.55f;
+    float radius = height * 0.50f;
+
+    ImU32 col_bg;
+    col_bg = *v ? IM_COL32(145+20, 211, 68+20, 255) : IM_COL32(255, 255, 255, 255);
+
+    ImGui::InvisibleButton(str_id, ImVec2(width, height));
+    //draw_list->AddRectFilled(p, ImVec2(p.x + width, p.y + height), col_bg, height * 0.5f);
+    draw_list->AddCircleFilled(ImVec2(p.x + radius, p.y + radius), radius , IM_COL32(255, 255, 255, 255));
+    draw_list->AddCircleFilled(ImVec2(p.x + radius, p.y + radius), radius - 1.5f, col_bg);
+    ImGui::SameLine();
+    ImGui::Text(str_id);  
+}
+
 void my_display_code()
 {
 
@@ -87,17 +131,35 @@ void my_display_code()
 
     if(ImGui::Button("Button"))                             // Buttons return true when clicked (most widgets return true when edited/activated)
       counter++;
+    //ImGui::ArrowButton("TEST", ImGuiDir_Left);
     ImGui::SameLine();
     ImGui::Text("counter = %d", counter);
+    static bool b=true;
+    ToggleButton("TEST", &b);
+    LED("TEST LED", &b);
 
     //Lets find the User Interface devices (Switches, Potentiometers, Leds)
     for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+      //printf("Type: %d\n", (*it)->getType());
       auto type=(*it)->getType();
       if(type==Potentiometer_UI_t) {
         Potentiometer_UI& pot_UI = dynamic_cast<Potentiometer_UI&>(**it); // downcast
         ImGui::SliderFloat(pot_UI.getHandleName().c_str(), pot_UI.getPotPointer(), 0.0f, 1.0f);
-        //pot_UI.setPotVal(f);
       }
+
+      if(type==PushButton_Momentary_UI_t) {
+        PushButton_Momentary_UI& button_momentary_UI = dynamic_cast<PushButton_Momentary_UI&>(**it); // downcast
+        ImGui::Button(button_momentary_UI.getHandleName().c_str());
+        if(ImGui::IsItemActive())
+          button_momentary_UI.setPushed();
+        else
+          button_momentary_UI.setReleased();
+      }
+      if(type==ToggleButton_Latching_UI_t) {
+        ToggleButton_Latching_UI& tbutton_lat_UI = dynamic_cast<ToggleButton_Latching_UI&>(**it); // downcast
+        ToggleButton(tbutton_lat_UI.getHandleName().c_str(), tbutton_lat_UI.getState());
+      }
+      
     }
 
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
