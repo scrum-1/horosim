@@ -5,6 +5,7 @@
 #include "VrepHandle.h"
 #include "ArduinoUno.h"
 #include "Defines.h"
+#include "imgui.h"
 
 
 class ToggleButton_Latching_UI : public VrepHandle {      // The class
@@ -13,6 +14,7 @@ public:             // Access specifier
 
 	ToggleButton_Latching_UI(int, std::string, enum ButtonType);
 	ToggleButton_Latching_UI() {};
+	void updateGUI();
 	int digitalRead(int);
     int analogRead(int);
     void pinMode(char, char);

@@ -7,7 +7,8 @@ extern "C" {
 }
 extern int clientID;
 
-
+//Vector with the handles of joints and sensors
+extern std::vector<VrepHandle*> handles;
 
 VisionSensor::VisionSensor(int pin_i, std::string str, float threshold_i):VrepSensor{pin_i, str, threshold_i} {
 

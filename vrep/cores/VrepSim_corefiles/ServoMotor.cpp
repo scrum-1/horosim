@@ -9,6 +9,8 @@ extern "C" {
 }
 extern int clientID;
 
+//Vector with the handles of joints and sensors
+extern std::vector<VrepHandle*> handles;
 
 ServoMotor::ServoMotor(int pin_i, std::string str, float force, float speed, float reduction):
 	VrepMotor{str, force, speed, reduction} {
