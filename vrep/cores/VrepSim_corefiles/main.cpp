@@ -32,6 +32,7 @@
 #include "Potentiometer_UI.h"
 #include "PushButton_Momentary_UI.h"
 #include "ToggleButton_Latching_UI.h"
+#include "Led_UI.h"
 
 
 #include "imgui.h"
@@ -111,9 +112,9 @@ void my_display_code()
     //ImGui::ArrowButton("TEST", ImGuiDir_Left);
     //ImGui::SameLine();
     //ImGui::Text("counter = %d", counter);
-    static bool b=true;
+    //static bool b=true;
     //ToggleButton("TEST", &b);
-    LED("TEST LED", &b);
+    //LED("TEST LED", &b);
 
     //Lets find the User Interface devices (Switches, Potentiometers, Leds)
     for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
@@ -135,6 +136,10 @@ void my_display_code()
       if(type==ToggleButton_Latching_UI_t) {
         ToggleButton_Latching_UI& tbutton_lat_UI = dynamic_cast<ToggleButton_Latching_UI&>(**it); // downcast
         tbutton_lat_UI.updateGUI();
+      }
+      if(type==Led_UI_t) {
+        Led_UI& led_UI = dynamic_cast<Led_UI&>(**it); // downcast
+        led_UI.updateGUI();
       }
       
     }
@@ -263,7 +268,7 @@ int main(int argc, char** argv)
 #endif
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
   glutInitWindowSize(600, 400);
-  glutCreateWindow("Dear ImGui GLUT+OpenGL2 Example");
+  glutCreateWindow("Arduino2CoppeliaSim");
 
   // Setup GLUT display function
   // We will also call ImGui_ImplGLUT_InstallFuncs() to get all the other functions installed for us,

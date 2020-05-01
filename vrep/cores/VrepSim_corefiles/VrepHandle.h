@@ -10,7 +10,7 @@
 enum HardwareType {VrepHandle_t=0, VrepMotor_t=1, DCMotor_Transistor_t=2, DCMotor_Hbridge_t=3, StepperMotor_t=4, 
   ServoMotor_t=5, VrepSensor_t=10, VisionSensor_t = 11, ProximitySensor_t = 12,
   Potentiometer_UI_t=20, PushButton_Momentary_UI_t=21, PushButton_Latching_UI_t=22, ToggleButton_Momentary_UI_t=23, ToggleButton_Latching_UI_t=24, 
-  LED_UI_t=25}; 
+  Led_UI_t=25}; 
 
 class VrepHandle {       // The class
  

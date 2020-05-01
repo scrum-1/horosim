@@ -2,27 +2,37 @@
 
 # README #
 
-This code simulates a line following robot controlled by an Arduino and connected as specified in the schematics document. The simulator used is Vrep and it should be installed in your computer. You can use the Arduino IDE to compile the code, but the generated program needs to be run from the terminal, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
+This code simulates mechanisms controlled by an Arduino and several standard electronic components. The simulator used is CoppeliaSim (which was known as Vrep before) and it should be installed in your computer. You can use the Arduino IDE to compile the code, but the generated program needs to be run from the terminal, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
 
-### Hardware ###
+__Note: In this document, Vrep and CoppeliaSim are used interchangeably. I hope to update this documentation and remove all references to Vrep soon.__
 
-The robot is a line following robot with two DC motors with wheels (left and right), which are connected to the base of the robot. The base contains two infrared sensors facing towards the ground that detect a black line on the floor. In addition, there is a IR sensor facing forwards that can be used to detect a can. A gripper at the front can grasp the can of the circuit. This gripper is controlled by a servomotor.
+## Features ##
 
-### Electronics ###
+The simulator is able to handle most common types of motors, sensors and standard electronic devices. 
 
-The robot contains a breadboard with two transistors to control the two DC motors. The 3 IR sensors are digital. The schematics of these devices and the Arduino are in the schematics folder ([here](schematics/schematic_line_following_robot.pdf)). Please, check them to know which pins of the Arduino you should use. Or use this information:
+Motors:
 
-* MOTOR_RIGHT_PIN 11
-* MOTOR_LEFT_PIN 10
-* SENSOR_LEFT_PIN 9
-* SENSOR_RIGHT_PIN 8
-* SENSOR_FRONT_PIN 7
-* SERVO_PIN 3
+* DC Motors with transistors
+* DC Motors with motor controllers (H-bridges) like the L298N
+* Stepper motors with STEP/DIR interfaces 
 
+Sensors:
 
-### Software ###
+* Proximity sensors like ultrasounds or Infrareds 
+* Infrareds used as vision sensors to detect colors
 
-You are programming an Arduino Uno. I only ported a very small set of functions that you can use. These functions are listed below:
+Devices for user interfaces
+* LEDs 
+* Potentiometers
+* Buttons (push button and toggle buttons) (momentary or matching)
+
+TODO:
+
+* Potentiometers for joint feedback
+
+## Software ##
+
+You can control your device by writing code for an Arduino board. Currently, only the Arduino Uno is supported. You can program and compile your code from the Arduino IDE. I ported the most common functions. These functions are listed below:
 
 Time:
 
@@ -57,105 +67,32 @@ TODO:
 * ~~analogWrite~~
 * Serial.available
 * Serial.read
+* interrupts
 
 
 ## Installation ##
 
-There are a couple of requirements:
+There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. Take into account that the installation can be a bit tricky, if you are not used to install libraries and developing tools. 
 
-* g++ compiler
-* Arduino IDE (>1.5.0)
-* Vrep simulator
-
-If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8). Thus, you only need to install the Vrep simulator. 
-
-#### Vrep Simulator (Mandatory) ####
-
-Install the Vrep simulator for your operating system. Link: [Vrep simulator](https://www.coppeliarobotics.com/). 
-
-Once is installed, go to the folder where is installed (in my case C:\Program Files\V-REP3\V-REP_PRO_EDU ) and open the remoteApiConnections.txt file.  On MacOS, this file is in the package bundle (/.../V-REP/vrep.app/Contents/MacOS/remoteApiConnections.txt). In this file, change the port to 19997. It should look like this:
-
-	portIndex1_port             = 19997
-	portIndex1_debug            = false
-	portIndex1_syncSimTrigger   = true
-
-
-#### Option 1: Virtual Machine with everything installed ####
-
-I created a virtual machine in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the [Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8) and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the Vrep simulator in your computer (not in the virtual machine). 
-
-#### Option 2: Install g++ compiler, Arduino IDE (>1.5.0) and source code ####
-
-We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit more complicated. I tried to use the MinGW compiler and it did not work as it does not provide a POSIX runtime environment. I tried Visual Studio, but you cannot use it from the terminal (you need to use a special terminal). You can try to use Visual studio, but then you cannot use the Arduino IDE to compile it. I ended up using the g++ through the WSL. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install it. Then, launch a Linux terminal and install a g++ compiler using the following commands: 
-
-	sudo apt-get update
-	sudo apt-get install g++
-	(type "Y" when asked)
-
-Now we need to install the Arduino IDE in WSL. Unfortunately, the Arduino IDE in the Ubuntu repositories is too old. We need to download and install it from the web. Use the following commands:
-
-	wget https://downloads.arduino.cc/arduino-1.8.12-linux64.tar.xz
-	tar -xvf arduino-1.8.12-linux64.tar.xz
-	cd arduino-1.8.12/
-	sudo ./install.sh 
-
-If you are using WSL, you need to install a X server to be able to run the Arduino IDE. I use [Xming](https://sourceforge.net/projects/xming/). Install it in Windows and run it, you will see a new icon in the system tray. In the terminal in WSL, you need to set a display, run:
-export DISPLAY=:0
-
-Now, you should be able to run the Arduino IDE by typing:
-	arduino
-
-When the Arduino IDE is installed, you can run it using a terminal. Go to File-> Preferences and locate the Sketchbook location. In my case, it is /mnt/c/fai/documents/Arduino and /home/htmaa/Arduino in the Ubuntu virtual machine. Go to this folder and check if there is a folder called "hardware". If not, create it. 
-
-	cd /mnt/c/fai/documents/Arduino
-	ls -l
-
-If there is no hardware folder. create it:
-	mkdir hardware
-
-Go to the hardware folder:
-	
-	cd hardware 
-
-Then clone this repository in the hardware folder (or copy all the files there). In my case, the structure is /mnt/c/fai/documents/Arduino/hardware/Arduino2VrepSim/.
-
-If you don't have installed git, you need to install it:
-	
-	sudo apt-get install git
-	(type "Y" when asked)
-
-Then, clone the repository of the Arduino2Vrep:
-
-	git clone https://bitbucket.org/afaina/arduino2vrepsim.git
-
-You are almost ready to run your sketches. We only need to setup the path for the libraries of the Vrep. Close the Arduino IDE. Find the right version of the Vrep libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
-Then, type in your terminal:
-
-	export PATH=$PATH:PATH_TO_VREP_LIB 
-
-In my case:
-	
-	export PATH=$PATH:/mnt/c/Program\ Files/V-REP3/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib/Linux/64Bit/
-
-You are done. Now, open the Arduino IDE and press verify. It should work.
+See [Installation Instructions](docs/Installation.md)
 
 ## Using the simulator ##
 
-First, open the Vrep and load the scene. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](scene_model_robot/line_fllowing_robot.ttt).  If you downloaded the repository, you can find it in the folder "scene_model_robot". To load the scene, go toFile->Open Scene... in Vrep. You should select the file (line_following_robot.ttt). After this, you should see the circuit and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in Vrep, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in Vrep. 
+First, open the CoppeliaSim and load an scene with the model of your machine. For this explanation, we will use the line following robot example. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](examples/lineFollowingRobot/line_fllowing_robot.ttt).  If you downloaded the repository, you can find it in the folder "examples/lineFollowingRobot/". To load the scene, go toFile->Open Scene... in CoppeliaSim. You should select the file (line_following_robot.ttt). After this, you should see the black line on the floor and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in CoppeliaSim, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in CoppeliaSim. 
 
-Second, open the Arduino IDE and open the Test.ino sketch that comes with the repository: If you are using the virtual machine, press in nine dots button at the bottom left corner ("Show Applications") and type Arduino. Then choose the Arduino icon and go to File->Open to locate the Test sketch in /home/htmaa/Arduino/hardware/arduino2vrepsim/Test/Test.ino. 
+Second, open the Arduino IDE and open the Test.ino sketch that comes with the repository (examples/lineFollowingRobot folder): If you are using the virtual machine, press in nine dots button at the bottom left corner ("Show Applications") and type Arduino. Then choose the Arduino icon and go to File->Open to locate the Test sketch in /home/htmaa/Arduino/hardware/arduino2vrepsim/Test/Test.ino. 
 
-Third, select the Board ArduinoUno2Vrep in the Arduino IDE. Tools->Board->ArduinoUno2Vrep. It can be at the bottom, so maybe you have to scroll down in the Board menu. This will change the compiler and, instead of compiling your code for the microcontroller, it will compile the code to use the Vrep simulator.
+Third, select the Board ArduinoUno2Vrep in the Arduino IDE. Tools->Board->ArduinoUno2Vrep. It can be at the bottom, so maybe you have to scroll down in the Board menu. This will change the compiler and, instead of compiling your code for the microcontroller, it will compile the code to use the CoppeliaSim simulator.
 
-Fourth, press verify and it should generate a few warnings but not errors. 
+Fourth, press verify. It should generate a few warnings but not errors. 
 
-Now, we will run the program that we have generated. Please, be sure that you have Vrep simulator open and the scene loaded. Now, you have two options to initiate your program, but we will need a terminal in both of them. If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
+Now, we will run the program that we have generated. Please, be sure that you have CoppeliaSim simulator open and the scene loaded. Now, you have two options to initiate your program, but we will need a terminal in both of them. If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
 
 Option 1 (does not work in WSL):
 
-In Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. For example:
+In the Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. For example:
 
-	cd /home/htmaa/Arduino/arduino2vrepsim/Test
+	cd /home/htmaa/Arduino/arduino2vrepsim/examples/lineFollowingRobot/Test
 
 And run the compiled program:
 
@@ -163,16 +100,16 @@ And run the compiled program:
 
 Option 2:
 
-We should find to the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
+We should find the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
 
 	cd /tmp/
 	ls -l 
 	(you will see a folder like arduino_build_XXXXXX, go to this folder)
 	cd arduino_build_836444/
-	./Test.ino.exe
+	./Test.ino
 
 
-As soon you initiates your program, the robot should move in the Vrep simulator. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
+As soon as you initiate your program, the robot should move in the CoppeliaSim simulator. In this example, the robot will move in circles. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
 
 Now, you can program the Arduino so the robot follows the line, grasps the can and places it at the intersection. Yes, it is possible :-) 
 
@@ -183,56 +120,32 @@ Every time that you change your code:
 
 I recommend that your Arduino program is saved in /home/htmaa/Arduino. So you keep a clean copy of the repository files and you can upgrade the source code easily.
 
-### Updating the software ###
+## Hardware setup ## 
 
-You can update the software by using these commands in the terminal:
+In order to be able to use you machine you should define the kind of electronics and motors and sensors that you will employ. This is done in the model and in the Ardiono code. 
 
-	cd /home/htmaa/Arduino/hardware/arduino2vrepsim/
-	git pull
+In the model, the movements of your machine are defined by joints. Each joint represents a degree of freedom of your machine and they can be rotational or prismatic (linear). In addition, the vision sensors or proximity sensors should be in the model. All the sensors and joints have a name, which should be unique. 
 
-### Troubleshooting ###
+In the Arduino code, you should specify the all electronic elements that you are going to use. This is done in a function called hardware_setup, see below an example:
 
-#### Test the ip of the host machine form the virtual machine ####
-Try this command in the terminal of the virtual machine
+	void hardware_setup(){
+		new DCMotor_Transistor(11, "right_motor", 2.5, -4.1415, 1);
+		new VisionSensor(9, "left_IR", 0.5);
+		new Potentiometer_UI(A0, "pot 1", 0.3);
+	}
 
-	ip route show default
+In this example, we are using a DC motor controlled with a transistor, a vision sensor (IR sensor to detect colors) and a potentiometer that the user can control. Notice that the first parameter is the pin of the Arduino where these devices are connected (11, 9 and A0 respectively). The second argument is the name of the joint or sensor in CoppeliaSim or the user interface ("right_motor", "left_IR" and "pot 1"). If the names of the motors or sensors does not match any joint or sensor in CoppeliaSim, there will be an error. Be aware,that other devices need more that one pin (such as stepper drivers or H-bridge motor controllers).
 
-The result should be something like:
-	
-	default via 10.0.2.2 dev enp0s3 proto dhcp metric 100
+For detailed documentation about how to define the electronic devices, check the [Hardware Setup page](docs/HardwareSetup.md)
 
-The ip shown needs to be 10.0.2.2. If not, thry to change the network adapter in the virtual machine to NAT.
 
-#### Try to see that the port in CoppeliaSim (Vrep) is open ####
+## Creating a model of your machine ##
 
-You can check the CoppeliaSim port if you go to Tools->User settings and uncheck the option "Hide console window". On macOS, in order to see the V-REP console, you have to open the app from the terminal with vrep.app/Contents/MacOS/vrep. Then, in the console, you can find something like: 
+This course not focus on simulation techniques and we will create a basic model of your machine for you. Please, contact me by mail or in the forum.
 
-	Plugin 'RemoteApi': loading...
-	Starting a remote API server on port 19997
-	Plugin 'RemoteApi': load succeeded.
+If you are interested in learning how the model has been created or of you want to fine tune your model, a good tutorial can be found [in this link](https://www.coppeliarobotics.com/helpFiles/en/bubbleRobTutorial.htm). If you want to give your model a realistic appearance, you can use [this tutorial](https://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm). However, it can take a lot of time to prepare it and it is out of the scope of the course. I strongly recommend that you focus on the contents of the course.
 
-#### Try to change the port ####
-
-Try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in Vrep (remoteApiConnections.txt file, and restart Vrep).
-
-#### Try to test the CoppeliaSim examples ####
-
-Please, try to run the example that coppelia provides, for example the python one. You have to go to CoppeliaSim folder/CoppeliaSimEdu/programming/remoteApiBindings/python/python
-
-Copy to this directory the simulator library for your OS. You can find in CoppeliaSim folder/CoppeliaSimEdu/programming/remoteApiBindings/lib/lib/MacOS
-
-Then, try to run the simpleTest.py
-	
-	python simpleTest.py
-
-You should see something like:
-
-	Program started
-	Connected to remote API server
-	('Number of objects in the scene: ', 16)
-	('Mouse position x: ', 1128)
-
-### Questions? ###
+## Questions? ##
 
 Please, send me an email or (better) ask in the forum .
 

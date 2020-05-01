@@ -17,6 +17,7 @@
 #include "Potentiometer_UI.h"
 #include "PushButton_Momentary_UI.h"
 #include "ToggleButton_Latching_UI.h"
+#include "Led_UI.h"
 
 
 #include <vector>
