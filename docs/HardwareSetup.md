@@ -12,7 +12,7 @@ This section explains how to configure the hardware_setup function. This functio
 	}
 
 ## Table of contents
-1. [Motors](##motors)
+1. [Motors](markdown-heading-motors)
 	1. [DCMotor_Transistor](####dcmotor_transistor)
 2. [Sensors in CoppeliaSim](##sensorsincoppeliasim)
     1. [ProximitySensor](####proximitysensor)
