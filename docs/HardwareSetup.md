@@ -18,7 +18,7 @@ This section explains how to configure the hardware_setup function. This functio
     1. [ProximitySensor](#markdown-heading-proximitysensor)
 3. [Sensors and LEDs in the User Interface](##sensorsandledsintheuserinterface)
 
-## Motors ##
+## Motors
 
 Each motor is needs some standard arguments:
 
