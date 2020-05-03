@@ -2,12 +2,12 @@
 #define PUSHBUTTON_MOMENTARY_UI
 
 #include <string>
-#include "VrepHandle.h"
+#include "HardwareDevice.h"
 #include "ArduinoUno.h"
 #include "Defines.h"
 
 
-class PushButton_Momentary_UI : public VrepHandle {      // The class
+class PushButton_Momentary_UI : public HardwareDevice {      // The class
 
 public:             // Access specifier
 

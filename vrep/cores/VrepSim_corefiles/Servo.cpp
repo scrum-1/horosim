@@ -9,7 +9,7 @@ extern "C" {
 #include "extApi.h"
 }
 //Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
+extern std::vector<HardwareDevice*> handles;
 
 extern int clientID;
 
@@ -20,7 +20,7 @@ void Servo::attach(int pin_i) {
 		return;
 
 	//Lets find the name of the handle that is connected to this pin
-	for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+	for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
 		int pin=(*it)->getServoPin();
 		if(pin==pin_i){
 			pin=pin_i;

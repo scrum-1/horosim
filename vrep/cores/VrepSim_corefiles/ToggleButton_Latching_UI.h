@@ -2,13 +2,13 @@
 #define TOGGLEBUTTON_LATCHING_UI
 
 #include <string>
-#include "VrepHandle.h"
+#include "HardwareDevice.h"
 #include "ArduinoUno.h"
 #include "Defines.h"
 #include "imgui.h"
 
 
-class ToggleButton_Latching_UI : public VrepHandle {      // The class
+class ToggleButton_Latching_UI : public HardwareDevice {      // The class
 
 public:             // Access specifier
 

@@ -9,9 +9,10 @@ extern "C" {
 extern int clientID;
 
 //Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
+extern std::vector<HardwareDevice*> handles;
 
-Potentiometer_UI::Potentiometer_UI(int pin_i, std::string str, float init_state):VrepHandle{str} {
+Potentiometer_UI::Potentiometer_UI(int pin_i, std::string str, float init_state):
+HardwareDevice{str} {
 	pin=pin_i;
 	type=Potentiometer_UI_t;
 	if(init_state>1)

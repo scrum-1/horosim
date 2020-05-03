@@ -9,15 +9,16 @@ extern "C" {
 extern int clientID;
 
 //Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
+extern std::vector<HardwareDevice*> handles;
 
-Led_UI::Led_UI(int pin_i, std::string str):VrepHandle{str} {
+Led_UI::Led_UI(int pin_i, std::string str):HardwareDevice{str} {
 	pin=pin_i;
 	type=Led_UI_t;
 	handles.push_back(this);
 }
 
-Led_UI::Led_UI(int pin_i, std::string str, enum LedColor color_i):VrepHandle{str} {
+Led_UI::Led_UI(int pin_i, std::string str, enum LedColor color_i):
+HardwareDevice{str} {
 	pin=pin_i;
 	color=color_i;
 	type=Led_UI_t;

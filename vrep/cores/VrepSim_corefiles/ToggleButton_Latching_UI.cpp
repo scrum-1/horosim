@@ -9,9 +9,10 @@ extern "C" {
 extern int clientID;
 
 //Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
+extern std::vector<HardwareDevice*> handles;
 
-ToggleButton_Latching_UI::ToggleButton_Latching_UI(int pin_i, std::string str, enum ButtonType b_type_i):VrepHandle{str} {
+ToggleButton_Latching_UI::ToggleButton_Latching_UI(int pin_i, std::string str, enum ButtonType b_type_i):
+HardwareDevice{str} {
 	pin=pin_i;
 	b_type=b_type_i;
 	if(b_type==PULL_DOWN)

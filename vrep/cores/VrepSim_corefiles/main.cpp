@@ -59,7 +59,7 @@ extern "C" {
 }
 
 //Vector with the handles of joints and sensors
-std::vector<VrepHandle*> handles;
+std::vector<HardwareDevice*> handles;
 
 int clientID = -1;
 bool stop_sim = false;
@@ -117,7 +117,7 @@ void my_display_code()
     //LED("TEST LED", &b);
 
     //Lets find the User Interface devices (Switches, Potentiometers, Leds)
-    for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+    for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
       //printf("Type: %d\n", (*it)->getType());
       auto type=(*it)->getType();
       if(type==Potentiometer_UI_t) {
@@ -347,26 +347,26 @@ int vrep_setup() {
 }
 
 void pinMode(char pin, char mode) {
-  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+  for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
 
     (*it)->pinMode(pin, mode);
   }
 }
 void digitalWrite(char a, char b) {
-  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+  for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
     (*it)->digitalWrite(a, b);
   }
 }
 
 void analogWrite(char a, int b) {
-  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+  for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
     (*it)->analogWrite(a, b);
   }
 }
 
 int digitalRead(int a) {
   int result;
-  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+  for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
     result=(*it)->digitalRead(a);
     if(result>=0)
       return result;
@@ -377,7 +377,7 @@ int digitalRead(int a) {
 
 int analogRead(int a) {
   int result;
-  for(vector<VrepHandle*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+  for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
     result=(*it)->analogRead(a);
     if(result>=0)
       return result;

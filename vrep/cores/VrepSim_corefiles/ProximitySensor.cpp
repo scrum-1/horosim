@@ -8,7 +8,7 @@ extern "C" {
 extern int clientID;
 
 //Vector with the handles of joints and sensors
-extern std::vector<VrepHandle*> handles;
+extern std::vector<HardwareDevice*> handles;
 
 ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, float threshold_i):VrepSensor{pin_i, str, threshold_i} {
 

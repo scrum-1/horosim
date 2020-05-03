@@ -2,13 +2,13 @@
 #define LED_UI
 
 #include <string>
-#include "VrepHandle.h"
+#include "HardwareDevice.h"
 #include "ArduinoUno.h"
 #include "Defines.h"
 #include "imgui.h"
 
 
-class Led_UI : public VrepHandle {      // The class
+class Led_UI : public HardwareDevice {      // The class
 
 public:             // Access specifier
 

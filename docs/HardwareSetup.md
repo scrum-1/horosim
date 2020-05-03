@@ -14,9 +14,17 @@ This section explains how to configure the hardware_setup function. This functio
 ## Table of contents
 1. [Motors](#markdown-header-motors)
 	1. [DCMotor_Transistor](#markdown-header-dcmotor_transistor)
-2. [Sensors in CoppeliaSim](##sensorsincoppeliasim)
+	2. [DCMotor_Hbridge](#markdown-header-dcmotor_hbridge)
+	3. [ServoMotor](#markdown-header-servomotor)
+	4. [StepperMotor](#markdown-header-steppermotor)
+2. [Sensors in CoppeliaSim](#markdown-header-sensors-in-coppeliasim)
     1. [ProximitySensor](#markdown-header-proximitysensor)
-3. [Sensors and LEDs in the User Interface](##sensorsandledsintheuserinterface)
+    1. [VisionSensor](#markdown-header-visionsensor)
+3. [Sensors and LEDs in the User Interface](#markdown-header-sensors-and-leds-in-the-user-interface)
+	1. [Led_UI](#markdown-header-led_ui)
+	2. [Potentiometer_UI](#markdown-header-potentiometer_ui)
+	3. [PushButton_Momentary_UI](#markdown-header-pushbutton_momentary_ui)
+	4. [ToggleButton_Latching_UI](#markdown-header-togglebutton_latching_ui)
 
 ## Motors
 
@@ -99,7 +107,7 @@ This motor has a feedback loop and it will try to reach a target position. The s
 
 To generate movement, you need to select a turning direction with the dir pin and generate s a sequence of steps in the step pin. The motor moves one step at every rising edge (LOW to HIGH transition). Currently, only 200 steps/revolution servos are implemented. Only full step is implemented.  
 
-## Sensors (in CoppeliaSim) ##
+## Sensors in CoppeliaSim ##
 
 Each sensor needs some standard arguments:
 

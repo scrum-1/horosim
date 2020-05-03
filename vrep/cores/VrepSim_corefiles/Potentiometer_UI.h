@@ -2,11 +2,11 @@
 #define POTENTIOMETER_UI
 
 #include <string>
-#include "VrepHandle.h"
+#include "HardwareDevice.h"
 #include "ArduinoUno.h"
 
 
-class Potentiometer_UI : public VrepHandle {      // The class
+class Potentiometer_UI : public HardwareDevice {      // The class
 
 public:             // Access specifier
 
