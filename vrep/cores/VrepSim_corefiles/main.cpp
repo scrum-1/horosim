@@ -64,25 +64,6 @@ std::vector<HardwareDevice*> handles;
 int clientID = -1;
 bool stop_sim = false;
 
-void LED(const char* str_id, bool* v)
-{
-    ImVec2 p = ImGui::GetCursorScreenPos();
-    ImDrawList* draw_list = ImGui::GetWindowDrawList();
-
-    float height = ImGui::GetFrameHeight();
-    float width = height * 1.55f;
-    float radius = height * 0.50f;
-
-    ImU32 col_bg;
-    col_bg = *v ? IM_COL32(145+20, 211, 68+20, 255) : IM_COL32(255, 255, 255, 255);
-
-    ImGui::InvisibleButton(str_id, ImVec2(width, height));
-    //draw_list->AddRectFilled(p, ImVec2(p.x + width, p.y + height), col_bg, height * 0.5f);
-    draw_list->AddCircleFilled(ImVec2(p.x + radius, p.y + radius), radius , IM_COL32(255, 255, 255, 255));
-    draw_list->AddCircleFilled(ImVec2(p.x + radius, p.y + radius), radius - 1.5f, col_bg);
-    ImGui::SameLine();
-    ImGui::Text(str_id);  
-}
 
 void my_display_code()
 {
@@ -227,7 +208,12 @@ int main(int argc, char** argv)
   //If we could not connect to localhost, it should be a VM. Try default gateway
   if(clientID==-1)
     clientID=simxStart((simxChar*)"10.0.2.2",port,true,true,2000,commThreadCycleInMs);
-
+  if(clientID==-1){
+    port=10000; //Another port to try
+    clientID=simxStart((simxChar*)"127.0.0.1",port,true,true,2000,commThreadCycleInMs);
+  }
+  if(clientID==-1)
+    clientID=simxStart((simxChar*)"10.0.2.2",port,true,true,2000,commThreadCycleInMs);
 
   if(clientID==-1) {
     printf("ARDUINO2VREP: NOT Connected to remote API server\n");

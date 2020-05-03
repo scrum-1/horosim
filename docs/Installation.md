@@ -1,6 +1,6 @@
 # Installation #
 
-There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. Take into account that the installation can be a bit tricky, if you are not used to install libraries and developing tools. 
+There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. Take into account that the installation can be a bit tricky, specially if you are not used to install libraries and developing tools. 
 
 
 There are a couple of requirements:
@@ -26,13 +26,22 @@ Once is installed, go to the folder where is installed (in my case C:\Program Fi
 
 I created a virtual machine in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the [Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8) and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the Vrep simulator in your computer (not in the virtual machine). 
 
-## Option 2: Install g++ compiler, Arduino IDE (>1.5.0) and source code ##
+## Option 2: Install all the software in your machine ##
+
+#### g++ compiler
 
 We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit more complicated. I tried to use the MinGW compiler and it did not work as it does not provide a POSIX runtime environment. I tried Visual Studio, but you cannot use it from the terminal (you need to use a special terminal). You can try to use Visual studio, but then you cannot use the Arduino IDE to compile it. I ended up using the g++ through the WSL. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install it. Then, launch a Linux terminal and install a g++ compiler using the following commands: 
 
 	sudo apt-get update
 	sudo apt-get install g++
 	(type "Y" when asked)
+
+
+#### libraries
+
+Other libraries that wi will use for the graphical user interface are OpenGL and GLUT. Yes, they are very old but they are easy to use and install.
+
+#### Arduino IDE (>1.5.0)
 
 Now we need to install the Arduino IDE in WSL. Unfortunately, the Arduino IDE in the Ubuntu repositories is too old. We need to download and install it from the web. Use the following commands:
 
@@ -46,6 +55,8 @@ export DISPLAY=:0
 
 Now, you should be able to run the Arduino IDE by typing:
 	arduino
+
+#### Source code 
 
 When the Arduino IDE is installed, you can run it using a terminal. Go to File-> Preferences and locate the Sketchbook location. In my case, it is /mnt/c/fai/documents/Arduino and /home/htmaa/Arduino in the Ubuntu virtual machine. Go to this folder and check if there is a folder called "hardware". If not, create it. 
 
@@ -70,15 +81,16 @@ Then, clone the repository of the Arduino2Vrep:
 
 	git clone https://bitbucket.org/afaina/arduino2vrepsim.git
 
-You are almost ready to run your sketches. We only need to setup the path for the libraries of the Vrep. Close the Arduino IDE. Find the right version of the Vrep libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
-Then, type in your terminal:
+Removed as I think it is not necessary:
+~~You are almost ready to run your sketches. We only need to setup the path for the libraries of the Vrep. Close the Arduino IDE. Find the right version of the Vrep libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
+Then, type in your terminal:~~
 
-	export PATH=$PATH:PATH_TO_VREP_LIB 
+	~~export PATH=$PATH:PATH_TO_VREP_LIB ~~
 
-In my case:
+~~In my case:~~
 	
-	export PATH=$PATH:/mnt/c/Program\ Files/V-REP3/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib/Linux/64Bit/
-
+	~~export PATH=$PATH:/mnt/c/Program\ Files/V-REP3/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib/Linux/64Bit/~~
+~~
 You are done. Now, open the Arduino IDE and press verify. It should work.
 
 
