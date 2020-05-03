@@ -22,13 +22,17 @@ Sensors:
 * Infrareds used as vision sensors to detect colors
 
 Devices for user interfaces
+
 * LEDs 
 * Potentiometers
 * Buttons (push button and toggle buttons) (momentary or matching)
 
-TODO:
+TODO (not in this semester):
 
 * Potentiometers for joint feedback
+* Joysticks for user interface
+* 7 segments displays for user interface
+
 
 ## Software ##
 
@@ -78,7 +82,7 @@ See [Installation Instructions](docs/Installation.md)
 
 ## Using the simulator ##
 
-First, open the CoppeliaSim and load an scene with the model of your machine. For this explanation, we will use the line following robot example. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](examples/lineFollowingRobot/line_fllowing_robot.ttt).  If you downloaded the repository, you can find it in the folder "examples/lineFollowingRobot/". To load the scene, go toFile->Open Scene... in CoppeliaSim. You should select the file (line_following_robot.ttt). After this, you should see the black line on the floor and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in CoppeliaSim, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in CoppeliaSim. 
+First, open the CoppeliaSim and load an scene with the model of your machine. For this explanation, we will use the line following robot example. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](examples/lineFollowingRobot/line_following_robot.ttt).  If you downloaded the repository, you can find it in the folder "examples/lineFollowingRobot/". To load the scene, go toFile->Open Scene... in CoppeliaSim. You should select the file (line_following_robot.ttt). After this, you should see the black line on the floor and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in CoppeliaSim, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in CoppeliaSim. 
 
 Second, open the Arduino IDE and open the Test.ino sketch that comes with the repository (examples/lineFollowingRobot folder): If you are using the virtual machine, press in nine dots button at the bottom left corner ("Show Applications") and type Arduino. Then choose the Arduino icon and go to File->Open to locate the Test sketch in /home/htmaa/Arduino/hardware/arduino2vrepsim/Test/Test.ino. 
 
@@ -120,7 +124,7 @@ Every time that you change your code:
 
 I recommend that your Arduino program is saved in /home/htmaa/Arduino. So you keep a clean copy of the repository files and you can upgrade the source code easily.
 
-## Hardware setup ## 
+## Hardware setup ##
 
 In order to be able to use you machine you should define the kind of electronics and motors and sensors that you will employ. This is done in the model and in the Ardiono code. 
 
