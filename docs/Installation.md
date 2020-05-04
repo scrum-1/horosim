@@ -28,7 +28,7 @@ I created a virtual machine in VirtualBox. First, install virtualBox from [here]
 
 ## Option 2: Install all the software in your machine ##
 
-#### g++ compiler
+#### g++ compiler and libraries
 
 We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit more complicated. I tried to use the MinGW compiler and it did not work as it does not provide a POSIX runtime environment. I tried Visual Studio, but you cannot use it from the terminal (you need to use a special terminal). You can try to use Visual studio, but then you cannot use the Arduino IDE to compile it. I ended up using the g++ through the WSL. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install it. Then, launch a Linux terminal and install a g++ compiler using the following commands: 
 
@@ -36,10 +36,10 @@ We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit m
 	sudo apt-get install g++
 	(type "Y" when asked)
 
+The libraries to create the graphical user interface are OpenGL and GLUT. Yes, they are very old but they are easy to use and install. To install them, just type:
 
-#### libraries
-
-Other libraries that wi will use for the graphical user interface are OpenGL and GLUT. Yes, they are very old but they are easy to use and install.
+	sudo apt-get install freeglut3-dev
+	(type "Y" when asked)
 
 #### Arduino IDE (>1.5.0)
 
@@ -85,12 +85,12 @@ Removed as I think it is not necessary:
 ~~You are almost ready to run your sketches. We only need to setup the path for the libraries of the Vrep. Close the Arduino IDE. Find the right version of the Vrep libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
 Then, type in your terminal:~~
 
-	~~export PATH=$PATH:PATH_TO_VREP_LIB ~~
+~~export PATH=$PATH:PATH_TO_VREP_LIB ~~
 
 ~~In my case:~~
 	
-	~~export PATH=$PATH:/mnt/c/Program\ Files/V-REP3/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib/Linux/64Bit/~~
-~~
+~~export PATH=$PATH:/mnt/c/Program\ Files/V-REP3/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib/Linux/64Bit/~~
+
 You are done. Now, open the Arduino IDE and press verify. It should work.
 
 
@@ -124,7 +124,9 @@ You can check the CoppeliaSim port if you go to Tools->User settings and uncheck
 
 ### Try to change the port ###
 
-Try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in Vrep (remoteApiConnections.txt file, and restart Vrep).
+The program tries to find CoppeliaSim in the port 19997. If it is not found, it automatically tries the port 10000. Try to set the CoppeliaSim port to 10000 (in the remoteApiConnections.txt file), restart CoppeliaSim and run your program.
+
+If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in Vrep (remoteApiConnections.txt file, and restart Vrep).
 
 ### Try to test the CoppeliaSim examples ###
 

@@ -76,7 +76,7 @@ TODO:
 
 ## Installation ##
 
-There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. Take into account that the installation can be a bit tricky, if you are not used to install libraries and developing tools. 
+There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. 
 
 See [Installation Instructions](docs/Installation.md)
 
@@ -124,6 +124,10 @@ Every time that you change your code:
 
 I recommend that your Arduino program is saved in /home/htmaa/Arduino. So you keep a clean copy of the repository files and you can upgrade the source code easily.
 
+#### Examples
+
+I provide with two different examples. The first one is the line following robot. The second one is an example of the user interface (buttons, potentiometers and LEDs). For more information about the examples, check the [examples page](docs/Examples.md)
+
 ## Hardware setup ##
 
 In order to be able to use you machine you should define the kind of electronics and motors and sensors that you will employ. This is done in the model and in the Ardiono code. 
@@ -148,6 +152,29 @@ For detailed documentation about how to define the electronic devices, check the
 This course not focus on simulation techniques and we will create a basic model of your machine for you. Please, contact me by mail or in the forum.
 
 If you are interested in learning how the model has been created or of you want to fine tune your model, a good tutorial can be found [in this link](https://www.coppeliarobotics.com/helpFiles/en/bubbleRobTutorial.htm). If you want to give your model a realistic appearance, you can use [this tutorial](https://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm). However, it can take a lot of time to prepare it and it is out of the scope of the course. I strongly recommend that you focus on the contents of the course.
+
+### Fine tuning your model
+
+Maybe you just want to adjust the model a bit to add a new sensor or a new feature. You are welcome to modified your model.
+
+#### Adding an physical object
+
+In order to add a physical object you have to load your initial model and go to Add->Primitive Shape->Cuboid or Add->Primitive Shape->Sphere or Add->Primitive Shape->Cylinder. Then, a new object will be in the Scene hierarchy (the left panel where you can see the scene objects). The object will be free and will react to forces caused by your motors or the gravity. If it needs to be fixed to another object you have two options: (1) Add a force sensor (Add-Force Sensor) or (2) group your object with the other object.
+
+Option 1: Move the sensor, press the "Object/item shift" button  in the button menu (a cube with four small arrows). A menu will show up. Put the sensor close to the object that is already in your model by dragging it with the mouse or by giving a specific position. Then, repeat the process with the new object and rotate it if it is necessary ("Object/item rotate" button, which is next to the move object button). Now, the sensor and object are in place but they will behave as independent objects. To attach them to the object, drag the force sensor to the object that is in your model in the Scene hierarchy. Then, drag the new object to the force sensor in the Scene hierarchy. Now, both objects are linked during the simulation.
+
+Option 2: You can select the two objects (using control and clicking them) and then do a right click and select the option "Edit->Grouping/Merging->Group Selected Shapes". This will probably change the hierarchy that you had before. You need restore it by dragging the objects in the Scene hierarchy. You can press Control+Z to undo the changes and see the previous hierarchy. 
+
+#### Adding a sensor
+
+In order to add a sensor you have to load your initial model and go to Add->Vision Sensor->Orthographic type or Add->Proximity Sensor->Ray type. As soon as you do this, a sensor will be added to the the scene. For proximity sensors, you need to adjust the range of the sensor. Double click on its icon in the Scene hierarchy (the left panel where you can see the scene objects) and a menu will pop up. Press "show volume parameters" and in that menu set the offset to 0 and set range to an appropriate value for your sensor (a few cm for IRs and up to 2 or 3 meters for US). remember the range to set this parameter in the hardware setup function. When the sensor is configured, it needs to be placed as a child of a physical object of your model. Then the sensor will be attached to this object. To do this, drag the sensor to the object in the scene hierarchy. The sensor will probably need to be move to its right position. To do that, use the "object/item shift" in the button menu (see the previous section for more info). Finally, the objects that the the proximity sensors are going to detect need to be modified. Double click on this object in the scene hierarchy and press the common tab. Here check the checkbox called "detectable". Then, this object will be detected by the proximity sensors.
+
+Remember to rename the sensor to use it as parameter in the hardware_setup function. You can rename it by double clicking **on the text** of the sensor in the Scene hierarchy.
+
+#### Adding a motor
+
+This follows the same procedure as for the sensors and objects. First, add a joint (Add->Joint->Revolute or Add->Joint->Prismatic). Then move it to the right place. Finally, drag it to its parent object and drag another object to be its child in the Scene hierarchy. Note that this is a physics simulation. The parameters of the motors are set through the hardware_setup function and they do not need to be changed in CoppeliaSim.
+
 
 ## Questions? ##
 
