@@ -96,7 +96,9 @@ Option 1
 
 This is the easiest way to run a program. Just press the upload button of the IDE and the code will run. The output of you program can be seen at the bottom of the Arduino IDE (where the messages and errors appear). To stop the program, just close the user interface window.
 
-**Note: the Arduino IDE shows the output (Serial.write/print) in chunks and you will not see a smooth output. So, it is better to use the option 2 or 3 to debug your code using Serial.write/print.** 
+**Note: The first time, I needed to connect a real Arduino to have a serial port. After that it runs without it. Let me know your experiences!**
+
+**Note 2: the Arduino IDE shows the output (Serial.write/print) in chunks and you will not see a smooth output. So, it is better to use the option 2 or 3 to debug your code using Serial.write/print.** 
 
 
 Option 2 (does not work in WSL):
