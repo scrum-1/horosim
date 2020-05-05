@@ -90,9 +90,18 @@ Third, select the Board ArduinoUno2Vrep in the Arduino IDE. Tools->Board->Arduin
 
 Fourth, press verify. It should generate a few warnings but not errors. 
 
-Now, we will run the program that we have generated. Please, be sure that you have CoppeliaSim simulator open and the scene loaded. Now, you have two options to initiate your program, but we will need a terminal in both of them. If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
+Now, we will run the program that we have generated. Please, be sure that you have CoppeliaSim simulator open and the scene loaded. Now, you have three options to initiate your program.
 
-Option 1 (does not work in WSL):
+Option 1
+
+This is the easiest way to run a program. Just press the upload button of the IDE and the code will run. The output of you program can be seen at the bottom of the Arduino IDE (where the messages and errors appear). To stop the program, just close the user interface window.
+
+**Note: the Arduino IDE shows the output (Serial.write/print) in chunks and you will not see a smooth output. So, it is better to use the option 2 or 3 to debug your code using Serial.write/print.** 
+
+
+Option 2 (does not work in WSL):
+
+For option 2 and 3,  we will need a terminal . If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
 
 In the Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. For example:
 
@@ -102,7 +111,9 @@ And run the compiled program:
 
 	./Test.ino.exe
 
-Option 2:
+Option 3:
+
+For option 2 and 3,  we will need a terminal . If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
 
 We should find the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
 
@@ -175,6 +186,9 @@ Remember to rename the sensor to use it as parameter in the hardware_setup funct
 
 This follows the same procedure as for the sensors and objects. First, add a joint (Add->Joint->Revolute or Add->Joint->Prismatic). Then move it to the right place. Finally, drag it to its parent object and drag another object to be its child in the Scene hierarchy. Note that this is a physics simulation. The parameters of the motors are set through the hardware_setup function and they do not need to be changed in CoppeliaSim.
 
+## Known issues
+
+* The user interface is frozen during the delays: If you have long delays (more than 1000ms), you will not be able to use the user interface (click buttons, move potentiometers, etc.).
 
 ## Questions? ##
 

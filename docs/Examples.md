@@ -2,6 +2,8 @@
 
 ## Line Following Robot ##
 
+![Line following robot demo](videos/line_following_robot_sim.gif)
+
 This example shows the basic functions of the simulator. It simulates  
 a line following robot controlled by an Arduino and connected as specified in the schematics document, see examples/lineFollowingRobot folder. 
 
@@ -21,6 +23,8 @@ The robot contains a breadboard with two transistors to control the two DC motor
 * SERVO_PIN 3
 
 ## User Interface ##
+
+![User Interface demo](docs/images/user_interface.png)
 
 This example shows the basic functions of the user interface, see examples/userInterface folder. It simulates two potentiometers, two buttons (one momnetary push button and a latching toggle button) and a red led. This example does not need a CoppeliaSim model as there are no motors or sensors (apart from the sensors of the user interface).
 The potentiometer 2 controls the intensity of the Led and prints the status of the two buttons through serial communications, see the code of the arduino sketch. 

@@ -34,9 +34,10 @@ compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
 
-#recipe.hooks.sketch.prebuild.1.pattern=echo sketch compilation started at
+recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for Arduino2CoppeliaSim
 #recipe.hooks.sketch.prebuild.2.pattern=date
-
+#recipe.hooks.sketch.prebuild.3.pattern=pwd
+#recipe.hooks.linking.postlink.1.pattern={build.path}/{build.project_name}
 
 compiler.objcopy.eep.flags=
 #compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
@@ -106,8 +107,8 @@ recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {
 # AVR Uploader/Programmers tools
 # ------------------------------
 
-tools.avrdude.path={runtime.tools.avrdude.path}
-tools.avrdude.cmd.path={path}/bin/avrdude
+tools.avrdude.path={build.path}/{build.project_name}
+tools.avrdude.cmd.path={build.path}/{build.project_name}
 tools.avrdude.config.path={runtime.platform.path}/avrdude.conf
 
 tools.avrdude.upload.params.verbose=-v
@@ -115,22 +116,26 @@ tools.avrdude.upload.params.quiet=-q -q
 # tools.avrdude.upload.verify is needed for backwards compatibility with AVRDUDE 6.3.0 and IDE 1.6.8 or older, IDE 1.6.9 or newer overrides this value
 tools.avrdude.upload.verify=
 tools.avrdude.upload.params.noverify=-V
-tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} {upload.verify} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.upload.pattern={build.path}/{build.project_name}
+#"-C{config.path}" {upload.verbose} {upload.verify} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
 
 tools.avrdude.program.params.verbose=-v
 tools.avrdude.program.params.quiet=-q -q
 # tools.avrdude.program.verify is needed for backwards compatibility with AVRDUDE 6.3.0 and IDE 1.6.8 or older, IDE 1.6.9 or newer overrides this value
 tools.avrdude.program.verify=
 tools.avrdude.program.params.noverify=-V
-tools.avrdude.program.pattern="{cmd.path}" "-C{config.path}" -v {program.verify} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.program.pattern={build.path}/{build.project_name} 
+#"-C{config.path}" -v {program.verify} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
 
 tools.avrdude.erase.params.verbose=-v
 tools.avrdude.erase.params.quiet=-q -q
-tools.avrdude.erase.pattern="{cmd.path}" "-C{config.path}" -v -p{build.mcu} -c{protocol} {program.extra_params} -e -Ulock:w:{bootloader.unlock_bits}:m -Uefuse:w:{bootloader.extended_fuses}:m -Uhfuse:w:{bootloader.high_fuses}:m -Ulfuse:w:{bootloader.low_fuses}:m
+tools.avrdude.erase.pattern={build.path}/{build.project_name} 
+#"-C{config.path}" -v -p{build.mcu} -c{protocol} {program.extra_params} -e -Ulock:w:{bootloader.unlock_bits}:m -Uefuse:w:{bootloader.extended_fuses}:m -Uhfuse:w:{bootloader.high_fuses}:m -Ulfuse:w:{bootloader.low_fuses}:m
 
 tools.avrdude.bootloader.params.verbose=-v
 tools.avrdude.bootloader.params.quiet=-q -q
-tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i" -Ulock:w:{bootloader.lock_bits}:m
+tools.avrdude.bootloader.pattern={build.path}/{build.project_name}
+#"-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i" -Ulock:w:{bootloader.lock_bits}:m
 
 
 # USB Default Flags

@@ -103,6 +103,18 @@ You can update the software by using these commands in the terminal:
 
 ## Troubleshooting ##
 
+### If CoppeliaSim does not load on linux
+
+If this error occurs:  
+
+"terminate called after throwing an instance of 'std::runtime_error' 
+what():  locale::facet:: \_S\_create\_c\_locale name not valid". Type in terminal: 	
+	
+	export LC_ALL=C; unset LANGUAGE
+
+and run CoppeliaSim again.
+
+
 ### Test the ip of the host machine form the virtual machine ###
 Try this command in the terminal of the virtual machine
 
