@@ -13,7 +13,7 @@ The robot is a line following robot with two DC motors with wheels (left and rig
 
 ### Electronics ###
 
-The robot contains a breadboard with two transistors to control the two DC motors. The 3 IR sensors are digital. The schematics of these devices and the Arduino are in the schematics folder ([here](schematics/schematic_line_following_robot.pdf)). Please, check them to know which pins of the Arduino you should use. Or use this information:
+The robot contains a breadboard with two transistors to control the two DC motors. The 3 IR sensors are digital. The schematics of these devices and the Arduino are in the schematics folder ([here](..examples/lineFollowingRobot/schematics/schematic_line_following_robot.pdf)). Please, check them to know which pins of the Arduino you should use. Or use this information:
 
 * MOTOR_RIGHT_PIN 11
 * MOTOR_LEFT_PIN 10

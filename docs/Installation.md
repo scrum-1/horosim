@@ -7,13 +7,13 @@ There are a couple of requirements:
 
 * g++ compiler
 * Arduino IDE (>1.5.0)
-* Vrep simulator
+* CoppeliaSim simulator
 
-If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8). Thus, you only need to install the Vrep simulator. 
+If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8). Thus, you only need to install the CoppeliaSim simulator. 
 
-## Vrep Simulator (Mandatory) ##
+## CoppeliaSim Simulator (Mandatory) ##
 
-Install the Vrep simulator for your operating system. Link: [Vrep simulator](https://www.coppeliarobotics.com/). 
+Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
 
 Once is installed, go to the folder where is installed (in my case C:\Program Files\V-REP3\V-REP_PRO_EDU ) and open the remoteApiConnections.txt file.  On MacOS, this file is in the package bundle (/.../V-REP/vrep.app/Contents/MacOS/remoteApiConnections.txt). In this file, change the port to 19997. It should look like this:
 
@@ -24,7 +24,7 @@ Once is installed, go to the folder where is installed (in my case C:\Program Fi
 
 ## Option 1: Virtual Machine with everything installed ##
 
-I created a virtual machine in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the [Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8) and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the Vrep simulator in your computer (not in the virtual machine). 
+I created a virtual machine in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the [Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8) and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the CoppeliaSim simulator in your computer (not in the virtual machine). 
 
 ## Option 2: Install all the software in your machine ##
 
@@ -82,7 +82,7 @@ Then, clone the repository of the Arduino2Vrep:
 	git clone https://bitbucket.org/afaina/arduino2vrepsim.git
 
 Removed as I think it is not necessary:
-~~You are almost ready to run your sketches. We only need to setup the path for the libraries of the Vrep. Close the Arduino IDE. Find the right version of the Vrep libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
+~~You are almost ready to run your sketches. We only need to setup the path for the libraries of the CoppeliaSim. Close the Arduino IDE. Find the right version of the CoppeliaSim libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
 Then, type in your terminal:~~
 
 ~~export PATH=$PATH:PATH_TO_VREP_LIB ~~
@@ -138,7 +138,7 @@ You can check the CoppeliaSim port if you go to Tools->User settings and uncheck
 
 The program tries to find CoppeliaSim in the port 19997. If it is not found, it automatically tries the port 10000. Try to set the CoppeliaSim port to 10000 (in the remoteApiConnections.txt file), restart CoppeliaSim and run your program.
 
-If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in Vrep (remoteApiConnections.txt file, and restart Vrep).
+If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in CoppeliaSim (remoteApiConnections.txt file, and restart CoppeliaSim).
 
 ### Try to test the CoppeliaSim examples ###
 
