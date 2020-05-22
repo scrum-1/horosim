@@ -26,7 +26,7 @@ compiler.c.elf.cmd=g++
 compiler.S.flags=-c -g -x assembler-with-cpp
 
 compiler.cpp.cmd=g++ 
-compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD 
+compiler.cpp.flags=-std=c++11 -c -g -Os {compiler.warning_flags} -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD 
 
 compiler.ar.cmd=ar
 compiler.ar.cmd.windows=ar.exe
@@ -51,7 +51,8 @@ build.extra_flags=
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags=
-compiler.c.elf.extra_flags=
+compiler.c.elf.extra_flags=-lGL -lGLU -lglut
+compiler.c.elf.extra_flags.macosx=-framework OpenGL -framework GLUT
 compiler.S.extra_flags=
 compiler.cpp.extra_flags=
 compiler.ar.extra_flags=
@@ -76,7 +77,7 @@ recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compil
 
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread -L/usr/lib/x86_64-linux-gnu -lGL -lGLU -lglut
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
 
 ## Create output files (.eep and .hex)
 #recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
