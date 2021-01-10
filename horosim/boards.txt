@@ -34,16 +34,16 @@
 #####################
 
 # General
-uno2Vrep.name=ArduinoUno2Vrep
-uno2Vrep.upload.tool=avrdude
-uno2Vrep.upload.protocol=arduino
-uno2Vrep.upload.speed=115200
-uno2Vrep.upload.maximum_data_size=8192
-uno2Vrep.bootloader.tool=avrdude
-uno2Vrep.bootloader.unlock_bits=0x3f
-uno2Vrep.bootloader.lock_bits=0x0f
-uno2Vrep.build.core=VrepSim_corefiles
-#uno2Vrep.build.variant=64-pin-avr
-uno2Vrep.build.board=AVR_ATmega2561
-uno2Vrep.build.mcu=atmega2561
+arduinoUno.name=ArduinoUno_HoRoSim
+arduinoUno.upload.tool=avrdude
+arduinoUno.upload.protocol=arduino
+arduinoUno.upload.speed=115200
+arduinoUno.upload.maximum_data_size=8192
+arduinoUno.bootloader.tool=avrdude
+arduinoUno.bootloader.unlock_bits=0x3f
+arduinoUno.bootloader.lock_bits=0x0f
+arduinoUno.build.core=horosim_corefiles
+#arduinoUno.build.variant=64-pin-avr
+arduinoUno.build.board=AVR_ATmega2561
+arduinoUno.build.mcu=atmega2561
 

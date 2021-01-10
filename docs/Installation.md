@@ -51,9 +51,11 @@ Now we need to install the Arduino IDE in WSL. Unfortunately, the Arduino IDE in
 	sudo ./install.sh 
 
 If you are using WSL, you need to install a X server to be able to run the Arduino IDE. I use [Xming](https://sourceforge.net/projects/xming/). Install it in Windows and run it, you will see a new icon in the system tray. In the terminal in WSL, you need to set a display, run:
-export DISPLAY=:0
+
+	export DISPLAY=:0
 
 Now, you should be able to run the Arduino IDE by typing:
+
 	arduino
 
 #### Source code 
