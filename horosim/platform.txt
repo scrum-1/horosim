@@ -34,7 +34,7 @@ compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
 
-recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for Arduino2CoppeliaSim
+recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for HoRoSim
 #recipe.hooks.sketch.prebuild.2.pattern=date
 #recipe.hooks.sketch.prebuild.3.pattern=pwd
 #recipe.hooks.linking.postlink.1.pattern={build.path}/{build.project_name}

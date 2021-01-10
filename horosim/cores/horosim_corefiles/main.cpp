@@ -254,7 +254,7 @@ int main(int argc, char** argv)
 #endif
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
   glutInitWindowSize(600, 400);
-  glutCreateWindow("Arduino2CoppeliaSim");
+  glutCreateWindow("HoRoSim");
 
   // Setup GLUT display function
   // We will also call ImGui_ImplGLUT_InstallFuncs() to get all the other functions installed for us,
