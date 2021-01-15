@@ -35,9 +35,9 @@
 #include "Led_UI.h"
 
 
-#include "imgui.h"
-#include "imgui_impl_glut.h"
-#include "imgui_impl_opengl2.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glut.h"
+#include "imgui/imgui_impl_opengl2.h"
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
