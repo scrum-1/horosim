@@ -1,5 +1,5 @@
-#ifndef VREP_HANDLE
-#define VREP_HANDLE
+#ifndef COPPELIASIM_HANDLE
+#define COPPELIASIM_HANDLE
 
 #include <string>
 #include <vector>

@@ -313,7 +313,7 @@ int main(int argc, char** argv)
 
 
 
-int vrep_setup() {
+int coppeliasim_setup() {
 //        // Now retrieve streaming data (i.e. in a non-blocking fashion):
 //        int startTime=extApi_getTimeInMs();
 //        int mouseX;

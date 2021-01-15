@@ -1,5 +1,5 @@
-#ifndef VREP_MOTOR
-#define VREP_MOTOR
+#ifndef COPPELIASIM_MOTOR
+#define COPPELIASIM_MOTOR
 
 #include <string>
 #include "VrepHandle.h"

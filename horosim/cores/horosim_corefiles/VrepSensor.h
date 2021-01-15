@@ -1,5 +1,5 @@
-#ifndef VREP_SENSOR
-#define VREP_SENSOR
+#ifndef COPPELIASIM_SENSOR
+#define COPPELIASIM_SENSOR
 
 #include <string>
 #include "VrepHandle.h"
