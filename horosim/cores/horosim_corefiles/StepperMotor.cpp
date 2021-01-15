@@ -13,7 +13,7 @@ extern int clientID;
 extern std::vector<HardwareDevice*> handles;
 
 StepperMotor::StepperMotor(int dir_pin_i, int step_pin_i, std::string str, float force, float speed, float reduction):
-	VrepMotor{str, force, speed, reduction} {
+	CoppeliaSimMotor{str, force, speed, reduction} {
 	dir_pin=dir_pin_i;
 	step_pin=step_pin_i;
 	enableControlLoop(true);

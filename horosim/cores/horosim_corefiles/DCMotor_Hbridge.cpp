@@ -11,7 +11,7 @@ extern int clientID;
 extern std::vector<HardwareDevice*> handles;
 
 DCMotor_Hbridge::DCMotor_Hbridge(int in1_pin_i, int in2_pin_i, int en_pin_i,std::string str, float force, float speed, float reduction):
-	VrepMotor{str, force, speed, reduction} {
+	CoppeliaSimMotor{str, force, speed, reduction} {
 	in1_pin=in1_pin_i;
 	in2_pin=in2_pin_i;
 	en_pin=en_pin_i;

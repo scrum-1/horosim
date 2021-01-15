@@ -6,12 +6,12 @@
 #include "HardwareDevice.h"
 
 
-class VrepHandle : public HardwareDevice{       // The class
+class CoppeliaSimHandle : public HardwareDevice{       // The class
  
   public:             // Access specifier
     
-    VrepHandle( std::string);
-    VrepHandle(){};
+    CoppeliaSimHandle( std::string);
+    CoppeliaSimHandle(){};
 
   protected:
     int handle=-1; //

@@ -1,4 +1,4 @@
-#include "VrepHandle.h"
+#include "CoppeliaSimHandle.h"
 #include "Defines.h"
 #include <string>
 
@@ -9,8 +9,8 @@ extern "C" {
 extern int clientID;
 
 
-VrepHandle::VrepHandle(std::string str):HardwareDevice{str}{
-	type=VrepHandle_t;
+CoppeliaSimHandle::CoppeliaSimHandle(std::string str):HardwareDevice{str}{
+	type=CoppeliaSimHandle_t;
   	int error=simxGetObjectHandle(clientID, handle_name.c_str(), &handle, simx_opmode_blocking);
   	//printf(name.c_str());
   	if(error!=simx_return_ok){

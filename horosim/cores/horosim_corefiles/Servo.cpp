@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-#include "VrepHandle.h"
+#include "CoppeliaSimHandle.h"
 
 extern "C" {
 #include "coppeliasim/remoteapi/extApi.h"

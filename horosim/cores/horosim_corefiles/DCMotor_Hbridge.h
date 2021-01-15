@@ -1,8 +1,8 @@
 #include <string>
-#include "VrepMotor.h"
+#include "CoppeliaSimMotor.h"
 #include "Defines.h"
 
-class DCMotor_Hbridge : public VrepMotor{       // The class
+class DCMotor_Hbridge : public CoppeliaSimMotor{       // The class
  
   public:             // Access specifier
     

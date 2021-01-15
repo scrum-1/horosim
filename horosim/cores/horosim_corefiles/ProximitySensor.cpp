@@ -10,7 +10,7 @@ extern int clientID;
 //Vector with the handles of joints and sensors
 extern std::vector<HardwareDevice*> handles;
 
-ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, float threshold_i):VrepSensor{pin_i, str, threshold_i} {
+ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, float threshold_i):CoppeliaSimSensor{pin_i, str, threshold_i} {
 
   type=ProximitySensor_t;
   int error;

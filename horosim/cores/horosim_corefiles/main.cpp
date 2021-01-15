@@ -24,11 +24,11 @@
 #include "DCMotor_Transistor.h"
 #include "DCMotor_Hbridge.h"
 #include "StepperMotor.h"
-#include "VrepSensor.h"
+#include "CoppeliaSimSensor.h"
 #include <signal.h>
 #include "SimTime.h"
 #include <vector>
-#include "VrepHandle.h"
+#include "CoppeliaSimHandle.h"
 #include "Potentiometer_UI.h"
 #include "PushButton_Momentary_UI.h"
 #include "ToggleButton_Latching_UI.h"

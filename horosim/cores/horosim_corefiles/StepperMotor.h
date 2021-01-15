@@ -1,7 +1,7 @@
 #include <string>
-#include "VrepMotor.h"
+#include "CoppeliaSimMotor.h"
 
-class StepperMotor : public VrepMotor{       // The class
+class StepperMotor : public CoppeliaSimMotor{       // The class
  
   public:             // Access specifier
     

@@ -1,10 +1,10 @@
 #include <string>
-#include "VrepSensor.h"
+#include "CoppeliaSimSensor.h"
 #include "ArduinoUno.h"
 
 
 
-class ProximitySensor : public VrepSensor{       // The class
+class ProximitySensor : public CoppeliaSimSensor{       // The class
  
   public:             // Access specifier
     

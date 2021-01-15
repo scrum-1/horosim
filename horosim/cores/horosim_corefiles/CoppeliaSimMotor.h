@@ -2,7 +2,7 @@
 #define COPPELIASIM_MOTOR
 
 #include <string>
-#include "VrepHandle.h"
+#include "CoppeliaSimHandle.h"
 
 
 #define JOINTINTPARAM_MOTOR_ENABLED 2000 //int32 parameter : dynamic motor enable state (0 or !=0)
@@ -13,13 +13,13 @@
 #define JOINTINTPARAM_MOTOR_ENABLED 2000
 
 
-class VrepMotor : public VrepHandle{       // The class
+class CoppeliaSimMotor : public CoppeliaSimHandle{       // The class
  
   public:             // Access specifier
     
 
-    VrepMotor(std::string, double, double, double);
-    VrepMotor(){};
+    CoppeliaSimMotor(std::string, double, double, double);
+    CoppeliaSimMotor(){};
 
   protected:
   	double force_max=-1;

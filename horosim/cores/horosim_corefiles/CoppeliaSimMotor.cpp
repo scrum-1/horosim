@@ -9,17 +9,17 @@ extern "C" {
 extern int clientID;
 
 
-VrepMotor::VrepMotor(std::string str, double force_max_i, double rpm_max_i, double reduction_i):VrepHandle{str}{
+CoppeliaSimMotor::CoppeliaSimMotor(std::string str, double force_max_i, double rpm_max_i, double reduction_i):CoppeliaSimHandle{str}{
 	force_max=force_max_i*reduction_i;
 	rpm_max=rpm_max_i/reduction_i;
 	reduction=reduction_i;
-  type=VrepMotor_t;
+  type=CoppeliaSimMotor_t;
 	enableMotor(true);
 	setMaxForce();
 	setTargetSpeed(0);
  }
 
-int VrepMotor::setTargetSpeed(float speed){
+int CoppeliaSimMotor::setTargetSpeed(float speed){
 	int error=simxSetJointTargetVelocity(clientID, handle, speed, simx_opmode_oneshot);
 	if(error>simx_return_novalue_flag){
   		printf("HoRoSim: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, handle_name.c_str());
@@ -29,7 +29,7 @@ int VrepMotor::setTargetSpeed(float speed){
   	return error;
  }
 
- int VrepMotor::setTargetPosition(float pos){
+ int CoppeliaSimMotor::setTargetPosition(float pos){
 	int error=simxSetJointTargetPosition(clientID, handle, pos, simx_opmode_oneshot);
 	if(error>simx_return_novalue_flag){
   		printf("HoRoSim: Error setting the motor position, error %d, handle %d, joint %s.\n", error, handle, handle_name.c_str());
@@ -39,7 +39,7 @@ int VrepMotor::setTargetSpeed(float speed){
   	return error;
  }
 
-int VrepMotor::setMaxForce(){
+int CoppeliaSimMotor::setMaxForce(){
 
 	int error=simxSetJointForce(clientID, handle, force_max, simx_opmode_oneshot);
 	if(error>simx_return_novalue_flag){
@@ -50,7 +50,7 @@ int VrepMotor::setMaxForce(){
   	return error;
 }
 
-int VrepMotor::enableMotor(bool enable){
+int CoppeliaSimMotor::enableMotor(bool enable){
 	int enable_int=0;
 	if(enable)
 		enable_int=1;
@@ -63,7 +63,7 @@ int VrepMotor::enableMotor(bool enable){
   	return error;
 }
 
-int VrepMotor::enableControlLoop(bool enable){
+int CoppeliaSimMotor::enableControlLoop(bool enable){
 	int enable_int=0;
 	int error=0;
 	if(enable)

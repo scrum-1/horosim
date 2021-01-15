@@ -12,7 +12,7 @@ extern int clientID;
 extern std::vector<HardwareDevice*> handles;
 
 DCMotor_Transistor::DCMotor_Transistor(int pin_i, std::string str, float force, float speed, float reduction):
-	VrepMotor{str, force, speed, reduction} {
+	CoppeliaSimMotor{str, force, speed, reduction} {
 	pin=pin_i;
 	type=DCMotor_Transistor_t;
 	enableControlLoop(false);

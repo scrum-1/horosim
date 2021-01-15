@@ -13,7 +13,7 @@ extern int clientID;
 extern std::vector<HardwareDevice*> handles;
 
 ServoMotor::ServoMotor(int pin_i, std::string str, float force, float speed, float reduction):
-	VrepMotor{str, force, speed, reduction} {
+	CoppeliaSimMotor{str, force, speed, reduction} {
 	pin=pin_i;
 	type=ServoMotor_t;
 	enableControlLoop(true);

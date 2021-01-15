@@ -2,15 +2,15 @@
 #define COPPELIASIM_SENSOR
 
 #include <string>
-#include "VrepHandle.h"
+#include "CoppeliaSimHandle.h"
 
-class VrepSensor : public VrepHandle{       // The class
+class CoppeliaSimSensor : public CoppeliaSimHandle{       // The class
  
   public:             // Access specifier
     
     void pinMode(char, char);
-    VrepSensor(int, std::string, float);
-    VrepSensor(){};
+    CoppeliaSimSensor(int, std::string, float);
+    CoppeliaSimSensor(){};
 
   protected:
   	int pin;        // Pin of the Arduino where is connected
