@@ -6,7 +6,7 @@ using namespace std;
 #include "VrepHandle.h"
 
 extern "C" {
-#include "extApi.h"
+#include "coppeliasim/extApi.h"
 }
 //Vector with the handles of joints and sensors
 extern std::vector<HardwareDevice*> handles;

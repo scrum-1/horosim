@@ -5,7 +5,7 @@
 #include "SimTime.h"
 
 extern "C" {
-#include "extApi.h"
+#include "coppeliasim/extApi.h"
 }
 extern int clientID;
 

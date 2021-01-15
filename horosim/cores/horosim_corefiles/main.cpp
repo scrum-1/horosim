@@ -55,7 +55,7 @@ static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 using namespace std;
 
 extern "C" {
-#include "extApi.h"
+#include "coppeliasim/extApi.h"
 }
 
 //Vector with the handles of joints and sensors
