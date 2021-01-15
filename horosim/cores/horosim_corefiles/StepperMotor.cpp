@@ -20,7 +20,7 @@ StepperMotor::StepperMotor(int dir_pin_i, int step_pin_i, std::string str, float
 	float position;
 	int error=simxGetJointPosition(clientID, handle, &position,  simx_opmode_streaming);
 	if(error>simx_return_novalue_flag) {
-		printf("ARDUINO2VREP: Error reading the position of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+		printf("HoRoSim: Error reading the position of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
 	}
 	handles.push_back(this);
 
@@ -62,7 +62,7 @@ void StepperMotor::digitalWrite(int pin_i, int status) {
 	float position;
 	int error=simxGetJointPosition(clientID, handle, &position, simx_opmode_buffer);
 	if(error!=simx_return_ok) {
-		printf("ARDUINO2VREP: Error reading the pos of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+		printf("HoRoSim: Error reading the pos of the stepper motor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
 		//We use the last position that we got
 		position=pos;
 	}else{

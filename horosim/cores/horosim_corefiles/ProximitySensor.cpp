@@ -22,7 +22,7 @@ ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, floa
   error=simxReadProximitySensor(clientID, handle, NULL, &(readDistance[0]), NULL, NULL, simx_opmode_streaming);
 
   if(error>simx_return_novalue_flag) {
-    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+    printf("HoRoSim: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   }
 
   handles.push_back(this);
@@ -32,7 +32,7 @@ ProximitySensor::ProximitySensor(int pin_i, std::string str, float range_i, floa
   //   //   printf("Number of packages: %d, size package1: %d\n", auxValuesCount[0], auxValuesCount[1]);
   //   // }
   //   // else
-  //   //    printf("ARDUINO2VREP: DATA empty.\n");
+  //   //    printf("HoRoSim: DATA empty.\n");
   // }
 
 
@@ -81,7 +81,7 @@ float ProximitySensor::readProximitySensor() {
   unsigned char detectionState;
   int error=simxReadProximitySensor(clientID, handle, &detectionState, &(readDistance[0]), &hande_coll, NULL, simx_opmode_buffer);
   if(error>simx_return_novalue_flag) {
-    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+    printf("HoRoSim: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   } else {
     if(detectionState!=0 && error==simx_return_ok) {
       //printf("IR SENSOR: " );
@@ -89,7 +89,7 @@ float ProximitySensor::readProximitySensor() {
       return readDistance[2];
     }
     // else
-    //   printf("ARDUINO2VREP: No detection.\n");
+    //   printf("HoRoSim: No detection.\n");
   }
   return range;
 }

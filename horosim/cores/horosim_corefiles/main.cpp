@@ -180,14 +180,14 @@ void stop_simulation() {
 
   int ret=simxStopSimulation(clientID, simx_opmode_oneshot);
   if(ret==simx_return_ok||ret==simx_return_novalue_flag)
-    printf("ARDUINO2VREP: Simulation stopped!\n");
+    printf("HoRoSim: Simulation stopped!\n");
   else
-    printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation stop: %d\n",ret);
+    printf("HoRoSim: Remote API function call returned with error code, when requestin simulation stop: %d\n",ret);
 
   delay(100);
   // Now close the connection to V-REP:
   simxFinish(clientID);
-  printf("ARDUINO2VREP: Simulation finished!\n");
+  printf("HoRoSim: Simulation finished!\n");
 
 
   // Terminate program
@@ -216,29 +216,29 @@ int main(int argc, char** argv)
     clientID=simxStart((simxChar*)"10.0.2.2",port,true,true,2000,commThreadCycleInMs);
 
   if(clientID==-1) {
-    printf("ARDUINO2VREP: NOT Connected to remote API server\n");
+    printf("HoRoSim: NOT Connected to remote API server\n");
     return -1;
   }
 
-  printf("ARDUINO2VREP: Connected to remote API server, clientID: %d\n", clientID);
+  printf("HoRoSim: Connected to remote API server, clientID: %d\n", clientID);
 
   // Now try to retrieve data in a blocking fashion (i.e. a service call):
   int objectCount;
   int* objectHandles;
   int ret=simxGetObjects(clientID,sim_handle_all,&objectCount,&objectHandles,simx_opmode_blocking);
   if(ret==simx_return_ok)
-    printf("ARDUINO2VREP: Number of objects in the scene: %d\n",objectCount);
+    printf("HoRoSim: Number of objects in the scene: %d\n",objectCount);
   else
-    printf("ARDUINO2VREP: Remote API function call returned with error code: %d\n",ret);
+    printf("HoRoSim: Remote API function call returned with error code: %d\n",ret);
 
   //Load the hardware from the Arduino sketch and store it in the handles vector
   hardware_setup();
 
   ret=simxStartSimulation(clientID, simx_opmode_oneshot);
   if(ret==simx_return_ok||ret==simx_return_novalue_flag)
-    printf("ARDUINO2VREP: Simulation started!\n");
+    printf("HoRoSim: Simulation started!\n");
   else
-    printf("ARDUINO2VREP: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
+    printf("HoRoSim: Remote API function call returned with error code, when requestin simulation start: %d\n",ret);
 
   extApi_sleepMs(2000);
 
@@ -306,7 +306,7 @@ int main(int argc, char** argv)
 
   // Now close the connection to V-REP:
   simxFinish(clientID);
-  printf("ARDUINO2VREP: Simulation finished!\n");
+  printf("HoRoSim: Simulation finished!\n");
   return 0;
 
 }

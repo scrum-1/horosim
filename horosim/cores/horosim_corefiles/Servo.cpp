@@ -38,7 +38,7 @@ void Servo::attach(int pin_i) {
 	int error=simxGetObjectHandle(clientID, servo_name.c_str(), &handle, simx_opmode_blocking);
 	//printf(name.c_str());
 	if(error!=simx_return_ok) {
-		printf("ARDUINO2VREP: Error retrieving the servo handler, error %d.\n", error);
+		printf("HoRoSim: Error retrieving the servo handler, error %d.\n", error);
 	}
 	// else{
 	// 	printf("Servo handler OK.\n");
@@ -55,7 +55,7 @@ void Servo::write(int val) {
 		float pos=(val-90)/180.0*3.1415*reduction;
 		int error=simxSetJointTargetPosition(clientID, handle, pos, simx_opmode_oneshot);
 		if(error>simx_return_novalue_flag) {
-			printf("ARDUINO2VREP: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, servo_name.c_str());
+			printf("HoRoSim: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, servo_name.c_str());
 		}
 		// else{
 		// 	printf("Position set correctly.\n");

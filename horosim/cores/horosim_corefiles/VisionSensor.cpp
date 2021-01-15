@@ -23,7 +23,7 @@ VisionSensor::VisionSensor(int pin_i, std::string str, float threshold_i):VrepSe
 
 
   if(error>simx_return_novalue_flag) {
-    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+    printf("HoRoSim: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   }
   handles.push_back(this);
   // else{
@@ -32,7 +32,7 @@ VisionSensor::VisionSensor(int pin_i, std::string str, float threshold_i):VrepSe
   //   //   printf("Number of packages: %d, size package1: %d\n", auxValuesCount[0], auxValuesCount[1]);
   //   // }
   //   // else
-  //   //    printf("ARDUINO2VREP: DATA empty.\n");
+  //   //    printf("HoRoSim: DATA empty.\n");
   // }
 
 
@@ -82,7 +82,7 @@ float VisionSensor::readVisionSensor() {
   int* auxValuesCount;
   int error=simxReadVisionSensor(clientID, handle, NULL, &auxValues, &auxValuesCount, simx_opmode_buffer);
   if(error>simx_return_novalue_flag) {
-    printf("ARDUINO2VREP: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
+    printf("HoRoSim: Error reading the sensor, error %d, handle %d, sensor %s.\n", error, handle, handle_name.c_str());
   } else {
     //printf("Sensor read correctly.\n");
     if(auxValuesCount!=NULL && error==simx_return_ok) {
@@ -97,7 +97,7 @@ float VisionSensor::readVisionSensor() {
       return auxValues[10];
     }
     else
-      printf("ARDUINO2VREP: DATA empty.\n");
+      printf("HoRoSim: DATA empty.\n");
   }
   return -1;
 }
