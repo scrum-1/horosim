@@ -20,6 +20,7 @@ Sensors:
 
 * Proximity sensors like ultrasounds or Infrareds 
 * Infrareds used as vision sensors to detect colors
+* Potentiometers connected to a joint in CoppeliaSim
 
 Devices for user interfaces
 
@@ -67,8 +68,6 @@ Serial:
 
 TODO:
 
-* ~~analogRead~~
-* ~~analogWrite~~
 * Serial.available
 * Serial.read
 * interrupts

@@ -21,6 +21,7 @@
 //#include <unistd.h>
 #include <iostream>
 #include <main.h>
+#include "Potentiometer.h"
 #include "DCMotor_Transistor.h"
 #include "DCMotor_Hbridge.h"
 #include "StepperMotor.h"
@@ -200,7 +201,7 @@ int main(int argc, char** argv)
 {
   //Connect to Coppelia Sim
   signal(SIGINT, signal_callback_handler);
-  timeInit();
+  simTime_timeInit();
 
   int port=19997;
   int commThreadCycleInMs=5;

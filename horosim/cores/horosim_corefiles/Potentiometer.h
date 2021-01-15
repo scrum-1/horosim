@@ -1,17 +1,17 @@
-#ifndef POTENTIOMETER_UI_H
-#define POTENTIOMETER_UI_H
+#ifndef POTENTIOMETER_H
+#define POTENTIOMETER_H
 
 #include <string>
-#include "HardwareDevice.h"
+#include "CoppeliaSimHandle.h"
 #include "ArduinoUno.h"
 
 
-class Potentiometer_UI : public HardwareDevice {      // The class
+class Potentiometer : public CoppeliaSimHandle {      // The class
 
 public:             // Access specifier
 
-	Potentiometer_UI(int, std::string, float);
-	Potentiometer_UI() {};
+	Potentiometer(int, std::string, float);
+	Potentiometer() {};
 	int digitalRead(int);
     int analogRead(int);
     void pinMode(char, char);
@@ -22,7 +22,10 @@ protected:
 	float potVal;
 	int pin;        // Pin of the Arduino where is connected
 	bool set2input=true;
+	float range;
 private:
+
+	float readPot();
 
 };
 

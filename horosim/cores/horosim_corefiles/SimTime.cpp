@@ -13,7 +13,7 @@ using namespace std;
 
 std::chrono::time_point<std::chrono::steady_clock> start;
 
-void timeInit(){
+void simTime_timeInit(){
 	start = chrono::steady_clock::now();
 }
 

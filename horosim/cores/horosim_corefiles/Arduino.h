@@ -15,6 +15,7 @@
 #include "VisionSensor.h"
 #include "ProximitySensor.h"
 #include "Potentiometer_UI.h"
+#include "Potentiometer.h"
 #include "PushButton_Momentary_UI.h"
 #include "ToggleButton_Latching_UI.h"
 #include "Led_UI.h"

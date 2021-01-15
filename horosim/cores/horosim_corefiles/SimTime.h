@@ -3,7 +3,7 @@
 // #include <unistd.h>
 // #include <stdint.h>
 
-void timeInit();
+void simTime_timeInit();
 
 void delay(long);
 void delayMicroseconds(long);

@@ -19,7 +19,8 @@ This section explains how to configure the hardware_setup function. This functio
 	4. [StepperMotor](#markdown-header-steppermotor)
 2. [Sensors in CoppeliaSim](#markdown-header-sensors-in-coppeliasim)
     1. [ProximitySensor](#markdown-header-proximitysensor)
-    1. [VisionSensor](#markdown-header-visionsensor)
+    2. [VisionSensor](#markdown-header-visionsensor)
+    3. [Potentiometer](#markdown-header-potentiometer)
 3. [Sensors and LEDs in the User Interface](#markdown-header-sensors-and-leds-in-the-user-interface)
 	1. [Led_UI](#markdown-header-led_ui)
 	2. [Potentiometer_UI](#markdown-header-potentiometer_ui)
@@ -142,7 +143,7 @@ These sensors can be used as analog or digital sensors. If it is used as an anal
 ** Parameters **
 
 * pin: the Arduino pin number where the sensor is connected. 
-* name_sensor: the name of the joint in CoppeliaSim. This parameter should go between "" (for example: "left_vision_sensor").
+* name_sensor: the name of the sensor in CoppeliaSim. This parameter should go between "" (for example: "left_vision_sensor").
 * threshold: A value between 0 and 1 that determines the digital value of the output.
 
 ** Notes: **
@@ -150,6 +151,20 @@ These sensors can be used as analog or digital sensors. If it is used as an anal
 These sensors simulate an infrared (IR) sensor that is placed to detect colors. Usually, they are used to detect a transition wrom white to back in line following robots or in encoders. 
 
 These sensors can be used as analog or digital sensors. If it is used as an analog sensor, it should be connected to a analog input and the threshold value is ignored. If it used as a digital sensor, the threshold value imitates the potentiometer that is usually found in these devices.
+
+#### Potentiometer ####
+
+	Potentiometer(pin, "name_sensor", range);
+
+** Parameters **
+
+* pin: the Arduino pin number where the sensor is connected. 
+* name_sensor: the name of the joint in CoppeliaSim. This parameter should go between "" (for example: "right_motor").
+* range: The maximum range of the joint. This value is used to scale the value of the potentiometer. 
+
+** Notes: **
+
+These sensors simulate a potentiometer connected to a joint in CoppeliaSim. The joint can be actuated by a motor or passive.
 
 ## Sensors and LEDs in the User Interface ##
 
