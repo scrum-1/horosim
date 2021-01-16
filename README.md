@@ -50,6 +50,10 @@ Servo:
 
 * attach
 * write
+* writeMicroseconds
+* read
+* attached
+* detach
 
 I/O:
 

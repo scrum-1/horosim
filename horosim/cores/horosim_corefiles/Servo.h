@@ -3,7 +3,12 @@ class Servo {       // The class
   public:             // Access specifier
     
    void write(int);
+   void writeMicroseconds(int);
+   int read();
    void attach(int);
+   bool attached();
+   void dettach();
+
     
    Servo(){};
   private:
@@ -11,4 +16,6 @@ class Servo {       // The class
     int handle=-1;        // Handle of the CoppeliaSim joint
     bool initialized=false; //Specifies if the servo is connected at the write pin 
     double reduction=1;
+    int currentPos=90; 
+    bool isAttached=false;
 };
