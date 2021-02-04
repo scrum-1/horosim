@@ -279,9 +279,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="325.37665"
-     inkscape:cy="94.832441"
+     inkscape:zoom="1.979899"
+     inkscape:cx="210.39698"
+     inkscape:cy="78.636777"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -339,7 +339,7 @@
        id="rect1837"
        width="45"
        height="46.645721"
-       x="-2.2070312e-08"
+       x="1.0583333"
        y="4.1756282"
        ry="7.3300428" />
     <text
@@ -463,116 +463,6 @@
        d="m 98.58696,20.398471 22.01711,17.103421"
        id="path2656-3" />
     <text
-       id="text1042"
-       y="11.055803"
-       x="8.7135334"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         sodipodi:role="line"
-         style="font-size:3.52778px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="11.055803"
-         x="8.7135334"
-         id="tspan1040">Extended Code:</tspan></text>
-    <text
-       id="text1046"
-       y="16.06399"
-       x="10.584122"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82222px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="16.06399"
-         x="10.584122"
-         id="tspan1044"
-         sodipodi:role="line">hardware\_setup()</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       x="8.7135334"
-       y="25.694628"
-       id="text1042-1"><tspan
-         sodipodi:role="line"
-         id="tspan1040-8"
-         x="8.7135334"
-         y="25.694628"
-         style="font-size:3.52777px;text-align:center;text-anchor:middle;stroke-width:0.264583">Regular Code:</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       x="15.3667"
-       y="28.60886"
-       id="text1046-7"><tspan
-         sodipodi:role="line"
-         id="tspan1044-7"
-         x="15.3667"
-         y="28.60886"
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583">setup()</tspan></text>
-    <text
-       id="text1046-7-0"
-       y="31.940922"
-       x="15.308824"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="31.940922"
-         x="15.308824"
-         id="tspan1044-7-9"
-         sodipodi:role="line">loop()</tspan></text>
-    <text
-       id="text1046-7-9"
-       y="35.143452"
-       x="15.308824"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="35.143452"
-         x="15.308824"
-         id="tspan1044-7-1"
-         sodipodi:role="line">pinMode()</tspan></text>
-    <text
-       id="text1046-7-04"
-       y="38.345978"
-       x="15.350854"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="38.345978"
-         x="15.350854"
-         id="tspan1044-7-6"
-         sodipodi:role="line">digitalWrite()</tspan></text>
-    <text
-       id="text1046-7-4"
-       y="41.548508"
-       x="15.363946"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="41.548508"
-         x="15.363946"
-         id="tspan1044-7-5"
-         sodipodi:role="line">analogRead()</tspan></text>
-    <text
-       id="text1046-7-6"
-       y="44.751038"
-       x="15.308824"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="44.751038"
-         x="15.308824"
-         id="tspan1044-7-3"
-         sodipodi:role="line">millis()</tspan></text>
-    <text
-       id="text1046-7-5"
-       y="47.669689"
-       x="15.396329"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:2.82223px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="47.669689"
-         x="15.396329"
-         id="tspan1044-7-2"
-         sodipodi:role="line">etc.</tspan></text>
-    <text
        id="text1268"
        y="16.385267"
        x="75.58886"
@@ -582,32 +472,164 @@
          y="16.385267"
          x="75.58886"
          id="tspan1266"
-         sodipodi:role="line">Hardware devices</tspan></text>
-    <text
-       id="text1323"
-       y="38.440178"
-       x="73.514542"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       xml:space="preserve"><tspan
-         style="font-size:3.52778px;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         y="38.440178"
-         x="73.514542"
-         id="tspan1321"
-         sodipodi:role="line">Arduino library</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:10.5833px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
-       x="72.144501"
-       y="41.907917"
-       id="text1323-3"><tspan
-         sodipodi:role="line"
-         id="tspan1321-4"
-         x="72.144501"
-         y="41.907917"
-         style="font-size:3.52777px;text-align:center;text-anchor:middle;stroke-width:0.264583">functions</tspan></text>
+         sodipodi:role="line" /></text>
     <text
        style="font-family:'Droid Sans';font-size:10.58333333px;line-height:1.25;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:'Droid Sans';white-space:pre;shape-inside:url(#rect1351);"
        id="text1349"
        xml:space="preserve" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.679359"
+       y="15.902536"
+       id="text1015"><tspan
+         sodipodi:role="line"
+         id="tspan1013"
+         x="22.679359"
+         y="15.902536"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">hardware\_setup()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.69865"
+       y="11.49259"
+       id="text1019"><tspan
+         sodipodi:role="line"
+         id="tspan1017"
+         x="22.69865"
+         y="11.49259"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">Extended Code:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       x="50.113037"
+       y="34.477768"
+       id="text1023"><tspan
+         sodipodi:role="line"
+         id="tspan1021"
+         x="50.113037"
+         y="34.477768"
+         style="stroke-width:0.264583">call</tspan></text>
+    <text
+       id="text1023-6"
+       y="12.384907"
+       x="49.322376"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         style="stroke-width:0.264583"
+         y="12.384907"
+         x="49.322376"
+         id="tspan1021-4"
+         sodipodi:role="line">init</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="80.975021"
+       y="16.420958"
+       id="text1051"><tspan
+         sodipodi:role="line"
+         id="tspan1049"
+         x="80.975021"
+         y="16.420958"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">Hardware devices</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="81.074066"
+       y="37.551369"
+       id="text1055"><tspan
+         sodipodi:role="line"
+         id="tspan1053"
+         x="81.074066"
+         y="37.551369"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">Arduino library</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="81.121437"
+       y="42.62949"
+       id="text1059"><tspan
+         sodipodi:role="line"
+         id="tspan1057"
+         x="81.121437"
+         y="42.62949"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">functions</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.52777px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.698652"
+       y="23.786987"
+       id="text1063"><tspan
+         sodipodi:role="line"
+         id="tspan1061"
+         x="22.698652"
+         y="23.786987"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">Regular Code:</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.737236"
+       y="28.063301"
+       id="text1067"><tspan
+         sodipodi:role="line"
+         id="tspan1065"
+         x="22.737236"
+         y="28.063301"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">setup()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.679359"
+       y="32.12912"
+       id="text1071"><tspan
+         sodipodi:role="line"
+         id="tspan1069"
+         x="22.679359"
+         y="32.12912"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">loop()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.679359"
+       y="36.194939"
+       id="text1075"><tspan
+         sodipodi:role="line"
+         id="tspan1073"
+         x="22.679359"
+         y="36.194939"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">pinMode()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.72139"
+       y="40.260757"
+       id="text1079"><tspan
+         sodipodi:role="line"
+         x="22.72139"
+         y="40.260757"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+         id="tspan1081">digitalWrite()</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.766865"
+       y="48.108524"
+       id="text1095"><tspan
+         sodipodi:role="line"
+         id="tspan1093"
+         x="22.766865"
+         y="48.108524"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">etc.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.82223px;line-height:1.25;font-family:'Droid Sans';-inkscape-font-specification:'Droid Sans';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;stroke-width:0.264583"
+       x="22.734482"
+       y="44.32658"
+       id="text1101"><tspan
+         sodipodi:role="line"
+         id="tspan1099"
+         x="22.734482"
+         y="44.32658"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583">analogRead()</tspan></text>
   </g>
 </svg>

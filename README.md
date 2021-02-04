@@ -28,9 +28,8 @@ Devices for user interfaces
 * Potentiometers
 * Buttons (push button and toggle buttons) (momentary or matching)
 
-TODO (not in this semester):
+TODO:
 
-* Potentiometers for joint feedback
 * Joysticks for user interface
 * 7 segments displays for user interface
 
