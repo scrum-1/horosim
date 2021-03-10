@@ -30,7 +30,7 @@ I created a virtual machine in VirtualBox. First, install virtualBox from [here]
 
 #### g++ compiler and libraries
 
-We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit more complicated. I tried to use the MinGW compiler and it did not work as it does not provide a POSIX runtime environment. I tried Visual Studio, but you cannot use it from the terminal (you need to use a special terminal). You can try to use Visual studio, but then you cannot use the Arduino IDE to compile it. I ended up using the g++ through the WSL. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install it. Then, launch a Linux terminal and install a g++ compiler using the following commands: 
+We need to use a c compiler. In Linux, you can use g++. In Windows it is a bit more complicated. I tried to use the MinGW compiler and it did not work as it does not provide a POSIX runtime environment. I tried Visual Studio, but you cannot use it from the terminal (you need to use a special terminal). You can try to use Visual studio, but then you cannot use the Arduino IDE to compile it. I ended up using the g++ through the WSL1 (WSL2 will not work! The programs comunicate through TCP/IP comunications and all of them need to run in the same IP). [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install it. Then, launch a Linux terminal and install a g++ compiler using the following commands: 
 
 	sudo apt-get update
 	sudo apt-get install g++
