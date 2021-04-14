@@ -29,3 +29,10 @@ The robot contains a breadboard with two transistors to control the two DC motor
 This example shows the basic functions of the user interface, see examples/userInterface folder. It simulates two potentiometers, two buttons (one momnetary push button and a latching toggle button) and a red led. This example does not need a CoppeliaSim model as there are no motors or sensors (apart from the sensors of the user interface).
 The potentiometer 2 controls the intensity of the Led and prints the status of the two buttons through serial communications, see the code of the arduino sketch. 
 
+## PID Controller ##
+
+![PID Controller demo](images/pid_controller.png)
+
+This example shows a PID controller in action. The scene consists of a big disc that is static (not affected by the physics engine) with a graduated scale where a DC motor (red joint) controls a dial (dynamic body). The DC motor is controlled by an H-bridge and, therefore, it can rotate the dial in both directions. The angle of the dial is measured by a potentiometer, which is connected to the dial. Hence, a feedback loop can be created. The Arduino sketch of this example setups these hardware devices and three extra potentiometers to interact with the testbed. The code of the sketch implements a closed loop proportional (P) controller, but of course this could be extended to PID controllers. The dial is moved continuously between two target positions by the DC motor every few seconds. The target positions and the proportional constant can be adjusted by tuning the three potentiometers in the user interface. In addition, a graph element has been inserted in the scene. This graph plots the angle of the dial (in degrees) versus time and it is updated automatically during the simulation.
+
+Users can change the parameters, the code of the controller or the physical properties of the dial (mass, inertia, etc.) to see different behaviours.

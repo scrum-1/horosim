@@ -72,7 +72,7 @@ Go to the hardware folder:
 	
 	cd hardware 
 
-Then clone this repository in the hardware folder (or copy all the files there). In my case, the structure is /mnt/c/fai/documents/Arduino/hardware/Arduino2VrepSim/.
+Then clone this repository in the hardware folder (or copy all the files there). In my case, the structure is /mnt/c/fai/documents/Arduino/hardware/HoRoSim/.
 
 If you don't have installed git, you need to install it:
 	
@@ -81,7 +81,7 @@ If you don't have installed git, you need to install it:
 
 Then, clone the repository of the Arduino2Vrep:
 
-	git clone https://bitbucket.org/afaina/arduino2vrepsim.git
+	git clone https://bitbucket.org/afaina/horosim.git
 
 Removed as I think it is not necessary:
 ~~You are almost ready to run your sketches. We only need to setup the path for the libraries of the CoppeliaSim. Close the Arduino IDE. Find the right version of the CoppeliaSim libraries. They are in VREP_INSTALL_DIR/V-REP_PRO_EDU/programming/remoteApiBindings/lib/lib...
@@ -100,7 +100,7 @@ You are done. Now, open the Arduino IDE and press verify. It should work.
 
 You can update the software by using these commands in the terminal:
 
-	cd /home/htmaa/Arduino/hardware/arduino2vrepsim/
+	cd /home/htmaa/Arduino/hardware/HoRoSim/
 	git pull
 
 ## Troubleshooting ##
@@ -140,7 +140,7 @@ You can check the CoppeliaSim port if you go to Tools->User settings and uncheck
 
 The program tries to find CoppeliaSim in the port 19997. If it is not found, it automatically tries the port 10000. Try to set the CoppeliaSim port to 10000 (in the remoteApiConnections.txt file), restart CoppeliaSim and run your program.
 
-If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder Arduino2VrepSim\vrep\cores\VrepSim_corefiles) and in CoppeliaSim (remoteApiConnections.txt file, and restart CoppeliaSim).
+If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 83 of main.cpp (in folder HoRoSim\vrep\cores\VrepSim_corefiles) and in CoppeliaSim (remoteApiConnections.txt file, and restart CoppeliaSim).
 
 ### Try to test the CoppeliaSim examples ###
 
