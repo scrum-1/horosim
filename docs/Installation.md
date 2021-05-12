@@ -22,7 +22,7 @@ Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim 
 
 #### Windows
 
-This section provies the steps to install and c++ compiler and glut libraries in Windows. Another option would be to use the WSL. If you do that, install WSL and follow the linux instructions. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install WSL. **Note: WSL2 will not work! The programs communicate through TCP/IP communications and all of them need to run in the same IP).**  
+This section provides the steps to install and c++ compiler and glut libraries in Windows. Another option would be to use the WSL. If you do that, install WSL and follow the linux instructions. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install WSL. **Note: WSL2 will not work! The programs communicate through TCP/IP communications and all of them need to run in the same IP).**  
 
 If you prefer to install the compiler and libraries in Windows, follow the following steps.
 
@@ -32,11 +32,11 @@ Install Mingw-w64, which provides a g++ for Windows. It is available for downloa
 
 Now, you need to add the path of the folder where the binaries of the compiler are installed to the %PATH% environment variable. Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, select the Path variable under "System variables" and click on edit. Now, press the New button and type the path to the folder where the binaries or the compiler are. Im my system, it looks like: C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin
 
-Click on the OK button three times to close the three windows. Now, you could check that everything went well by checking the version of the compiler. Press START button, type "cmd" and press on the Command Promt app that appears. In thar window, type
+Click on the OK button three times to close the three windows. Now, you could check that everything went well by checking the version of the compiler. Press START button, type "cmd" and press on the Command Promt app that appears. In that window, type
 
 	g++ --version 
 
-	You should see someting like:
+You should see something like:
 
 	C:\Users\anfv>g++ --version
 	g++ (i686-posix-dwarf-rev0, Built by MinGW-W64 project) 8.1.0
@@ -48,7 +48,7 @@ If so, the compiler is installed and it can be found by the system. Well done!
 
 Now we need to install the OpenGL and GLUT libraries (Yes, they are very old but they are easy to use and install). 
 
-The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file and extract it. First, we need to copy the freeglut.dll file in the bin folder to the folder that conatins the binaries of the c++ compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin. Second, we need to copy the GL folder in the include folder to the include folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include. Thus, I have now a GL folder inside the include folder of the compiler. Finally, we need to copy libfreeglut.a and libfreeglut_static.a from the lib folder to the lib folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\lib.  In all cases, do not copy the folders called x64.
+The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file and extract it. First, we need to copy the freeglut.dll file in the bin folder to the folder that contains the binaries of the c++ compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin. Second, we need to copy the GL folder in the include folder to the include folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include. Thus, I have now a GL folder inside the include folder of the compiler. Finally, we need to copy libfreeglut.a and libfreeglut_static.a from the lib folder to the lib folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\lib.  In all cases, do not copy the folders called x64.
 
 The compiler and the libraries are installed.
 
@@ -178,7 +178,7 @@ You can check the CoppeliaSim port if you go to Tools->User settings and uncheck
 	Starting a remote API server on port 19997
 	Plugin 'RemoteApi': load succeeded.
 
-### Try to change the port ###
+#### Try to change the port ####
 
 The program tries to find CoppeliaSim in the port 19997. If it is not found, it automatically tries the port 10000. Try to set the CoppeliaSim port to 10000 (in the remoteApiConnections.txt file). To do that, go to the folder where CoppeliaSim is installed (in my case C:\Program Files\CoppeliaRobotics\CoppeliaSimEdu ) and open the remoteApiConnections.txt file.  On MacOS, this file is in the package bundle (/.../CoppeliaRobotics/coppeliaSim.app/Contents/MacOS/remoteApiConnections.txt). In this file, change the port to 10000. It should look like this:
 
@@ -190,7 +190,7 @@ restart CoppeliaSim and run your program.
 
 If it still does not work, try to change the port to a bigger number instead that the default 19997 (like 25876 for example). You have to change the port in line 211 of main.cpp (in folder HoRoSim\horosim\cores\horosim_corefiles) and in CoppeliaSim (remoteApiConnections.txt file, and restart CoppeliaSim).
 
-### CoppeliaSim crashes on MacOS ###
+#### CoppeliaSim crashes on MacOS ####
 
 Try to run this command in Terminal in the directory where the coppeliaSim app is. 
 
@@ -198,11 +198,11 @@ Try to run this command in Terminal in the directory where the coppeliaSim app i
 
 And then try to run it from the terminal.
 
-### CoppeliaSim problems ###
+#### CoppeliaSim problems ####
 
 Ask in the [CoppeliaSim forum](https://forum.coppeliarobotics.com/), they reply very fast. 
 
-### Try to test the CoppeliaSim examples ###
+#### Try to test the CoppeliaSim examples ####
 
 Please, try to run the example that coppelia provides, for example the python one. You have to go to CoppeliaSim folder/CoppeliaSimEdu/programming/remoteApiBindings/python/python
 
