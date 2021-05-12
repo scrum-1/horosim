@@ -17,6 +17,17 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glut.h"
+#include "imgui/imgui_impl_opengl2.h"
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/freeglut.h>
+#endif
+
+
 //#include <stdio.h>
 //#include <unistd.h>
 #include <iostream>
@@ -36,14 +47,7 @@
 #include "Led_UI.h"
 
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glut.h"
-#include "imgui/imgui_impl_opengl2.h"
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/freeglut.h>
-#endif
+
 
 #ifdef _MSC_VER
 #pragma warning (disable: 4505) // unreferenced local function has been removed
@@ -167,7 +171,8 @@ void glut_display_func()
 
 
 // Declared weak in Arduino.h to allow user redefinitions.
-int atexit(void (* /*func*/)()) { return 0; }
+//Comented as it does not link on Windows
+//int atexit(void (* /*func*/)()) { return 0; }
 
 void signal_callback_handler(int signum) {
   printf("\n");

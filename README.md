@@ -2,9 +2,8 @@
 
 # README #
 
-This code simulates mechanisms controlled by an Arduino and several standard electronic components. The simulator used is CoppeliaSim (which was known as Vrep before) and it should be installed in your computer. You can use the Arduino IDE to compile the code, but the generated program needs to be run from the terminal, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
+This code simulates mechanisms controlled by an Arduino and several standard electronic components. The simulator used is CoppeliaSim (which was known as Vrep before) and it should be installed in your computer. You can use the Arduino IDE to compile the code and run it, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
 
-__Note: In this document, Vrep and CoppeliaSim are used interchangeably. I hope to update this documentation and remove all references to Vrep soon.__
 
 ## Features ##
 
@@ -74,11 +73,11 @@ TODO:
 * Serial.available
 * Serial.read
 * interrupts
+* I2C (Wire)
+* SPI
 
 
 ## Installation ##
-
-There is a virtual machine with all the software ready to use, you only need to install the CoppeliaSim simulator. If you prefer to install it in your machine, I provide detailed instructions. 
 
 See [Installation Instructions](docs/Installation.md)
 

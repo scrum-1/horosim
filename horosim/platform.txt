@@ -34,7 +34,7 @@ compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
 
-recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for HoRoSim
+#recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for HoRoSim
 #recipe.hooks.sketch.prebuild.2.pattern=date
 #recipe.hooks.sketch.prebuild.3.pattern=pwd
 #recipe.hooks.linking.postlink.1.pattern={build.path}/{build.project_name}
@@ -53,6 +53,7 @@ build.extra_flags=
 compiler.c.extra_flags=
 compiler.c.elf.extra_flags=-lGL -lGLU -lglut
 compiler.c.elf.extra_flags.macosx=-framework OpenGL -framework GLUT
+compiler.c.elf.extra_flags.windows=-lfreeglut -lopengl32 -lglut32 -Wl,--subsystem,windows -lwinmm -lws2_32
 compiler.S.extra_flags=
 compiler.cpp.extra_flags=
 compiler.ar.extra_flags=
