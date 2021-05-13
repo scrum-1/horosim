@@ -47,8 +47,6 @@
 #include "Led_UI.h"
 
 
-
-
 #ifdef _MSC_VER
 #pragma warning (disable: 4505) // unreferenced local function has been removed
 #endif
@@ -204,6 +202,16 @@ void stop_simulation() {
 
 int main(int argc, char** argv)
 {
+
+  #ifdef __MINGW32__
+  FILE* fp;
+  //AllocConsole();
+  AttachConsole(ATTACH_PARENT_PROCESS);
+  freopen_s(&fp, "CONIN$", "r", stdin);
+  freopen_s(&fp, "CONOUT$", "w", stdout);
+  freopen_s(&fp, "CONOUT$", "w", stderr);
+  #endif
+
   //Connect to Coppelia Sim
   signal(SIGINT, signal_callback_handler);
   simTime_timeInit();

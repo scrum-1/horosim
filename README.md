@@ -1,8 +1,8 @@
 ![Line following robot demo](videos/line_following_robot_sim.gif)
 
-# README #
+# HoRoSim #
 
-This code simulates mechanisms controlled by an Arduino and several standard electronic components. The simulator used is CoppeliaSim (which was known as Vrep before) and it should be installed in your computer. You can use the Arduino IDE to compile the code and run it, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for How To Make (Almost) Anything students. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
+HoRoSim (Holistic Robotic Simulator) allows you to simulate physical devices controlled by Arduino code. The user defines standard electronic circuits that are employed in the Arduino code (see [Hardware Setup function](#markdown-header-hardware_setup)) and a robot simulator, CoppeliaSim, simulates the physics of the device. Thus, HoRoSim simulates Arduino code with a physics engine and based on the electronic circuits defined. You can use the Arduino IDE to compile the code and run it, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for "How To Make (Almost) Anything" students at the IT University of Copenhagen. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
 
 
 ## Features ##
@@ -81,11 +81,11 @@ TODO:
 
 See [Installation Instructions](docs/Installation.md)
 
-## Using the simulator ##
+## Testing the simulator ##
 
-First, open the CoppeliaSim and load an scene with the model of your machine. For this explanation, we will use the line following robot example. If you are using the virtual machine, you need to download the scene from the repository, you can find it [here](examples/lineFollowingRobot/line_following_robot.ttt).  If you downloaded the repository, you can find it in the folder "examples/lineFollowingRobot/". To load the scene, go toFile->Open Scene... in CoppeliaSim. You should select the file (line_following_robot.ttt). After this, you should see the black line on the floor and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in CoppeliaSim, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in CoppeliaSim. 
+First, open the CoppeliaSim and load an scene with the model of your machine. For this explanation, we will use the line following robot example. You need to download the scene from the repository, you can find it [here](examples/lineFollowingRobot/line_following_robot.ttt).  If you downloaded the repository, you can find it in the folder "examples/lineFollowingRobot/". To load the scene, go to File->Open Scene... in CoppeliaSim. You should select the file (line_following_robot.ttt). After this, you should see the black line on the floor and the robot. Then, you are ready to run your Arduino code. You don't need to touch anything in CoppeliaSim, the simulation will start automatically when you run your program. However, you can use your mouse to rotate (middle button of the mouse) and translate (left button of the mouse) the view in CoppeliaSim. 
 
-Second, open the Arduino IDE and open the Test.ino sketch that comes with the repository (examples/lineFollowingRobot folder): If you are using the virtual machine, press in nine dots button at the bottom left corner ("Show Applications") and type Arduino. Then choose the Arduino icon and go to File->Open to locate the Test sketch in /home/htmaa/Arduino/hardware/arduino2vrepsim/Test/Test.ino. 
+Second, open the Arduino IDE and open the robot_with_dc_motors.ino sketch that comes with the repository (examples/lineFollowingRobot/robot_with_dc_motors folder). To do that, open the Arduino IDE and press File->Open and locate the robot_with_dc_motors sketch in HoRoSim/examples/lineFollowingRobot/robot_with_dc_motors/robot_with_dc_motors.ino. 
 
 Third, select the Board ArduinoUno_HoRoSim in the Arduino IDE. Tools->Board->ArduinoUno_HoRoSim. It can be at the bottom, so maybe you have to scroll down in the Board menu. This will change the compiler and, instead of compiling your code for the microcontroller, it will compile the code to use the CoppeliaSim simulator.
 
@@ -97,35 +97,45 @@ Option 1
 
 This is the easiest way to run a program. Just press the upload button of the IDE and the code will run. The output of you program can be seen at the bottom of the Arduino IDE (where the messages and errors appear). To stop the program, just close the user interface window.
 
-**Note: The first time, I needed to connect a real Arduino to have a serial port. After that it runs without it. Let me know your experiences!**
-
-**Note 2: the Arduino IDE shows the output (Serial.write/print) in chunks and you will not see a smooth output. So, it is better to use the option 2 or 3 to debug your code using Serial.write/print.** 
+**Note for Windows users: the Arduino IDE cannot show the output of your program (Serial.write/print). If you need it, use the option 2 or 3 to debug your code using Serial.write/print.** 
+**Note for Linux users: the Arduino IDE shows the output (Serial.write/print) in chunks and you will not see a smooth output. So, it is better to use the option 2 or 3 to debug your code using Serial.write/print.** 
 
 
 Option 2 (does not work in WSL):
 
-For option 2 and 3,  we will need a terminal . If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
+For option 2 and 3, we will need a terminal. In the Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. You can press Sketch->Show Sketch Folder to open a file explorer at the sketch folder to check its path. For example:
 
-In the Arduino IDE, press Sketch->Export compiled Binary. This moves the compiled binary to your sketch folder. Then in the terminal, go to your sketch folder. For example:
+	cd [PATH_TO_SKETCH_FOLDER, such as /home/htmaa/Arduino/arduino2vrepsim/examples/lineFollowingRobot/Test]
 
-	cd /home/htmaa/Arduino/arduino2vrepsim/examples/lineFollowingRobot/Test
+And run the compiled program. 
 
-And run the compiled program:
+In Linux:
 
-	./Test.ino.exe
+	./robot_with_dc_motors.ino.exe
+
+In Windows:
+
+	robot_with_dc_motors.ino.exe
 
 Option 3:
 
-For option 2 and 3,  we will need a terminal . If you are using the virtual machine, you can open a terminal by clicking in nine dots button at the bottom left corner ("Show Applications") and type Terminal and select the terminal icon 
+The third option is to run the program from the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
 
-We should find the folder where Arduino compiles your program. You can find the folder in the last line that is shown when compiling. If you cannot find it, be sure that the option "Show verbose option during compilation" is checked in File->Preferences in the Arduino IDE. In Linux, this is done in the temp folder (/tmp usually), in Windows usually is C/:Users/user/Documents/AppData/. In the virtual machine is in /tmp/arduino_build_XXXXXX/, where XXXXXX are six numbers. Go to this folder and find the executable, which is the name of your sketch (Test.ino):
+In Linux and MacOS:
 
-	cd /tmp/
-	ls -l 
-	(you will see a folder like arduino_build_XXXXXX, go to this folder)
+	cd [PATH_TO_TEMP_FOLDER, such as /tmp/]
+	ls -l | grep "arduino_build*"
+	(you will see one or more folders like arduino_build_XXXXXX, go to the more recent folder)
 	cd arduino_build_836444/
-	./Test.ino
+	./robot_with_dc_motors.ino
 
+In Windows: open a command prompt window (Press Windows+R to open "Run", type "cmd" and then click "OK") 
+
+	cd [PATH_TO_TEMP_FOLDER, such as C:\Users\anfv\AppData\Local\Temp]
+	dir arduino_*
+	(you will see a folder like arduino_build_XXXXXX, go to the more recent folder)
+	cd arduino_build_836444/
+	robot_with_dc_motors.ino
 
 As soon as you initiate your program, the robot should move in the CoppeliaSim simulator. In this example, the robot will move in circles. In order to stop the program, press Ctr+C in the terminal. This will stop your program and reset the scene.
 
@@ -134,17 +144,17 @@ Now, you can program the Arduino so the robot follows the line, grasps the can a
 Every time that you change your code:
 * press verify in the Arduino IDE (or press "Export compiled Binary")
 * change to the terminal that you used to run your program for the last time
-* run your new program (./Test.ino.exe)
+* run your new program (./robot_with_dc_motors.ino)
 
 I recommend that your Arduino program is saved in /home/htmaa/Arduino. So you keep a clean copy of the repository files and you can upgrade the source code easily.
 
 #### Examples
 
-I provide with two different examples. The first one is the line following robot. The second one is an example of the user interface (buttons, potentiometers and LEDs). For more information about the examples, check the [examples page](docs/Examples.md)
+I provide with three different examples. The first one is the line following robot. The second one is an example of the user interface (buttons, potentiometers and LEDs). The third one is a proportinal controller. For more information about the examples, check the [examples page](docs/Examples.md)
 
 ## Hardware setup ##
 
-In order to be able to use you machine you should define the kind of electronics and motors and sensors that you will employ. This is done in the model and in the Ardiono code. 
+In order to be able to use you machine you should define the kind of electronics and motors and sensors that you will employ. This is done in the model and in the Arduino code. 
 
 In the model, the movements of your machine are defined by joints. Each joint represents a degree of freedom of your machine and they can be rotational or prismatic (linear). In addition, the vision sensors or proximity sensors should be in the model. All the sensors and joints have a name, which should be unique. 
 
@@ -192,6 +202,7 @@ This follows the same procedure as for the sensors and objects. First, add a joi
 ## Known issues
 
 * The user interface is frozen during the delays: If you have long delays (more than 1000ms), you will not be able to use the user interface (click buttons, move potentiometers, etc.).
+* The user interface is updated after the loop function. This means that you will not observe changes in the user interface until the loop function ends. That is why you will not see the Led blinking in the LED blinking example that comes with the Arduino IDE.
 
 ## Questions? ##
 

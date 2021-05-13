@@ -50,6 +50,8 @@ Now we need to install the OpenGL and GLUT libraries (Yes, they are very old but
 
 The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file and extract it. First, we need to copy the freeglut.dll file in the bin folder to the folder that contains the binaries of the c++ compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin. Second, we need to copy the GL folder in the include folder to the include folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include. Thus, I have now a GL folder inside the include folder of the compiler. Finally, we need to copy libfreeglut.a and libfreeglut_static.a from the lib folder to the lib folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\lib.  In all cases, do not copy the folders called x64.
 
+Finally, we need to create a new environment variable for the include folder of Mingw-w64 (in my case, C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include). Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, check if there is a variable called CPATH in the System variables. If so, edit it and add a semicolon (";") and the path to the include directory. If not, press on the New... button and on the Variable Name type CPATH and on Variable value type the path to the include folder. 
+
 The compiler and the libraries are installed.
 
 #### Linux and MacOS
@@ -131,7 +133,7 @@ Then, clone the repository of the Arduino2Vrep:
 
 ## Test the installation
 
-The installation is completed. Follow the instructions in [Using the simulator](../README.md). But basically, it consists on opening a scene in CoppeliaSim and press the upload button in the Arduino IDE. Enjoy it!
+The installation is completed. Follow the instructions in [Testing the simulator](../README.md). But basically, it consists on opening a scene in CoppeliaSim and press the upload button in the Arduino IDE. Enjoy it!
 
 ## Option for HTMAA students: Virtual Machine with everything installed ##
 
