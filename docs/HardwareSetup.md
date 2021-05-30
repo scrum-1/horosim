@@ -132,9 +132,12 @@ The string_id needs to match with the name of a sensor in the CoppeliaSim model.
 
 These sensors simulate infrared (IR), ultrasound (US) and laser sensors. It can also be used to simulate a switch or a pushbutton in the simulation if it is used as digital sensor.
 
-These sensors can be used as analog or digital sensors. If it is used as an analog sensor, it should be connected to a analog input and the threshold value is ignored. If it used as a digital sensor, the threshold value imitates the potentiometer that is usually found in these devices.
+These sensors can be used as analog or digital sensors. If it is used as an analog sensor, it should be connected to a analog input and the threshold value is ignored. If it used as a digital sensor, the threshold value imitates the potentiometer that is usually found in these devices. Basically, this number sets the threshold that changes its digital output from LOW to HIGH or from HIGH to LOW. 
 
-**Important: The sensor in CoppeliaSim needs to have the same range as in his function. Additionally, the offset of the sensor in CoppeliaSim needs to be set to 0. If not, the sensor will not work properly.** 
+The sensor in CoppeliaSim needs to have the same range (range + offset) as in his function. Additionally, the offset of the sensor in CoppeliaSim needs to be set to 0 (or very close to 0). If not, the sensor will not work properly.
+
+**Important: The objects to be detected by the sensor need to be set to detectable. Double click in the icon of the object to detect in the Scene hierarchy. Then, a menu called Scene Object Properties will show up. Press the common tab and mark the Detectable check box under Object special properties.** 
+
 
 #### VisonSensor ####
 
