@@ -66,7 +66,11 @@ void Led_UI::analogWrite(int pin_i, int val) {
 	if(!set2output)
 		return;
 	if(pin_i==3||pin_i==5||pin_i==6||pin_i==9||pin_i==10||pin_i==11) {
-		state=(val%256)/255.0*100;
+		val=val%256;
+		if(val<0) {
+			val+=256;
+		}
+		state=(val)/255.0*100;
 	}
 	if(state<0)
 		state=0;

@@ -48,6 +48,9 @@ void DCMotor_Transistor::analogWrite(int pin_i, int value) {
 		return;
 	if(pin_i==3||pin_i==5||pin_i==6||pin_i==9||pin_i==10||pin_i==11) {
 		value=value%256;
+		if(value<0) {
+			value += 256;
+		}
 		setTargetSpeed(rpm_max/255*value);
 	}
 }

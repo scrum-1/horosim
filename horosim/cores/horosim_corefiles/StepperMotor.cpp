@@ -95,7 +95,7 @@ void StepperMotor::analogWrite(int pin_i, int value) {
 	if(!step_set2output||!dir_set2output)
 		return;
 	if(pin_i==3||pin_i==5||pin_i==6||pin_i==9||pin_i==10||pin_i==11) {
-		value=value%256;
+		//the frequency is fixed to 490Hz
 		setTargetSpeed(rpm_max/2);
 	}
 }

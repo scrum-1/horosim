@@ -114,6 +114,9 @@ void DCMotor_Hbridge::analogWrite(int pin_i, int value) {
 		en_set2output=true;
 		en=true;
 		pwm=value%256;
+		if(pwm<0) {
+			pwm += 256;
+		}
 		float speed = rpm_max/255*pwm;
 		if(in1==HIGH && in2==LOW){
 			//Forward
