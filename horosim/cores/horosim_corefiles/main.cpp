@@ -203,14 +203,6 @@ void stop_simulation() {
 int main(int argc, char** argv)
 {
 
-  #ifdef __MINGW32__
-  FILE* fp;
-  //AllocConsole();
-  AttachConsole(ATTACH_PARENT_PROCESS);
-  freopen_s(&fp, "CONIN$", "r", stdin);
-  freopen_s(&fp, "CONOUT$", "w", stdout);
-  freopen_s(&fp, "CONOUT$", "w", stderr);
-  #endif
 
   //Connect to Coppelia Sim
   signal(SIGINT, signal_callback_handler);
@@ -234,7 +226,19 @@ int main(int argc, char** argv)
     return -1;
   }
 
+  #ifdef __MINGW32__
+  //Do this after checking that CoppeliaSim is connected. Thus, the previous error appears in the Arduino IDE in Windows
+  FILE* fp;
+  //AllocConsole();
+  AttachConsole(ATTACH_PARENT_PROCESS);
+  freopen_s(&fp, "CONIN$", "r", stdin);
+  freopen_s(&fp, "CONOUT$", "w", stdout);
+  freopen_s(&fp, "CONOUT$", "w", stderr);
+  #endif
+
   printf("HoRoSim: Connected to remote API server, clientID: %d\n", clientID);
+
+
 
   // Now try to retrieve data in a blocking fashion (i.e. a service call):
   int objectCount;

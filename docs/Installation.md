@@ -26,7 +26,7 @@ This section provides the steps to install and c++ compiler and glut libraries i
 
 If you prefer to install the compiler and libraries in Windows, follow the following steps.
 
-Install Mingw-w64, which provides a g++ for Windows. It is available for download [here](http://mingw-w64.org/doku.php/download). Select the MingW-W64-builds option, download it and install it. Use the default options. 
+Install MingW-W64-builds, which provides a g++ for Windows. It is available for download [here](https://sourceforge.net/projects/mingw-w64/). Select the MingW-W64-builds option, download it and install it. Use the default options. 
 
 **Note: I tried Visual Studio, but you cannot use it from a normal terminal (you need to use a special terminal). Thus, you can use Visual studio, but then you cannot use the Arduino IDE to compile it. There is no support for Visual Studio** 
 
@@ -50,7 +50,7 @@ Now we need to install the OpenGL and GLUT libraries (Yes, they are very old but
 
 The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file and extract it. First, we need to copy the freeglut.dll file in the bin folder to the folder that contains the binaries of the c++ compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin. Second, we need to copy the GL folder in the include folder to the include folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include. Thus, I have now a GL folder inside the include folder of the compiler. Finally, we need to copy libfreeglut.a and libfreeglut_static.a from the lib folder to the lib folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\lib.  In all cases, do not copy the folders called x64.
 
-Finally, we need to create a new environment variable for the include folder of Mingw-w64 (in my case, C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include). Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, check if there is a variable called CPATH in the System variables. If so, edit it and add a semicolon (";") and the path to the include directory. If not, press on the New... button and on the Variable Name type CPATH and on Variable value type the path to the include folder. 
+Finally, we need to create a new environment variable for the include folder of Mingw-w64 (in my case, C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include). Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, check if there is a variable called CPATH in the System variables. If so, edit it and add a semicolon (";") and the path to the include directory. This should be done by inserting it at the end of the field, without deleting the previous text. If not, press on the New... button and on the Variable Name type CPATH and on Variable value type the path to the include folder. 
 
 The compiler and the libraries are installed.
 
