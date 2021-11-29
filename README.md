@@ -4,6 +4,10 @@
 
 HoRoSim (Holistic Robotic Simulator) allows you to simulate physical devices controlled by Arduino code. The user defines standard electronic circuits that are employed in the Arduino code (see [Hardware Setup function](#markdown-header-hardware_setup)) and a robot simulator, CoppeliaSim, simulates the physics of the device. Thus, HoRoSim simulates Arduino code with a physics engine and based on the electronic circuits defined. You can use the Arduino IDE to compile the code and run it, see instructions bellow. Please, be aware that this program can have bugs. I programmed it fast as it is available for "How To Make (Almost) Anything" students at the IT University of Copenhagen. If you find a bug or something is not well modeled, please, fill a bug report or send me an email.
 
+The simulator has been described in this [article](docs/faina2021RIE_HoRoSim_postprint.pdf), which has been published on the 13th International Conference on 2021 Robotics in Education conference. Cite:
+
+Faiña A. (2022) HoRoSim, a Holistic Robot Simulator: Arduino Code, Electronic Circuits and Physics. In: Merdan M., Lepuschitz W., Koppensteiner G., Balogh R., Obdržálek D. (eds) Robotics in Education. RiE 2021. Advances in Intelligent Systems and Computing, vol 1359. Springer, Cham. https://doi.org/10.1007/978-3-030-82544-7_24
+
 
 ## Features ##
 
