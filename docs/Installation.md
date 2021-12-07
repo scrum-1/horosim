@@ -1,34 +1,44 @@
 # Installation #
 
-The installation can be a bit tricky, specially if you are not used to install libraries and developing tools. However, I have tried to give step by step instructions. 
+The installation can be a bit tricky, specially if you are not used to install libraries and developing tools. However, I have tried to give step by step instructions and there is a windows installer. 
 
-## Requirements ##
+## Introduction ##
 
-There are a couple of requirements:
+HoRoSim uses differents programs to work:
 
 1. CoppeliaSim simulator
-2. c++ compiler (g++) and glut libraries
-3. Arduino IDE (>1.5.0)
+2. Arduino IDE (>1.5.0)
+3. c++ compiler (g++) and glut libraries
 4. The HoRoSim source code
 
+## Windows installation
 
-If you do not want to install g++ or the Arduino IDE(see below, it is tricky in Windows), you can use the virtual machine that I created [Download Ubuntu Virtual Machine](https://owncloud.itu.dk/index.php/s/orL1ETlNlpRN8B8). Thus, you only need to install the CoppeliaSim simulator. 
-
-## Step 1: CoppeliaSim Simulator (All OS) ##
+### Step 1: CoppeliaSim Simulator
 
 Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
 
-## Step 2: Install g++ compiler and libraries ##
+### Step 2: Arduino IDE (>1.5.0 and <2.0)
 
-#### Windows
+Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. The Arduino IDE 1.8.14 is the last stable version. **Do not download the Arduino 2.0, which is still in beta and uses a completely new system** 
 
-This section provides the steps to install and c++ compiler and glut libraries in Windows. Another option would be to use the WSL. If you do that, install WSL and follow the linux instructions. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install WSL. **Note: WSL2 will not work! The programs communicate through TCP/IP communications and all of them need to run in the same IP).**  
+### Step 3: HoRoSim source code, g++ and glut libraries
+
+The recommended installation is to use the provided installer, only attempt to follow the advanced installation if you are a developer.
+
+#### Basic installation
+Doanload the installer from [here](https://www.dropbox.com/s/i1m1ydk95hfnojd/HoRoSim_Installer.exe?dl=0). Before running the installer, be sure that the Arduino IDE is installed. Follow the installer, which will install a g++ compiler, HoRoSim source files and the glut libraries. Be sure to select the Arduino´s sketchbook folder as installation directory, and press yes to install the compiler and to add it to the PATH environmental variable. **Do not modify the g++ installer options. If you change the architecture or the installation folder, HoRoSim will not work!** 
+
+#### Advanced installation (not recommended)
+
+This section provides the steps to install and c++ compiler, glut libraries and the HoRoSim source code in Windows. Another option would be to use the WSL. If you do that, install WSL and follow the linux instructions. [Here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) you have a guide to install WSL. **Note: WSL2 will not work! The programs communicate through TCP/IP communications and all of them need to run in the same IP).**  
 
 If you prefer to install the compiler and libraries in Windows, follow the following steps.
 
 Install MingW-W64-builds, which provides a g++ for Windows. It is available for download [here](https://sourceforge.net/projects/mingw-w64/). Select the MingW-W64-builds option, download it and install it. Use the default options. 
 
 **Note: I tried Visual Studio, but you cannot use it from a normal terminal (you need to use a special terminal). Thus, you can use Visual studio, but then you cannot use the Arduino IDE to compile it. There is no support for Visual Studio** 
+
+**Note: MinGW will not work as it does not provide POSIX support.** 
 
 Now, you need to add the path of the folder where the binaries of the compiler are installed to the %PATH% environment variable. Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, select the Path variable under "System variables" and click on edit. Now, press the New button and type the path to the folder where the binaries or the compiler are. Im my system, it looks like: C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin
 
@@ -46,17 +56,35 @@ You should see something like:
 
 If so, the compiler is installed and it can be found by the system. Well done!
 
+
+Now, it is time to get the HoRoSim source code. When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is in C:\fai\documents\Arduino. Go to this folder and check if there is a folder called "hardware". If not, create it. 
+
+If you know how to use git, clone the HoRoSim repository in the hardware folder. If not, you can download the source code from the [HoRoSim repository](https://bitbucket.org/afaina/horosim/src/master/). To do that, open the repository in a web browser and click on the "..." button next to the clone button. Then, select "Download repository". Extract the zip file and copy the horosim folder in the hardware folder.
+
+In my case, the structure is C:\fai\documents\Arduino\hardware\HoRoSim.
+
+
 Now we need to install the OpenGL and GLUT libraries (Yes, they are very old but they are easy to use and install). 
 
-The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file and extract it. First, we need to copy the freeglut.dll file in the bin folder to the folder that contains the binaries of the c++ compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin. Second, we need to copy the GL folder in the include folder to the include folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include. Thus, I have now a GL folder inside the include folder of the compiler. Finally, we need to copy libfreeglut.a and libfreeglut_static.a from the lib folder to the lib folder of the compiler. In  my case, it is located here : C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\lib.  In all cases, do not copy the folders called x64.
+The easiest option is to download them already compiled. They are available [here](https://www.transmissionzero.co.uk/software/freeglut-devel/). Select the "Download freeglut 3.0.0 for MinGW" option, download the zip file. Create a folder redist inside the HoRoSim folder and extract the glut libraries there. In my case, the libraries are in "C:\fai\documents\Arduino\hardware\HoRoSim\redist\freeglut". Note that the if you have installer a x64 compiler, you should replace the libraries of freeglut by the x64 libraries (they are in a folder called x64).  
 
-Finally, we need to create a new environment variable for the include folder of Mingw-w64 (in my case, C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\include). Press in the START icon, type "Edit the system environment variables", and click on the icon that appears. In that menu, click on "Environment Variables...". In the next menu, check if there is a variable called CPATH in the System variables. If so, edit it and add a semicolon (";") and the path to the include directory. This should be done by inserting it at the end of the field, without deleting the previous text. If not, press on the New... button and on the Variable Name type CPATH and on Variable value type the path to the include folder. 
 
-The compiler and the libraries are installed.
+HoRoSIm is installed!
 
-#### Linux and MacOS
 
-In Linux and MacOS, the installation of the compiler and the libraries is straight forward. Simply, open a terminal and type these commands:
+## MacOs installation
+
+### Step 1: CoppeliaSim Simulator
+
+Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
+
+### Step 2: Arduino IDE (>1.5.0 and <2.0)
+
+Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. The Arduino IDE 1.8.14 is the last stable version. **Do not download the Arduino 2.0, which is still in beta and uses a completely new system** 
+
+### Step 3: HoRoSim source code, g++ and glut libraries
+
+In MacOS, the installation of the compiler and the libraries is straight forward. Simply, open a terminal and type these commands:
 
 	sudo apt-get update
 	sudo apt-get install g++
@@ -69,13 +97,24 @@ Now, the compiler is installed and we just need the libraries to create the grap
 
 The compiler and the libraries are installed.
 
-## Step 3: Arduino IDE (>1.5.0 and <2.0)
+#### HoRoSim source code without git
 
-#### Windows and MacOS
+When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is in C:\fai\documents\Arduino. Go to this folder and check if there is a folder called "hardware". If not, create it. 
 
-Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. The Arduino IDE 1.8.14 is the last stable version. **Do not download the Arduino 2.0, which is still in beta and uses a completely new system** 
+If you know how to use git, clone the HoRoSim repository in the hardware folder. If not, you can download the source code from the [HoRoSim repository](https://bitbucket.org/afaina/horosim/src/master/). To do that, open the repository in a web browser and click on the "..." button next to the clone button. Then, select "Download repository". Extract the zip file and copy the horosim folder in the hardware folder.
 
-#### Linux
+#### HoRoSim source code with git
+
+You could also clone the HoRoSim repository inside the hardware folder inside the Arduino´s sketchbook folder. See Linux installation for reference.
+
+
+## Linux
+
+## Step 1: CoppeliaSim Simulator (All OS) ##
+
+Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
+
+### Step 2: Arduino IDE (>1.5.0 and <2.0)
 
 Unfortunately, the Arduino IDE in the Ubuntu repositories is too old. We need to download and install it from the web. Use the following commands:
 
@@ -92,18 +131,20 @@ Now, you should be able to run the Arduino IDE by typing:
 
 	arduino
 
-## Step 4: Source code 
+### Step 3: HoRoSim source code, g++ and glut libraries
 
-##### Windows and MacOS
+In Linux, the installation of the compiler and the libraries is straight forward. Simply, open a terminal and type these commands:
 
-When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is in C:\fai\documents\Arduino. Go to this folder and check if there is a folder called "hardware". If not, create it. 
+	sudo apt-get update
+	sudo apt-get install g++
+	(type "Y" when asked)
 
-If you know how to use git, clone the HoRoSim repository in the hardware folder. If not, you can download the source code from the [HoRoSim repository](https://bitbucket.org/afaina/horosim/src/master/). To do that, open the repository in a web browser and click on the "..." button next to the clone button. Then, select "Download repository". Extract the zip file and copy the horosim folder in the hardware folder.
+Now, the compiler is installed and we just need the libraries to create the graphical user interface (OpenGL and GLUT). Yes, they are very old but they are easy to use and install. To install them, just type:
 
-In my case, the structure is /mnt/c/fai/documents/Arduino/hardware/HoRoSim/.
+	sudo apt-get install freeglut3-dev
+	(type "Y" when asked)
 
-
-#### Linux and MacOS
+The compiler and the libraries are installed.
 
 When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is /mnt/c/fai/documents/Arduino in WSL and /home/htmaa/Arduino in the Ubuntu virtual machine. Go to this folder and check if there is a folder called "hardware". If not, create it. 
 
@@ -130,14 +171,12 @@ Then, clone the repository of the Arduino2Vrep:
 
 	git clone https://bitbucket.org/afaina/horosim.git
 
+HoRoSim is installed!
+
 
 ## Test the installation
 
 The installation is completed. Follow the instructions in [Testing the simulator](../README.md). But basically, it consists on opening a scene in CoppeliaSim and press the upload button in the Arduino IDE. Enjoy it!
-
-## Option for HTMAA students: Virtual Machine with everything installed ##
-
-I created a virtual machine with HoRoSim and the Fritzing simulator in VirtualBox. First, install virtualBox from [here](https://www.virtualbox.org/). Then, download the Ubuntu Virtual Machine from LearnIT  (in "Programs to install") and extract it. Then, start the virtual machine by opening through VirtualBox. The login is "htmaa" and the password is "htmaa". You still need to install the CoppeliaSim simulator in your computer (not in the virtual machine). 
 
 ## Updating the software ##
 
@@ -145,6 +184,8 @@ If you used git, you can update the software easily. Use you the method that you
 
 	cd [PATH_TO_HOROSIM such as /home/htmaa/Arduino/hardware/HoRoSim/]
 	git pull
+
+If you have not used git, remove the HoRoSim folder that is contained in Arduino´sSketchbookFolder/hardware and replace it with the new version. 
 
 ## Troubleshooting ##
 
