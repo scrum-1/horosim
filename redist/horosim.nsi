@@ -1,3 +1,6 @@
+#Name of the App
+Name HoRoSim
+
 # set the name of the installer
 Outfile "HoRoSim_Installer.exe"
  
@@ -83,22 +86,47 @@ Section -Prerequisites
   #  Goto endArduino
   #endArduino:
   
-  MessageBox MB_OK "HoRoSim needs the Mingw-w64 g++ compiler. Use the default settings, do not change the architecture field!"
-  MessageBox MB_YESNO "Install the Mingw-w64 (g++)?" /SD IDYES IDNO endG++
-    File "mingw-w64-install.exe"
-    ExecWait "$INSTDIR\redist\mingw-w64-install.exe"
-    Goto endG++
-  endG++:
+  #We will install the offline g++ compiler
+  #MessageBox MB_OK "HoRoSim needs the Mingw-w64 g++ compiler. Use the default settings, do not change the architecture field!"
+  #MessageBox MB_YESNO "Install the Mingw-w64 (g++)?" /SD IDYES IDNO endG++
+    #File "mingw-w64-install.exe"
+    #ExecWait "$INSTDIR\redist\mingw-w64-install.exe"
+    #Goto endG++
+  #endG++:
+
+  #Copy the mingw-w64
+  SetOutPath $INSTDIR\redist\mingw32
+  File /nonfatal "mingw32\build-info.txt"
+  File /nonfatal "mingw32\version.txt"
+  SetOutPath $INSTDIR\redist\mingw32\bin
+  File /nonfatal /r "mingw32\bin\"
+  SetOutPath $INSTDIR\redist\mingw32\etc
+  File /nonfatal /r "mingw32\etc\"
+  SetOutPath $INSTDIR\redist\mingw32\i686-w64-mingw32
+  File /nonfatal /r "mingw32\i686-w64-mingw32\"
+  SetOutPath $INSTDIR\redist\mingw32\include
+  File /nonfatal /r "mingw32\include\"
+  SetOutPath $INSTDIR\redist\mingw32\lib
+  File /nonfatal /r "mingw32\lib\"
+  SetOutPath $INSTDIR\redist\mingw32\libexec
+  File /nonfatal /r "mingw32\libexec\"
+  SetOutPath $INSTDIR\redist\mingw32\licenses
+  File /nonfatal /r "mingw32\licenses\"
+  SetOutPath $INSTDIR\redist\mingw32\opt
+  File /nonfatal /r "mingw32\opt\"
+  SetOutPath $INSTDIR\redist\mingw32\share
+  File /nonfatal /r "mingw32\share\"
+
 SectionEnd
 
 
 Section -AddEnvVar
-  IfFileExists "C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin\g++.exe" g++Found
-    MessageBox MB_ICONEXCLAMATION|MB_OK "We have not found the g++ compiler at the defalt location. You need to install the g++ compiler and/or add the path to the g++ compiler to the PATH environmental variable. Anotjer option would be to reinstall HoRoSim without modifying the settings of mingw. HoRoSim will not work until this is fixed."
+  IfFileExists "$INSTDIR\redist\mingw32\bin\g++.exe" g++Found
+    MessageBox MB_ICONEXCLAMATION|MB_OK "We have not found the g++ compiler at the defalt location. You need to install the g++ compiler and/or add the path to the g++ compiler to the PATH environmental variable. HoRoSim will not work until this is fixed."
     GoTo endAddEnvVar
     g++Found:
       MessageBox MB_YESNO "HoRoSim needs to be able to find g++. To do so, the installer will add Mingw-w64 (g++) to the PATH environmental variable. If it is not added, HoRoSim will not work. Add g++ to the PATH env variable?" /SD IDYES IDNO endAddEnvVar
-      EnVar::AddValue "PATH" "C:\Program Files (x86)\mingw-w64\i686-8.1.0-posix-dwarf-rt_v6-rev0\mingw32\bin"
+      EnVar::AddValue "PATH" "$INSTDIR\redist\mingw32\bin"
       nsExec::ExecToStack  'cmd /c "g++ --version"'
       Pop $0
       Pop $0

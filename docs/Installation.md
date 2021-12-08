@@ -27,7 +27,7 @@ The recommended installation is to use the provided installer, only attempt to f
 
 #### Basic installation (recommended)
 
-Download the installer from [here](https://www.dropbox.com/s/i1m1ydk95hfnojd/HoRoSim_Installer.exe?dl=0). Before running the installer, be sure that the Arduino IDE is installed. Follow the installer, which will install a g++ compiler, HoRoSim source files and the glut libraries. Be sure to select the Arduino´s sketchbook folder as installation directory, and press yes to install the compiler and to add it to the PATH environmental variable. **Do not modify the g++ installer options. If you change the architecture or the installation folder, HoRoSim will not work!** 
+Download the installer from [here](https://www.dropbox.com/s/i1m1ydk95hfnojd/HoRoSim_Installer.exe?dl=0). Before running the installer, be sure that the Arduino IDE is installed. Follow the installer, which will install a g++ compiler, HoRoSim source files and the glut libraries. Be sure to select the Arduino´s sketchbook folder as installation directory, and press yes to install the compiler and to add it to the PATH environmental variable. 
 
 HoRoSim is installed!
 
