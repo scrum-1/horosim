@@ -33,9 +33,7 @@ void Led_UI::updateGUI(){
     float width = height * 1.55f;
     float radius = height * 0.50f;
 
-    ImU32 col_bg;
-    if(color==LED_RED)
-    	col_bg =IM_COL32(120+state, 20, 20, 255);
+    ImU32 col_bg = IM_COL32(120+state, 20, 20, 255);
     if(color==LED_GREEN)
     	col_bg =IM_COL32(20, 120+state, 20, 255);
 

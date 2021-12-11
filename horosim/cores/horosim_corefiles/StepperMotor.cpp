@@ -89,7 +89,7 @@ void StepperMotor::digitalWrite(int pin_i, int status) {
 	}
 }
 
-void StepperMotor::analogWrite(int pin_i, int value) {
+void StepperMotor::analogWrite(int pin_i, int /*value*/) {
 	if(pin_i!=step_pin)
 		return;
 	if(!step_set2output||!dir_set2output)

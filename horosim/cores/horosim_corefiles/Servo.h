@@ -18,4 +18,5 @@ class Servo {       // The class
     double reduction=1;
     int currentPos=90; 
     bool isAttached=false;
+    double minPos=0;
 };

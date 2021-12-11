@@ -126,6 +126,8 @@ Section -AddEnvVar
     GoTo endAddEnvVar
     g++Found:
       MessageBox MB_YESNO "HoRoSim needs to be able to find g++. To do so, the installer will add Mingw-w64 (g++) to the PATH environmental variable. If it is not added, HoRoSim will not work. Add g++ to the PATH env variable?" /SD IDYES IDNO endAddEnvVar
+      #Adds the variable in the machine, not the user
+      EnVar::SetHKLM
       EnVar::AddValue "PATH" "$INSTDIR\redist\mingw32\bin"
       nsExec::ExecToStack  'cmd /c "g++ --version"'
       Pop $0
@@ -139,7 +141,7 @@ Section -AddEnvVar
         MessageBox MB_OK "g++ is working OK!$\r$\n$\r$\ng++ version is:$\r$\n $0"
         Goto done
       notfound:
-        MessageBox MB_OK 'g++ version seems incorrect. HoRoSim will probably not work. Check that you do not have other g++ compilers in the PATH environmental variable. Version of g++ found: $0'
+        MessageBox MB_OK 'g++ version seems incorrect. HoRoSim will probably not work. Check that you do not have other g++ compilers in the PATH environmental variable. $\r$\n$\r$\n This could be a false alarm if the version of g++ is i686-posix-dwarf-rev0, Built by MinGW-W64 project) 8.1.0 $\r$\n$\r$\n Version of g++ found:$\r$\n$0'
       done:
     endAddEnvVar:
 

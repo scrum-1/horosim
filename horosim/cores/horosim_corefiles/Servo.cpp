@@ -27,6 +27,7 @@ void Servo::attach(int pin_i) {
 			initialized=true;
 			servo_name=(*it)->getHandleName();
 			reduction=(*it)->getServoReduction();
+			minPos=(*it)->getServoMinPos();
 		}
 	}
 
@@ -53,7 +54,7 @@ void Servo::write(int val) {
 			val=0;
 		currentPos=val;
 		//The servo starts centered (0=>left, 90:center, 180=>right)
-		float pos=(val-90)/180.0*3.1415*reduction;
+		float pos=val/180.0*3.1415*reduction + minPos;
 		int error=simxSetJointTargetPosition(clientID, handle, pos, simx_opmode_oneshot);
 		if(error>simx_return_novalue_flag) {
 			printf("HoRoSim: Error setting the motor speed, error %d, handle %d, joint %s.\n", error, handle, servo_name.c_str());

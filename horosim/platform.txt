@@ -42,6 +42,9 @@ recipe.hooks.sketch.prebuild.1.pattern.windows=cmd /C echo Compiling for HoRoSim
 recipe.hooks.sketch.prebuild.2.pattern={compiler.path}{compiler.c.cmd} --version
 recipe.hooks.sketch.prebuild.3.pattern=pwd
 recipe.hooks.sketch.prebuild.3.pattern.windows=cmd /C cd
+recipe.hooks.linking.postlink.1.pattern=echo linking is complete
+recipe.hooks.linking.prelink.1.pattern.windows=cmd /C echo starting linking
+recipe.hooks.linking.postlink.1.pattern.windows=cmd /C echo linking is complete
 #recipe.hooks.linking.postlink.1.pattern={build.path}/{build.project_name}
 
 compiler.objcopy.eep.flags=
@@ -70,25 +73,25 @@ compiler.elf2hex.extra_flags=
 
 ## Compile c files
 recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} {compiler.c.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-recipe.c.o.pattern.windows="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} {compiler.c.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY {build.extra_flags} {includes} -I{runtime.hardware.path}\redist\freeglut\include\ "{source_file}" -o "{object_file}"
+recipe.c.o.pattern.windows="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} {compiler.c.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY {build.extra_flags} {includes} "-I{runtime.hardware.path}\redist\freeglut\include\" "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
 recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {compiler.cpp.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY  {build.extra_flags} {includes} "{source_file}" -o "{object_file}" 
-recipe.cpp.o.pattern.windows="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {compiler.cpp.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY  {build.extra_flags} {includes} -I{runtime.hardware.path}\redist\freeglut\include\ "{source_file}" -o "{object_file}" 
+recipe.cpp.o.pattern.windows="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {compiler.cpp.extra_flags} -D NON_MATLAB_PARSING -D MAX_EXT_API_CONNECTIONS=255 -D DO_NOT_USE_SHARED_MEMORY  {build.extra_flags} {includes} "-I{runtime.hardware.path}\redist\freeglut\include\" "{source_file}" -o "{object_file}" 
 
 
 ## Compile S files
 recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
-recipe.S.o.pattern.windows="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} {compiler.S.extra_flags} {build.extra_flags} {includes} -I{runtime.hardware.path}\redist\freeglut\include\ "{source_file}" -o "{object_file}"
+recipe.S.o.pattern.windows="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} {compiler.S.extra_flags} {build.extra_flags} {includes} "-I{runtime.hardware.path}\redist\freeglut\include\" "{source_file}" -o "{object_file}"
 
 ## Create archives (We need to keep {build.path}/{archive_file} to keep backwards compatibility)
-archive_file_path={build.path}/{archive_file}
+#archive_file_path={build.path}/{archive_file}
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 
 ## Combine gc-sections, archives, and objects
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
-recipe.c.combine.pattern.windows="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -L{runtime.hardware.path}\redist\freeglut\lib -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
+recipe.c.combine.pattern.windows="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" "-L{runtime.hardware.path}\redist\freeglut\lib" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
 
 #recipe.objcopy.hex.pattern= {build.path}/{build.project_name}
 

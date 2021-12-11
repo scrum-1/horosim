@@ -1,7 +1,7 @@
 #include "SerialClass.h"
 #include <iostream>  
 
-void SerialClass::begin(int baudrate){
+void SerialClass::begin(int /*baudrate*/){
 	initialized=true;
 }
 

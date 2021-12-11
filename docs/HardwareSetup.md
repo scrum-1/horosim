@@ -78,6 +78,7 @@ The in1 and in2 signals decide the direction of the turning or if the motor is s
 #### ServoMotor ####
 
 	new ServoMotor(arduino_pin, "name_joint", torque, speed, reduction);
+	new ServoMotor(arduino_pin, "name_joint", torque, speed, reduction, minPos);
 
 ** Parameters **
 
@@ -85,11 +86,12 @@ The in1 and in2 signals decide the direction of the turning or if the motor is s
 * name_joint: the name of the joint in CoppeliaSim. This parameter should go between "" (for example: "left_motor").
 * torque: The torque of the motor from the datasheet in Nm.
 * speed: The nominal speed of the motor in rad/s
-* reduction: The reduction ratio between the motor and the axis of movement. This value represents the transmission (gears, belts, lead-screw) and it will reduce the speed the axis and increase its force/torque.
+* reduction: The reduction ratio between the motor and the axis of movement. This value represents the transmission (gears, belts, lead-screw) and it will reduce the speed the axis and increase its force/torque. 
+* minPos: The minimum position of the joint in CoppeliaSim. The default value is 0.
 
 ** Notes: **
 
-This motor has a feedback loop and it will try to reach a target position. The servo always starts at its center position. Therefore, the axis in the model should be centered too.
+This motor has a feedback loop and it will try to reach a target position. 
 	
 #### StepperMotor ####
 

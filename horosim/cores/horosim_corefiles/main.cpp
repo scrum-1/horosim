@@ -173,9 +173,10 @@ void glut_display_func()
 //int atexit(void (* /*func*/)()) { return 0; }
 
 void signal_callback_handler(int signum) {
-  printf("\n");
+  printf("Interrupt signal received. Signal: %d\n", signum);
   stop_sim=true;
 }
+
 void stop_simulation() {
   //cout << "Caught signal " << signum << endl;
   //Switch off motors and wait 2 seconds
@@ -227,14 +228,18 @@ int main(int argc, char** argv)
   }
 
   #ifdef __MINGW32__
+  //Commented as the deactivation of the buffer for the stdout fixed this problem
   //Do this after checking that CoppeliaSim is connected. Thus, the previous error appears in the Arduino IDE in Windows
-  FILE* fp;
+  //FILE* fp;
   //AllocConsole();
-  AttachConsole(ATTACH_PARENT_PROCESS);
-  freopen_s(&fp, "CONIN$", "r", stdin);
-  freopen_s(&fp, "CONOUT$", "w", stdout);
-  freopen_s(&fp, "CONOUT$", "w", stderr);
+  //AttachConsole(ATTACH_PARENT_PROCESS);
+  //freopen_s(&fp, "CONIN$", "r", stdin);
+  //freopen_s(&fp, "CONOUT$", "w", stdout);
+  //freopen_s(&fp, "CONOUT$", "w", stderr);
   #endif
+
+  //Desactivate buffer for stdout, avoids to have to flush 
+  setvbuf(stdout, NULL, _IONBF, 0); 
 
   printf("HoRoSim: Connected to remote API server, clientID: %d\n", clientID);
 
@@ -388,6 +393,10 @@ int analogRead(int a) {
   }
   //TODO: Give random number
   return 0;
+}
+
+long map(long x, long in_min, long in_max, long out_min, long out_max) {
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
 

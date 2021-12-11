@@ -29,6 +29,12 @@ The recommended installation is to use the provided installer, only attempt to f
 
 Download the installer from [here](https://www.dropbox.com/s/i1m1ydk95hfnojd/HoRoSim_Installer.exe?dl=0). Before running the installer, be sure that the Arduino IDE is installed. Follow the installer, which will install a g++ compiler, HoRoSim source files and the glut libraries. Be sure to select the Arduino´s sketchbook folder as installation directory, and press yes to install the compiler and to add it to the PATH environmental variable. 
 
+If you need to install HoRoSim for multiple users in the computer, select the Arduino installation folder as installation directory. For example:  C:\Program Files (x86)\Arduino
+
+If you want to run a silent installation, run this command from the terminal:
+
+	HoRoSim_Installer.exe /S /D=C:\FOLTER_TO_INSTALL
+
 HoRoSim is installed!
 
 #### Advanced installation (not recommended)
