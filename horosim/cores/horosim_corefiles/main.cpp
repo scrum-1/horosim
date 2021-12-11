@@ -17,6 +17,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#define HOROSIM_VERSION "0.1.0"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glut.h"
@@ -208,6 +209,8 @@ int main(int argc, char** argv)
   //Connect to Coppelia Sim
   signal(SIGINT, signal_callback_handler);
   simTime_timeInit();
+
+  printf("HoRoSim %s\n", HOROSIM_VERSION);
 
   int port=19997;
   int commThreadCycleInMs=5;
