@@ -22,6 +22,7 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glut.h"
 #include "imgui/imgui_impl_opengl2.h"
+#include <thread>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
@@ -53,10 +54,16 @@
 #endif
 
 // Our state
-static bool show_another_window = false;
+static bool show_serial_monitor = true;
+const unsigned int SENT_BUF_LEN = 256;
+const unsigned int SERIAL_BUF_MAX_LEN = 1024;
+unsigned int serial_buffer_index = 0;
+unsigned int serial_buffer_len = 0;
+char serial_buffer[SERIAL_BUF_MAX_LEN];
+char serial_sent_buffer[SENT_BUF_LEN];
 static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-using namespace std;
+using namespace std; 
 
 extern "C" {
 #include "coppeliasim/remoteapi/extApi.h"
@@ -72,10 +79,7 @@ bool stop_sim = false;
 void my_display_code()
 {
 
-  //Update the simulator and Arduino
-  if(stop_sim)
-    stop_simulation();
-  loop();
+  
   //if (serialEventRun) serialEventRun();
 
 
@@ -87,7 +91,7 @@ void my_display_code()
     ImGui::Begin("HoRoSim User Interface");                   // Create a window called HoRoSim User Interface" and append into it.
 
     //ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-    //ImGui::Checkbox("Another Window", &show_another_window);
+    //ImGui::Checkbox("Another Window", &show_serial_monitor);
 
     //ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
     //ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -134,16 +138,83 @@ void my_display_code()
   }
 
   // 3. Show another simple window.
-  if(show_another_window)
+  if(show_serial_monitor)
   {
-    ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-    ImGui::Text("Hello from another window!");
-    if(ImGui::Button("Close Me"))
-      show_another_window = false;
-    ImGui::End();
+    serialMonitor();
   }
 }
 
+void serialMonitor()
+{
+
+  const char* ending_items[] = { "No line ending", "Newline", "Carriage return", "Both NL & CR"};
+  static int ending_current = 0;
+  const char* baud_items[] = { "4800 baud", "9600 baud", "14400 baud", "19200 baud", "28800 baud",
+                               "38400 baud","57600 baud", "115200 baud"
+                             };
+  static int baud_current = 0;
+  unsigned int bytes = 0;
+
+  ImGui::Begin("HoRoSim Serial Monitor");   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+  ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth()-45);
+  ImGui::InputText("##sent_msg", serial_sent_buffer, IM_ARRAYSIZE(serial_sent_buffer));
+  ImGui::SameLine();
+  if(ImGui::Button("Send")) {
+    //Find how many bytes are in the message and store the bytes in the serial buffer
+    for(unsigned int i = 0; i < SENT_BUF_LEN; ++i) {
+      if(serial_sent_buffer[i] == 0) {
+        bytes = i;
+        break;
+      } else {
+        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = serial_sent_buffer[i];
+        serial_buffer_len++;
+        if(serial_buffer_len>SERIAL_BUF_MAX_LEN)
+          serial_buffer_len = SERIAL_BUF_MAX_LEN;
+      }
+    }
+    if(bytes>0) {
+      switch(ending_current) {
+      case 0:
+        break;
+      case 1:
+        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\n';
+        serial_buffer_len++;
+        break;
+      case 2:
+        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\r';
+        serial_buffer_len++;
+        break;
+      case 3:
+        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\n';
+        serial_buffer_len++;
+        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\r';
+        serial_buffer_len++;
+        break;
+      }
+    }
+    printf("characters in sent buffer: %d\n", bytes);
+    printf("characters in serial buffer: %d\n", serial_buffer_len);
+    printf("serial buffer: %s\n", serial_buffer);
+    printf("serial buffer index: %d\n", serial_buffer_index);
+  }
+
+  ImGui::Spacing (); //Add vertical spacing
+  ImGui::Indent(ImGui::GetContentRegionAvailWidth()*0.4);
+  ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth()*0.5);
+  ImGui::Combo("##endings", &ending_current, ending_items, IM_ARRAYSIZE(ending_items));
+  ImGui::SameLine(); //HelpMarker("Using t");
+  ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth());
+  ImGui::Combo("##baud", &baud_current, baud_items, IM_ARRAYSIZE(baud_items));
+  //ImGui::SameLine(); //HelpMarker("Using t");
+
+
+  //if(ImGui::Button("Close Me"))
+  //show_serial_monitor = false;
+  ImGui::Indent(0);
+  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+  ImGui::End();
+
+}
 void glut_display_func()
 {
   // Start the Dear ImGui frame
@@ -166,6 +237,12 @@ void glut_display_func()
 }
 
 
+void simulator_loop(){
+  while(!stop_sim) {
+    //Update the simulator and Arduino
+    loop();
+  }
+}
 
 
 
@@ -180,9 +257,6 @@ void signal_callback_handler(int signum) {
 
 void stop_simulation() {
   //cout << "Caught signal " << signum << endl;
-  //Switch off motors and wait 2 seconds
-  digitalWrite(10, 0);
-  digitalWrite(11, 0);
 
   int ret=simxStopSimulation(clientID, simx_opmode_oneshot);
   if(ret==simx_return_ok||ret==simx_return_novalue_flag)
@@ -190,14 +264,13 @@ void stop_simulation() {
   else
     printf("HoRoSim: Remote API function call returned with error code, when requestin simulation stop: %d\n",ret);
 
-  delay(100);
+  // Before closing the connection to V-REP, make sure that the last command sent out had time to arrive. You can guarantee this with (for example):
+  int pingTime;
+  simxGetPingTime(clientID,&pingTime);
+
   // Now close the connection to V-REP:
   simxFinish(clientID);
   printf("HoRoSim: Simulation finished!\n");
-
-
-  // Terminate program
-  exit(0);
 }
 
 
@@ -317,22 +390,19 @@ int main(int argc, char** argv)
   //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
   //IM_ASSERT(font != NULL);
 
+  std::thread (simulator_loop).detach();
   glutMainLoop();
+
+  //Wait to finish the simulator loop
+  //simulator.join();
 
   // Cleanup
   ImGui_ImplOpenGL2_Shutdown();
   ImGui_ImplGLUT_Shutdown();
   ImGui::DestroyContext();
 
-
   stop_simulation();
-  // Before closing the connection to V-REP, make sure that the last command sent out had time to arrive. You can guarantee this with (for example):
-  int pingTime;
-  simxGetPingTime(clientID,&pingTime);
 
-  // Now close the connection to V-REP:
-  simxFinish(clientID);
-  printf("HoRoSim: Simulation finished!\n");
   return 0;
 
 }

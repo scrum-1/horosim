@@ -175,15 +175,17 @@ In this example, we are using a DC motor controlled with a transistor, a vision 
 For detailed documentation about how to define the electronic devices, check the [Hardware Setup page](docs/HardwareSetup.md)
 
 
-## Creating a model of your machine ##
+## Creating a model of your robot/machine/device) ##
 
-This course not focus on simulation techniques and we will create a basic model of your machine for you. Please, contact me by mail or in the forum.
+If you are interested in learning how the model has been created or of you want to fine tune your model, a good tutorial can be found [in this link](https://www.coppeliarobotics.com/helpFiles/en/bubbleRobTutorial.htm). If you want to give your model a realistic appearance, you can use [this tutorial](https://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm). 
 
-If you are interested in learning how the model has been created or of you want to fine tune your model, a good tutorial can be found [in this link](https://www.coppeliarobotics.com/helpFiles/en/bubbleRobTutorial.htm). If you want to give your model a realistic appearance, you can use [this tutorial](https://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm). However, it can take a lot of time to prepare it and it is out of the scope of the course. I strongly recommend that you focus on the contents of the course.
+Some videos explaining how to create your models in CoppeliaSim can be found [here](https://www.youtube.com/watch?v=wHrgG9ZYh24) or [here](https://www.youtube.com/playlist?list=PLjzuoBhdtaXOoqkJUqhYQletLLnJP8vjZ).
+
+For the sake of completeness, a very brief explanation about how to modify the provided examples is given below.
 
 ### Fine tuning your model
 
-Maybe you just want to adjust the model a bit to add a new sensor or a new feature. You are welcome to modified your model.
+Maybe you just want to adjust the model a bit to add a new sensor or a new feature. You are welcome to modify your model.
 
 #### Adding an physical object
 

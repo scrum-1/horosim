@@ -19,7 +19,6 @@ void simTime_timeInit(){
 
 void delay(long ms){
   	struct timespec tim;
-
   	tim.tv_sec = ms/1000;
   	tim.tv_nsec = (ms%1000)*1000000;
   	//printf("tv_sec: %d\n", tim.tv_sec);

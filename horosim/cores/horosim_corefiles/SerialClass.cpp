@@ -1,10 +1,28 @@
 #include "SerialClass.h"
 #include <iostream>  
 
+extern char serial_buffer[];
+extern unsigned int serial_buffer_len;
+extern unsigned int serial_buffer_index;
+
 void SerialClass::begin(int /*baudrate*/){
 	initialized=true;
 }
 
+int SerialClass::available(){
+	return serial_buffer_len;
+}
+
+char SerialClass::read(){
+	if(serial_buffer_len>0){
+		char data = serial_buffer[serial_buffer_index];
+		serial_buffer_index++;
+		serial_buffer_len--;
+		return data;
+	}else{
+		return -1;
+	}
+}
 int SerialClass::write(std::string str){
 	if(initialized){
 		std::printf("%s", str.c_str());
