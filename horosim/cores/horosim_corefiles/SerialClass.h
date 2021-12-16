@@ -1,13 +1,36 @@
 
 #include <string>
+#include "arduino/Stream.h"
 
-class SerialClass {       // The class
+#define SERIAL_TX_BUFFER_SIZE 64
+#define SERIAL_RX_BUFFER_SIZE 64
+
+class SerialClass : Stream {       // The class
  
   public:             // Access specifier
-    
+  	SerialClass(){};
+
+  	//Definitions taken from Arduino´s HardwareSerial (avr)
+    void begin(unsigned long baud);
+    //void begin(unsigned long, uint8_t);
+    void end();
+    virtual int available(void);
+    virtual int peek(void);
+    virtual int read(void);
+    virtual int availableForWrite(void);
+    virtual void flush(void);
+    virtual size_t write(uint8_t);
+    inline size_t write(unsigned long n) { return write((uint8_t)n); }
+    inline size_t write(long n) { return write((uint8_t)n); }
+    inline size_t write(unsigned int n) { return write((uint8_t)n); }
+    inline size_t write(int n) { return write((uint8_t)n); }
+    using Print::write; // pull in write(str) and write(buf, size) from Print
+    operator bool() { return true; }
+    /*
     int available();
 
     int write(std::string);
+    int write(char);
     int write(int);
     int write(float);
 		int write(long);
@@ -28,12 +51,11 @@ class SerialClass {       // The class
 
 		char read();
     
-    void begin(int);
-    SerialClass(){};
-
+*/
   private:
   	int pin_tx;        // Pin of the Arduino where is connected
   	int pin_rx;        // Pin of the Arduino where is connected
     bool initialized = false;
+    long baudrate; 		//Baudrate for the serial monitor
 };
 

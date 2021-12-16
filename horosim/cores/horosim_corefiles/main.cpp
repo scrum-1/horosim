@@ -17,7 +17,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#define HOROSIM_VERSION "0.1.0"
+#define HOROSIM_VERSION "0.1.1"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glut.h"
@@ -61,6 +61,7 @@ unsigned int serial_buffer_index = 0;
 unsigned int serial_buffer_len = 0;
 char serial_buffer[SERIAL_BUF_MAX_LEN];
 char serial_sent_buffer[SENT_BUF_LEN];
+char serial_out[1024 * 64] = "";
 static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 using namespace std; 
@@ -196,7 +197,18 @@ void serialMonitor()
     printf("characters in serial buffer: %d\n", serial_buffer_len);
     printf("serial buffer: %s\n", serial_buffer);
     printf("serial buffer index: %d\n", serial_buffer_index);
+    printf("serial out: %s\n", serial_out);
   }
+
+  //The serial output shown
+  // Note: we are using a fixed-sized buffer for simplicity here. See ImGuiInputTextFlags_CallbackResize
+  // and the code in misc/cpp/imgui_stdlib.h for how to setup InputText() for dynamically resizing strings.
+
+
+  static ImGuiInputTextFlags flags = ImGuiInputTextFlags_ReadOnly;
+  //HelpMarker("You can use the ImGuiInputTextFlags_CallbackResize facility if you need to wire InputTextMultiline() to a dynamic string type. See misc/cpp/imgui_stdlib.h for an example. (This is not demonstrated in imgui_demo.cpp because we don't want to include <string> in here)");
+  ImGui::InputTextMultiline("##source", serial_out, IM_ARRAYSIZE(serial_out), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+
 
   ImGui::Spacing (); //Add vertical spacing
   ImGui::Indent(ImGui::GetContentRegionAvailWidth()*0.4);
@@ -210,8 +222,6 @@ void serialMonitor()
 
   //if(ImGui::Button("Close Me"))
   //show_serial_monitor = false;
-  ImGui::Indent(0);
-  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
   ImGui::End();
 
 }
