@@ -1,11 +1,37 @@
 #include "SerialClass.h"
 #include <iostream>  
 #include <cstring>
-#include <mutex> 
 
 void SerialClass::begin(unsigned long bauds){
 	initialized=true;
-	baudrate=bauds;
+	switch(bauds) {
+	case 4800:
+		baudrate = BR4800;
+		break;
+	case 9600:
+		baudrate = BR9600;
+		break;
+	case 14400:
+		baudrate = BR14400;
+		break;
+	case 19200:
+		baudrate = BR19200;
+		break;
+	case 28800:
+		baudrate = BR28800;
+		break;
+	case 38400:
+		baudrate = BR38400;
+		break;
+	case 57600:
+		baudrate = BR57600;
+		break;
+	case 115200:
+		baudrate = BR115200;
+		break;
+	default:
+		baudrate = BR_OTHER;
+	}
 }
 
 int SerialClass::available(){
@@ -38,20 +64,14 @@ int SerialClass::peek(void){
 	//FIXME 
 	return 0;
 }
-/*
-int SerialClass::write(std::string str){
-	if(initialized){
-		std::printf("%s", str.c_str());
-		std::strncat(serial_out, str.c_str(), strlen(str.c_str()));
-		return str.size();
-	}
-	return 0;
-}*/
 
 size_t SerialClass::write(uint8_t val){
 	if(initialized){
 		char tmp[2];
-		tmp[0]=val;
+		if(baudrate == baudSerialMonitor)
+			tmp[0]=val;
+		else
+			tmp[0]=rand()%127;
 		tmp[1]='\0';
 		//printf("WRITE_CHAR\n");
 		//std::printf("%s", tmp);

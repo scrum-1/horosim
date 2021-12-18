@@ -66,6 +66,7 @@ char serial_in[SERIAL_IN_MAX_LEN];
 unsigned int serial_in_len = 0;
 unsigned int serial_in_index = 0;
 static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+extern SerialClass Serial;
 
 using namespace std; 
 
@@ -83,30 +84,14 @@ unsigned int hwDeviceswindowWidth;
 
 void my_display_code()
 {  
-  //if (serialEventRun) serialEventRun();
 
-
-  // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
+  // Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
   {
     //static float f = 0.0f;
     //static int counter = 0;
 
     ImGui::Begin("HoRoSim User Interface");                   // Create a window called HoRoSim User Interface" and append into it.
 
-    //ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-    //ImGui::Checkbox("Another Window", &show_serial_monitor);
-
-    //ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-    //ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-    //if(ImGui::Button("Button"))                             // Buttons return true when clicked (most widgets return true when edited/activated)
-    //  counter++;
-    //ImGui::ArrowButton("TEST", ImGuiDir_Left);
-    //ImGui::SameLine();
-    //ImGui::Text("counter = %d", counter);
-    //static bool b=true;
-    //ToggleButton("TEST", &b);
-    //LED("TEST LED", &b);
 
     //Lets find the User Interface devices (Switches, Potentiometers, Leds)
     for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
@@ -140,7 +125,7 @@ void my_display_code()
     ImGui::End();
   }
 
-  // 3. Show another simple window.
+  // Show the serial monitor window
   if(show_serial_monitor)
   {
     serialMonitor();
@@ -198,6 +183,9 @@ void serialMonitor()
   if(ImGui::Button("Clear")) {
     serial_out[0] = '\0';
   }
+  static int baud_previous = -1;
+  if(baud_previous != baud_current)
+    Serial.setSerialMonitorBauds((BaudRate) baud_current);
 
   //if(ImGui::Button("Close Me"))
   //show_serial_monitor = false;
@@ -213,7 +201,12 @@ void updateInBuffer(char serial_sent_buffer[], Endings ending_current, long baud
       break;
     } else {
       if(serial_in_len<SERIAL_IN_MAX_LEN) {
-        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = serial_sent_buffer[i];
+        char charRead;
+        if(bauds == Serial.getBaudrate())
+          charRead = serial_sent_buffer[i];
+        else
+          charRead = rand()%127;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = charRead;
         serial_in_len++;
       }else{
         bytes = i;
@@ -227,21 +220,33 @@ void updateInBuffer(char serial_sent_buffer[], Endings ending_current, long baud
       break;
     case NL:
       if(serial_in_len<SERIAL_IN_MAX_LEN) {
-        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\n';
+        char charRead = '\n';
+        if(bauds != Serial.getBaudrate())
+          charRead = rand()%127;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = charRead;
         serial_in_len++;        
       }
       break;
     case CR:
       if(serial_in_len<SERIAL_IN_MAX_LEN) {
-        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\r';
+        char charRead = '\r';
+        if(bauds != Serial.getBaudrate())
+          charRead = rand()%127;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = charRead;
         serial_in_len++;
       }
       break;
     case NLCR:
       if(serial_in_len<SERIAL_IN_MAX_LEN-1) {
-        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\n';
+        char charRead = '\n';
+        if(bauds != Serial.getBaudrate())
+          charRead = rand()%127;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = charRead;
         serial_in_len++;
-        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\r';
+        charRead = '\r';
+        if(bauds != Serial.getBaudrate())
+          charRead = rand()%127;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = charRead;
         serial_in_len++;
       }
       break;
@@ -288,7 +293,7 @@ void simulator_loop(){
 //int atexit(void (* /*func*/)()) { return 0; }
 
 void signal_callback_handler(int signum) {
-  printf("Interrupt signal received. Signal: %d\n", signum);
+  printf("HoRoSim: Interrupt signal received. Signal: %d\n", signum);
   stop_sim=true;
 }
 
@@ -433,13 +438,15 @@ int main(int argc, char** argv)
   //Wait to finish the simulator loop
   //simulator.join();
 
+  stop_sim=true;
   // Cleanup
   ImGui_ImplOpenGL2_Shutdown();
   ImGui_ImplGLUT_Shutdown();
   ImGui::DestroyContext();
 
+  //Wait to finish the simulator_loop and stop the CoppeliaSim
+  delay(1000);
   stop_simulation();
-
   return 0;
 
 }
@@ -496,8 +503,7 @@ int digitalRead(int a) {
     if(result>=0)
       return result;
   }
-  //TODO: Give random number
-  return 0;
+  return rand()%2;
 }
 
 int analogRead(int a) {
@@ -509,8 +515,7 @@ int analogRead(int a) {
     if(result>=0)
       return result;
   }
-  //TODO: Give random number
-  return 0;
+  return rand()%1024;
 }
 
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
