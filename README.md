@@ -210,6 +210,22 @@ This follows the same procedure as for the sensors and objects. First, add a joi
 * The user interface is frozen during the delays: If you have long delays (more than 1000ms), you will not be able to use the user interface (click buttons, move potentiometers, etc.).
 * The user interface is updated after the loop function. This means that you will not observe changes in the user interface until the loop function ends. That is why you will not see the Led blinking in the LED blinking example that comes with the Arduino IDE.
 
+## Changelog
+
+HoRoSim 0.1.1
+ * Added a Serial Monitor.
+ * Implemented Serial available and read.
+ * Changed Serial print and write to use standard Arduino functions.
+ * The Arduino sketch is run in its own thread, this fixed the issues with big delays.
+ * Added more examples
+
+HoRoSim 0.1.0 
+ * First release of the software.
+ * Added a Windows Installer
+ * Fixed bug with negative values in analogWrite
+ * Implemented map function
+  
+
 ## Questions? ##
 
 Please, send me an email or (better) ask in the forum .
