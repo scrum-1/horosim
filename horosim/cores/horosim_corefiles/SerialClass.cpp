@@ -57,9 +57,10 @@ size_t SerialClass::write(uint8_t val){
 		char tmp[2];
 		tmp[0]=val;
 		tmp[1]='\0';
-		std::printf("%s", tmp);
+		//printf("WRITE_CHAR\n");
+		//std::printf("%s", tmp);
 		std::strncat(serial_out, tmp, 2);
-		printf("WRITE_CHAR");
+		
 		return 1;
 	}
 	return 0;

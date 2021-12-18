@@ -61,7 +61,7 @@ unsigned int serial_buffer_index = 0;
 unsigned int serial_buffer_len = 0;
 char serial_buffer[SERIAL_BUF_MAX_LEN];
 char serial_sent_buffer[SENT_BUF_LEN];
-char serial_out[1024 * 64] = "";
+char serial_out[1024 * 1024 * 16] = ""; //TODO: Make it resizable
 static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 using namespace std; 
@@ -75,6 +75,7 @@ std::vector<HardwareDevice*> handles;
 
 int clientID = -1;
 bool stop_sim = false;
+unsigned int hwDeviceswindowWidth;
 
 
 void my_display_code()
@@ -133,7 +134,7 @@ void my_display_code()
       }
       
     }
-
+    hwDeviceswindowWidth = ImGui::GetWindowWidth();
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
     ImGui::End();
   }
@@ -155,8 +156,10 @@ void serialMonitor()
                              };
   static int baud_current = 0;
   unsigned int bytes = 0;
-
-  ImGui::Begin("HoRoSim Serial Monitor");   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+  
+  ImGui::SetNextWindowPos(ImVec2(hwDeviceswindowWidth+20,0), ImGuiCond_FirstUseEver);
+  ImGui::SetNextWindowSize(ImVec2(500,500), ImGuiCond_FirstUseEver);
+  ImGui::Begin("HoRoSim Serial Monitor");   
   ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth()-45);
   ImGui::InputText("##sent_msg", serial_sent_buffer, IM_ARRAYSIZE(serial_sent_buffer));
   ImGui::SameLine();
@@ -204,21 +207,33 @@ void serialMonitor()
   // Note: we are using a fixed-sized buffer for simplicity here. See ImGuiInputTextFlags_CallbackResize
   // and the code in misc/cpp/imgui_stdlib.h for how to setup InputText() for dynamically resizing strings.
 
-
+  static bool autoscroll = false;
   static ImGuiInputTextFlags flags = ImGuiInputTextFlags_ReadOnly;
   //HelpMarker("You can use the ImGuiInputTextFlags_CallbackResize facility if you need to wire InputTextMultiline() to a dynamic string type. See misc/cpp/imgui_stdlib.h for an example. (This is not demonstrated in imgui_demo.cpp because we don't want to include <string> in here)");
-  ImGui::InputTextMultiline("##source", serial_out, IM_ARRAYSIZE(serial_out), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+  
+
+  
+  ImGui::InputTextMultiline("##scrolling", serial_out, IM_ARRAYSIZE(serial_out), ImVec2(-FLT_MIN, ImGui::GetWindowSize().y - 90 /*ImGui::GetTextLineHeight() * 32*/), flags);
+  ImGui::BeginChild("##scrolling");
+  if (autoscroll /*&& ImGui::GetScrollY() >= ImGui::GetScrollMaxY()*/)
+    ImGui::SetScrollHereY(1.0f);
+  ImGui::EndChild();
 
 
   ImGui::Spacing (); //Add vertical spacing
-  ImGui::Indent(ImGui::GetContentRegionAvailWidth()*0.4);
-  ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth()*0.5);
+  ImGui::Checkbox("Autoscroll", &autoscroll);
+  int wBaud = 105, wEnding = 130;
+  ImGui::SameLine(ImGui::GetContentRegionAvailWidth()-wBaud-wEnding-60);
+  //ImGui::Indent(ImGui::GetContentRegionAvailWidth()*0.4);
+  ImGui::PushItemWidth(wEnding);
   ImGui::Combo("##endings", &ending_current, ending_items, IM_ARRAYSIZE(ending_items));
-  ImGui::SameLine(); //HelpMarker("Using t");
-  ImGui::PushItemWidth(ImGui::GetContentRegionAvailWidth());
+  ImGui::SameLine(); 
+  ImGui::PushItemWidth(wBaud);
   ImGui::Combo("##baud", &baud_current, baud_items, IM_ARRAYSIZE(baud_items));
-  //ImGui::SameLine(); //HelpMarker("Using t");
-
+  ImGui::SameLine(); 
+  if(ImGui::Button("Clear")) {
+    serial_out[0] = '\0';
+  }
 
   //if(ImGui::Button("Close Me"))
   //show_serial_monitor = false;
@@ -232,7 +247,7 @@ void glut_display_func()
   ImGui_ImplGLUT_NewFrame();
 
   my_display_code();
-
+  
   // Rendering
   ImGui::Render();
   ImGuiIO& io = ImGui::GetIO();
@@ -362,7 +377,7 @@ int main(int argc, char** argv)
   glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 #endif
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-  glutInitWindowSize(600, 400);
+  glutInitWindowSize(1000, 450);
   glutCreateWindow("HoRoSim");
 
   // Setup GLUT display function

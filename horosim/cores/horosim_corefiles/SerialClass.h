@@ -5,7 +5,7 @@
 #define SERIAL_TX_BUFFER_SIZE 64
 #define SERIAL_RX_BUFFER_SIZE 64
 
-class SerialClass : Stream {       // The class
+class SerialClass : public Stream {       // The class
  
   public:             // Access specifier
   	SerialClass(){};
