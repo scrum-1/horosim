@@ -23,31 +23,36 @@
 #include "imgui/imgui_impl_glut.h"
 #include "imgui/imgui_impl_opengl2.h"
 #include <thread>
+#include <mutex> 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else
 #include <GL/freeglut.h>
 #endif
 
-
-//#include <stdio.h>
-//#include <unistd.h>
 #include <iostream>
+#include <signal.h>
+#include <vector>
 #include <main.h>
-#include "Potentiometer.h"
+
+#include "CoppeliaSimSensor.h"
+#include "CoppeliaSimHandle.h"
+#include "SerialClass.h"
+#include "SimTime.h"
 #include "DCMotor_Transistor.h"
 #include "DCMotor_Hbridge.h"
 #include "StepperMotor.h"
-#include "CoppeliaSimSensor.h"
-#include <signal.h>
-#include "SimTime.h"
-#include <vector>
-#include "CoppeliaSimHandle.h"
+#include "ServoMotor.h"
+#include "VisionSensor.h"
+#include "ProximitySensor.h"
 #include "Potentiometer_UI.h"
+#include "Potentiometer.h"
 #include "PushButton_Momentary_UI.h"
 #include "ToggleButton_Latching_UI.h"
 #include "Led_UI.h"
 
+
+std::mutex mtx;
 
 #ifdef _MSC_VER
 #pragma warning (disable: 4505) // unreferenced local function has been removed
@@ -55,13 +60,11 @@
 
 // Our state
 static bool show_serial_monitor = true;
-const unsigned int SENT_BUF_LEN = 256;
-const unsigned int SERIAL_BUF_MAX_LEN = 1024;
-unsigned int serial_buffer_index = 0;
-unsigned int serial_buffer_len = 0;
-char serial_buffer[SERIAL_BUF_MAX_LEN];
 char serial_sent_buffer[SENT_BUF_LEN];
 char serial_out[1024 * 1024 * 16] = ""; //TODO: Make it resizable
+char serial_in[SERIAL_IN_MAX_LEN];
+unsigned int serial_in_len = 0;
+unsigned int serial_in_index = 0;
 static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 using namespace std; 
@@ -79,9 +82,7 @@ unsigned int hwDeviceswindowWidth;
 
 
 void my_display_code()
-{
-
-  
+{  
   //if (serialEventRun) serialEventRun();
 
 
@@ -155,7 +156,6 @@ void serialMonitor()
                                "38400 baud","57600 baud", "115200 baud"
                              };
   static int baud_current = 0;
-  unsigned int bytes = 0;
   
   ImGui::SetNextWindowPos(ImVec2(hwDeviceswindowWidth+20,0), ImGuiCond_FirstUseEver);
   ImGui::SetNextWindowSize(ImVec2(500,500), ImGuiCond_FirstUseEver);
@@ -164,43 +164,7 @@ void serialMonitor()
   ImGui::InputText("##sent_msg", serial_sent_buffer, IM_ARRAYSIZE(serial_sent_buffer));
   ImGui::SameLine();
   if(ImGui::Button("Send")) {
-    //Find how many bytes are in the message and store the bytes in the serial buffer
-    for(unsigned int i = 0; i < SENT_BUF_LEN; ++i) {
-      if(serial_sent_buffer[i] == 0) {
-        bytes = i;
-        break;
-      } else {
-        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = serial_sent_buffer[i];
-        serial_buffer_len++;
-        if(serial_buffer_len>SERIAL_BUF_MAX_LEN)
-          serial_buffer_len = SERIAL_BUF_MAX_LEN;
-      }
-    }
-    if(bytes>0) {
-      switch(ending_current) {
-      case 0:
-        break;
-      case 1:
-        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\n';
-        serial_buffer_len++;
-        break;
-      case 2:
-        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\r';
-        serial_buffer_len++;
-        break;
-      case 3:
-        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\n';
-        serial_buffer_len++;
-        serial_buffer[(serial_buffer_index + serial_buffer_len)%SERIAL_BUF_MAX_LEN] = '\r';
-        serial_buffer_len++;
-        break;
-      }
-    }
-    printf("characters in sent buffer: %d\n", bytes);
-    printf("characters in serial buffer: %d\n", serial_buffer_len);
-    printf("serial buffer: %s\n", serial_buffer);
-    printf("serial buffer index: %d\n", serial_buffer_index);
-    printf("serial out: %s\n", serial_out);
+    updateInBuffer(serial_sent_buffer, (Endings) ending_current, baud_current);
   }
 
   //The serial output shown
@@ -238,16 +202,64 @@ void serialMonitor()
   //if(ImGui::Button("Close Me"))
   //show_serial_monitor = false;
   ImGui::End();
-
 }
+
+void updateInBuffer(char serial_sent_buffer[], Endings ending_current, long bauds) {
+  //Find how many bytes are in the message and store the bytes in the serial buffer
+  unsigned int bytes = 0;
+  for(unsigned int i = 0; i < SENT_BUF_LEN; ++i) {
+    if(serial_sent_buffer[i] == 0) {
+      bytes = i;
+      break;
+    } else {
+      if(serial_in_len<SERIAL_IN_MAX_LEN) {
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = serial_sent_buffer[i];
+        serial_in_len++;
+      }else{
+        bytes = i;
+        break;
+      }
+    }
+  }
+  if(bytes>0) {
+    switch(ending_current) {
+    case NONE:
+      break;
+    case NL:
+      if(serial_in_len<SERIAL_IN_MAX_LEN) {
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\n';
+        serial_in_len++;        
+      }
+      break;
+    case CR:
+      if(serial_in_len<SERIAL_IN_MAX_LEN) {
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\r';
+        serial_in_len++;
+      }
+      break;
+    case NLCR:
+      if(serial_in_len<SERIAL_IN_MAX_LEN-1) {
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\n';
+        serial_in_len++;
+        serial_in[(serial_in_index + serial_in_len)%SERIAL_IN_MAX_LEN] = '\r';
+        serial_in_len++;
+      }
+      break;
+    }
+  }
+}
+
 void glut_display_func()
 {
   // Start the Dear ImGui frame
   ImGui_ImplOpenGL2_NewFrame();
   ImGui_ImplGLUT_NewFrame();
 
+  //Critical section: The user interface changes parameters that are used by the loop fuction
+  mtx.lock();
   my_display_code();
-  
+  mtx.unlock();
+
   // Rendering
   ImGui::Render();
   ImGuiIO& io = ImGui::GetIO();
@@ -461,20 +473,26 @@ void pinMode(char pin, char mode) {
 }
 void digitalWrite(char a, char b) {
   for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+    mtx.lock();
     (*it)->digitalWrite(a, b);
+    mtx.unlock();
   }
 }
 
 void analogWrite(char a, int b) {
   for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+    mtx.lock();
     (*it)->analogWrite(a, b);
+    mtx.unlock();
   }
 }
 
 int digitalRead(int a) {
   int result;
   for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+    mtx.lock();
     result=(*it)->digitalRead(a);
+    mtx.unlock();
     if(result>=0)
       return result;
   }
@@ -485,7 +503,9 @@ int digitalRead(int a) {
 int analogRead(int a) {
   int result;
   for(vector<HardwareDevice*>::iterator it=handles.begin(); it!=handles.end(); ++it) {
+    mtx.lock();
     result=(*it)->analogRead(a);
+    mtx.unlock();
     if(result>=0)
       return result;
   }

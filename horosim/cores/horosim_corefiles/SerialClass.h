@@ -1,9 +1,19 @@
 
 #include <string>
+#include <mutex> 
 #include "arduino/Stream.h"
 
 #define SERIAL_TX_BUFFER_SIZE 64
 #define SERIAL_RX_BUFFER_SIZE 64
+const unsigned int SENT_BUF_LEN = 256;
+const unsigned int SERIAL_IN_MAX_LEN = 1024;
+
+extern char serial_in[];
+extern unsigned int serial_in_len;
+extern unsigned int serial_in_index;
+extern char serial_out[];
+
+extern std::mutex mtx;
 
 class SerialClass : public Stream {       // The class
  
@@ -26,36 +36,13 @@ class SerialClass : public Stream {       // The class
     inline size_t write(int n) { return write((uint8_t)n); }
     using Print::write; // pull in write(str) and write(buf, size) from Print
     operator bool() { return true; }
-    /*
-    int available();
-
-    int write(std::string);
-    int write(char);
-    int write(int);
-    int write(float);
-		int write(long);
-		int write(double);
-		int write(char* , int);
-		int print(std::string);
-    int print(int);
-    int print(float);
-		int print(long);
-		int print(double);
-		int print(char* , int);
-		int println(std::string);
-		int println(int);
-    int println(float);
-		int println(long);
-		int println(double);
-		int println(char* , int);
-
-		char read();
     
-*/
   private:
   	int pin_tx;        // Pin of the Arduino where is connected
   	int pin_rx;        // Pin of the Arduino where is connected
     bool initialized = false;
     long baudrate; 		//Baudrate for the serial monitor
+    long serialMonitorBauds;
+    
 };
 
