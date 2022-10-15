@@ -91,13 +91,9 @@ recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compil
 
 ## Combine gc-sections, archives, and objects
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
-recipe.c.combine.pattern.windows="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}" {object_files} "{build.path}/{archive_file}" "-L{build.path}" "-L{runtime.hardware.path}\redist\freeglut\lib" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
+recipe.c.combine.pattern.windows="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -o "{build.path}/{build.project_name}.exe" {object_files} "{build.path}/{archive_file}" "-L{build.path}" "-L{runtime.hardware.path}\redist\freeglut\lib" -lm -lpthread -L/usr/lib/x86_64-linux-gnu {compiler.c.elf.extra_flags}
 
-#recipe.objcopy.hex.pattern= {build.path}/{build.project_name}
 
-## Save compiled hex
-recipe.output.tmp_file={build.project_name}
-recipe.output.save_file={build.project_name}.exe
 
 
 ## Preprocessor
@@ -110,43 +106,15 @@ preproc.macros.flags=-w -x c++ -E -CC
 recipe.preproc.macros={compiler.path} {compiler.cpp.cmd} {compiler.cpp.flags} {preproc.macros.flags} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{preprocessed_file_path}"
 
 
-# AVR Uploader/Programmers tools
+# Uploader/Programmers tools
 # ------------------------------
 
-tools.avrdude.path={build.path}/{build.project_name}
-tools.avrdude.cmd.path={build.path}/{build.project_name}
-tools.avrdude.config.path={runtime.platform.path}/avrdude.conf
 
-tools.avrdude.upload.params.verbose=-v
-tools.avrdude.upload.params.quiet=-q -q
-# tools.avrdude.upload.verify is needed for backwards compatibility with AVRDUDE 6.3.0 and IDE 1.6.8 or older, IDE 1.6.9 or newer overrides this value
+tools.avrdude.upload.params.verbose=
+tools.avrdude.upload.params.quiet=
 tools.avrdude.upload.verify=
-tools.avrdude.upload.params.noverify=-V
+tools.avrdude.upload.params.noverify=
+
+## This is the command to call the compiled program
 tools.avrdude.upload.pattern={build.path}/{build.project_name}
-#"-C{config.path}" {upload.verbose} {upload.verify} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
-
-tools.avrdude.program.params.verbose=-v
-tools.avrdude.program.params.quiet=-q -q
-# tools.avrdude.program.verify is needed for backwards compatibility with AVRDUDE 6.3.0 and IDE 1.6.8 or older, IDE 1.6.9 or newer overrides this value
-tools.avrdude.program.verify=
-tools.avrdude.program.params.noverify=-V
-tools.avrdude.program.pattern={build.path}/{build.project_name} 
-#"-C{config.path}" -v {program.verify} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
-
-tools.avrdude.erase.params.verbose=-v
-tools.avrdude.erase.params.quiet=-q -q
-tools.avrdude.erase.pattern={build.path}/{build.project_name} 
-#"-C{config.path}" -v -p{build.mcu} -c{protocol} {program.extra_params} -e -Ulock:w:{bootloader.unlock_bits}:m -Uefuse:w:{bootloader.extended_fuses}:m -Uhfuse:w:{bootloader.high_fuses}:m -Ulfuse:w:{bootloader.low_fuses}:m
-
-tools.avrdude.bootloader.params.verbose=-v
-tools.avrdude.bootloader.params.quiet=-q -q
-tools.avrdude.bootloader.pattern={build.path}/{build.project_name}
-#"-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i" -Ulock:w:{bootloader.lock_bits}:m
-
-
-# USB Default Flags
-# Default blank usb manufacturer will be filled it at compile time
-# - from numeric vendor ID, set to Unknown otherwise
-build.usb_manufacturer="Unknown"
-build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
-
+tools.avrdude.upload.pattern.windows=powershell.exe {build.path}/{build.project_name}.exe

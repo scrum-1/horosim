@@ -71,11 +71,15 @@ Serial:
 * write
 * print
 * println
+* available
+* read
+
+Others:
+
+* map
 
 TODO:
 
-* Serial.available
-* Serial.read
 * interrupts
 * I2C (Wire)
 * SPI
@@ -209,7 +213,12 @@ This follows the same procedure as for the sensors and objects. First, add a joi
 
 ## Changelog
 
+HoRoSim 0.1.2
+
+* Fixed issue (UI was not shown in Arduino IDE 2.0)
+
 HoRoSim 0.1.1
+
  * Added a Serial Monitor.
  * Implemented Serial available and read.
  * Changed Serial print and write to use standard Arduino functions.
@@ -217,6 +226,7 @@ HoRoSim 0.1.1
  * Added more examples
 
 HoRoSim 0.1.0 
+
  * First release of the software.
  * Added a Windows Installer
  * Fixed bug with negative values in analogWrite

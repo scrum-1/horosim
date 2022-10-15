@@ -17,7 +17,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#define HOROSIM_VERSION "0.1.1beta"
+#define HOROSIM_VERSION "0.1.2beta"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glut.h"
