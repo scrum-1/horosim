@@ -15,7 +15,7 @@ HoRoSim uses different programs to work:
 
 ### Step 1: CoppeliaSim Simulator
 
-Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
+Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/).  HoRoSim has been tested with CoppeliaSim 4.4.0.
 
 ### Step 2: Arduino IDE
 
@@ -85,11 +85,11 @@ HoRoSim is installed!
 
 ### Step 1: CoppeliaSim Simulator
 
-Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
+Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). HoRoSim has been tested with CoppeliaSim 4.4.0.
 
 ### Step 2: Arduino IDE (>1.5.0 and <2.0)
 
-Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. The Arduino IDE 1.8.14 is the last stable version. **Do not download the Arduino 2.0, which is still in beta and uses a completely new system** 
+Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. HoRoSim can use both Arduino IDE versions: 1.8.x and the new 2.x.  
 
 ### Step 3: HoRoSim source code, g++ and glut libraries
 
@@ -100,7 +100,7 @@ In MacOS, the installation of the compiler and the libraries is straight forward
 
 Now, the compiler is installed and we just need the libraries to create the graphical user interface (OpenGL and GLUT). Yes, they are very old but they are easy to use and install. To install them, just type:
 
-	brew install freeglut3-dev
+	brew install freeglut3
 
 The compiler and the libraries are installed.
 

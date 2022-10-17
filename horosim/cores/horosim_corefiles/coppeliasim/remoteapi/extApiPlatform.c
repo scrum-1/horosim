@@ -3,7 +3,7 @@
 #include "extApiPlatform.h"
 #include <stdio.h>
 #ifndef DO_NOT_USE_SHARED_MEMORY
-#include "../include/shared_memory.h"
+#include "shared_memory.h"
 #endif
 
 #ifdef _WIN32
