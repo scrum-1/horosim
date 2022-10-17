@@ -318,6 +318,7 @@ void stop_simulation() {
 void winCloseFunc()
 {
     stop_sim=true;
+    glutLeaveMainLoop();
 }
 
 int main(int argc, char** argv)
@@ -399,7 +400,7 @@ int main(int argc, char** argv)
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
   glutInitWindowSize(1000, 450);
   glutCreateWindow("HoRoSim");
-  glutWMCloseFunc(winCloseFunc);
+  glutCloseFunc(winCloseFunc);
 
   // Setup GLUT display function
   // We will also call ImGui_ImplGLUT_InstallFuncs() to get all the other functions installed for us,
