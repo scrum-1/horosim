@@ -8,7 +8,7 @@ SYNOPSIS
 	char *ultoa(int <[value]>, char *<[str]>, int <[base]>);
 	char *__ultoa(int <[value]>, char *<[str]>, int <[base]>);
 DESCRIPTION
-<<itoa>> converts the integer <[value]> to a null-terminated string
+<<ultoa>> converts the integer <[value]> to a null-terminated string
 using the specified base, which must be between 2 and 36, inclusive.
 If <[base]> is 10, <[value]> is treated as signed and the string will be 
 prefixed with '-' if negative. For all other bases, <[value]> is treated as

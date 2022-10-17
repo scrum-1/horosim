@@ -81,7 +81,7 @@ String::String(int value, unsigned char base)
 {
 	init();
 	char buf[2 + 8 * sizeof(int)];
-	itoa(value, buf, base);
+	new_itoa(value, buf, base);
 	*this = buf;
 }
 
@@ -292,14 +292,14 @@ unsigned char String::concat(char c)
 unsigned char String::concat(unsigned char num)
 {
 	char buf[1 + 3 * sizeof(unsigned char)];
-	itoa(num, buf, 10);
+	new_itoa(num, buf, 10);
 	return concat(buf, strlen(buf));
 }
 
 unsigned char String::concat(int num)
 {
 	char buf[2 + 3 * sizeof(int)];
-	itoa(num, buf, 10);
+	new_itoa(num, buf, 10);
 	return concat(buf, strlen(buf));
 }
 

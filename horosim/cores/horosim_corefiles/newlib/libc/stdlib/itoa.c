@@ -1,14 +1,14 @@
 /*
 FUNCTION
-<<itoa>>---integer to string
+<<new_itoa>>---integer to string
 INDEX
-	itoa
+	new_itoa
 SYNOPSIS
 	#include <stdlib.h>
-	char *itoa(int <[value]>, char *<[str]>, int <[base]>);
-	char *__itoa(int <[value]>, char *<[str]>, int <[base]>);
+	char *new_itoa(int <[value]>, char *<[str]>, int <[base]>);
+	char *__new_itoa(int <[value]>, char *<[str]>, int <[base]>);
 DESCRIPTION
-<<itoa>> converts the integer <[value]> to a null-terminated string
+<<new_itoa>> converts the integer <[value]> to a null-terminated string
 using the specified base, which must be between 2 and 36, inclusive.
 If <[base]> is 10, <[value]> is treated as signed and the string will be 
 prefixed with '-' if negative. For all other bases, <[value]> is treated as
@@ -17,7 +17,7 @@ value, which in the worst case is sizeof(int)*8+1 bytes.
 RETURNS
 A pointer to the string, <[str]>, or NULL if <[base]> is invalid.
 PORTABILITY
-<<itoa>> is non-ANSI.
+<<new_itoa>> is non-ANSI.
 No supporting OS subroutine calls are required.
 */
 
@@ -25,7 +25,7 @@ No supporting OS subroutine calls are required.
 #include "newlib_stdlib.h"
 
 char *
-__itoa (int value,
+__new_itoa (int value,
         char *str,
         int base)
 {
@@ -54,9 +54,9 @@ __itoa (int value,
 }
 
 char *  
-itoa (int value,
+new_itoa (int value,
         char *str,
         int base)
 {
-  return __itoa (value, str, base);
+  return __new_itoa (value, str, base);
 }
