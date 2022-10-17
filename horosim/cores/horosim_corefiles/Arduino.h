@@ -3,7 +3,7 @@
 #define Arduino_h
 
 //#include <stdint.h>
-#include "ArduinoUno.h"
+#include "TargetBoard.h"
 #include "SerialClass.h"
 #include "main.h"
 #include "SimTime.h"

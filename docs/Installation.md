@@ -17,9 +17,9 @@ HoRoSim uses different programs to work:
 
 Install the CoppeliaSim simulator for your operating system. Link: [CoppeliaSim simulator](https://www.coppeliarobotics.com/). 
 
-### Step 2: Arduino IDE (>1.5.0 and <2.0)
+### Step 2: Arduino IDE
 
-Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. The Arduino IDE 1.8.14 is the last stable version. **Do not download the Arduino 2.0, which is still in beta and uses a completely new system** 
+Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/software) and install it in you system. HoRoSim can use both Arduino IDE versions: 1.8.x and the new 2.x.  
 
 ### Step 3: HoRoSim source code, g++ and glut libraries
 
@@ -95,20 +95,18 @@ Download the Arduino IDE from the [Arduino website](https://www.arduino.cc/en/so
 
 In MacOS, the installation of the compiler and the libraries is straight forward. Simply, open a terminal and type these commands:
 
-	sudo apt-get update
-	sudo apt-get install g++
-	(type "Y" when asked)
+	brew update
+	brew install g++
 
 Now, the compiler is installed and we just need the libraries to create the graphical user interface (OpenGL and GLUT). Yes, they are very old but they are easy to use and install. To install them, just type:
 
-	sudo apt-get install freeglut3-dev
-	(type "Y" when asked)
+	brew install freeglut3-dev
 
 The compiler and the libraries are installed.
 
 #### HoRoSim source code without git
 
-When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is in C:\fai\documents\Arduino. Go to this folder and check if there is a folder called "hardware". If not, create it. 
+When the Arduino IDE is installed, run it. In the Arduino IDE, go to File-> Preferences and locate the Sketchbook location. In my case, it is in /Users/fai/Documents/Arduino. Go to this folder and check if there is a folder called "hardware". If not, create it. 
 
 If you know how to use git, clone the HoRoSim repository in the hardware folder. If not, you can download the source code from the [HoRoSim repository](https://bitbucket.org/afaina/horosim/src/master/). To do that, open the repository in a web browser and click on the "..." button next to the clone button. Then, select "Download repository". Extract the zip file and copy the HoRoSim folder in the hardware folder.
 
