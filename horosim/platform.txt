@@ -50,8 +50,9 @@ recipe.hooks.prebuild.3.pattern=pwd
 recipe.hooks.prebuild.3.pattern.windows=cmd /C cd
 
 #Show the defines set by the compiler (for debugging)
-recipe.hooks.prebuild.4.pattern={compiler.path}{compiler.c.cmd} -dM -E - < /dev/null
+recipe.hooks.prebuild.4.pattern=echo | {compiler.path}{compiler.c.cmd} -dM -E -
 recipe.hooks.prebuild.4.pattern.windows={compiler.path}{compiler.c.cmd} -dM -E -
+recipe.hooks.prebuild.5.pattern=echo | {compiler.path}{compiler.c.cmd} -dM -E -x c++ -
 
 recipe.hooks.sketch.prebuild.1.pattern=echo starting building the sketch
 recipe.hooks.sketch.prebuild.1.pattern.windows=cmd /C echo Starting building the sketch
