@@ -36,12 +36,25 @@ compiler.ar.flags= rvs
 
 compiler.objcopy.cmd=g++
 
+#### HOOKS ####
+
+#Print that we are compiling for HoRoSim
+recipe.hooks.prebuild.1.pattern=echo Compiling for HoRoSim
+recipe.hooks.prebuild.1.pattern.windows=cmd /C echo Compiling for HoRoSim
+
 #Show the compiler version for debugging installation problems
-recipe.hooks.sketch.prebuild.1.pattern=echo Compiling for HoRoSim
-recipe.hooks.sketch.prebuild.1.pattern.windows=cmd /C echo Compiling for HoRoSim
-recipe.hooks.sketch.prebuild.2.pattern={compiler.path}{compiler.c.cmd} --version
-recipe.hooks.sketch.prebuild.3.pattern=pwd
-recipe.hooks.sketch.prebuild.3.pattern.windows=cmd /C cd
+recipe.hooks.prebuild.2.pattern={compiler.path}{compiler.c.cmd} --version
+
+#Show the current working directory
+recipe.hooks.prebuild.3.pattern=pwd
+recipe.hooks.prebuild.3.pattern.windows=cmd /C cd
+
+#Show the defines set by the compiler (for debugging)
+recipe.hooks.prebuild.4.pattern={compiler.path}{compiler.c.cmd} -dM -E - < /dev/null
+recipe.hooks.prebuild.4.pattern.windows={compiler.path}{compiler.c.cmd} -dM -E -
+
+recipe.hooks.sketch.prebuild.1.pattern=echo starting building the sketch
+recipe.hooks.sketch.prebuild.1.pattern.windows=cmd /C echo Starting building the sketch
 recipe.hooks.linking.postlink.1.pattern=echo linking is complete
 recipe.hooks.linking.prelink.1.pattern.windows=cmd /C echo starting linking
 recipe.hooks.linking.postlink.1.pattern.windows=cmd /C echo linking is complete
